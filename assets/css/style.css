@@ -1,0 +1,12 @@
+/* Base Design System - Tram */
+:root {
+  --cin-bg: #0b1914;
+  --cin-paper: #f4efe4;
+  --cin-gold: #d97706;
+  --cin-ink: #14221b;
+}
+body {
+  background-color: var(--cin-paper);
+  color: var(--cin-ink);
+  font-family: 'Be Vietnam Pro', sans-serif;
+}
