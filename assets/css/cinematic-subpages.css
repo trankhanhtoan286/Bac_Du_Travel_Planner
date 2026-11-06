@@ -1,0 +1,1289 @@
+/* ==========================================================================
+   BẮC DU (TRAVEL PLANNER) — CINEMATIC SUBPAGES & APP MODE RIG
+   Directed after Trần Anh Hùng & Mark Lee Ping-bin's "The Vertical Ray of the Sun"
+   - Part 1: Site Mode Subpages (templates.php, template_detail.php, locations.php, etc.)
+   - Part 2: App Mode Instrument Shell (trips.php, trip_detail.php, admin.php)
+   ========================================================================== */
+
+/* Uniform Lining Numerals for Display Headings & Badges on Subpages */
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Playfair Display'), local('Times New Roman'), local('Georgia'), local('Segoe UI'), local('Arial');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Playfair Display Medium'), local('Playfair Display'), local('Times New Roman Bold'), local('Times New Roman'), local('Georgia Bold'), local('Georgia'), local('Segoe UI Semibold'), local('Arial');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Playfair Display SemiBold'), local('Playfair Display Bold'), local('Playfair Display'), local('Times New Roman Bold'), local('Georgia Bold'), local('Segoe UI Semibold'), local('Arial Bold');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Playfair Display Bold'), local('Playfair Display'), local('Times New Roman Bold'), local('Georgia Bold'), local('Segoe UI Bold'), local('Arial Bold');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Playfair Display ExtraBold'), local('Playfair Display Bold'), local('Times New Roman Bold'), local('Georgia Bold'), local('Segoe UI Bold'), local('Arial Bold');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Playfair Display Italic'), local('Times New Roman Italic'), local('Georgia Italic');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Playfair Display Bold Italic'), local('Times New Roman Bold Italic'), local('Georgia Bold Italic');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+
+body.cinematic-subpage,
+body.cinematic-app {
+  font-family: var(--font-sans);
+  background-color: var(--cin-paper);
+  color: var(--cin-ink);
+  overflow-x: clip;
+}
+
+/* Global Visible Focus Ring across all pages */
+body.cinematic-subpage a:focus-visible,
+body.cinematic-subpage button:focus-visible,
+body.cinematic-subpage select:focus-visible,
+body.cinematic-subpage input:focus-visible,
+body.cinematic-subpage textarea:focus-visible,
+body.cinematic-app a:focus-visible,
+body.cinematic-app button:focus-visible,
+body.cinematic-app select:focus-visible,
+body.cinematic-app input:focus-visible,
+body.cinematic-app textarea:focus-visible {
+  outline: 2px solid var(--cin-amber-bright) !important;
+  outline-offset: -2px !important;
+  box-shadow: none !important;
+}
+
+/* Synchronize Dark Lacquer Navbar & Footer across all pages */
+body.cinematic-subpage .navbar-bacdu,
+body.cinematic-app .navbar-bacdu {
+  background: rgba(11, 25, 20, 0.97);
+  border-bottom: 1px solid var(--cin-brass);
+  padding: 0.52rem 0;
+}
+
+body.cinematic-subpage .brand-logo,
+body.cinematic-app .brand-logo {
+  color: var(--cin-cream) !important;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+}
+
+body.cinematic-subpage .brand-logo small,
+body.cinematic-app .brand-logo small {
+  color: var(--cin-amber-bright) !important;
+  font-family: var(--font-mono);
+  font-size: 0.62rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+body.cinematic-subpage .brand-logo-mark,
+body.cinematic-app .brand-logo-mark {
+  background: linear-gradient(135deg, var(--cin-amber) 0%, #b45309 100%);
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+body.cinematic-subpage .navbar-bacdu .nav-link,
+body.cinematic-app .navbar-bacdu .nav-link {
+  color: rgba(246, 238, 224, 0.82);
+  font-size: 0.87rem;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 0.4rem 0.78rem !important;
+}
+
+body.cinematic-subpage .navbar-bacdu .nav-link:hover,
+body.cinematic-subpage .navbar-bacdu .nav-link.active,
+body.cinematic-app .navbar-bacdu .nav-link:hover,
+body.cinematic-app .navbar-bacdu .nav-link.active {
+  color: var(--cin-cream);
+  background: rgba(224, 159, 62, 0.18);
+}
+
+body.cinematic-subpage .navbar-bacdu .btn-outline-dark,
+body.cinematic-app .navbar-bacdu .btn-outline-dark {
+  color: var(--cin-cream);
+  border-color: var(--cin-brass);
+  border-radius: 4px;
+}
+
+body.cinematic-subpage .navbar-bacdu .btn-bacdu,
+body.cinematic-app .navbar-bacdu .btn-bacdu {
+  background: var(--cin-amber);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+body.cinematic-subpage .footer-bacdu,
+body.cinematic-app .footer-bacdu {
+  background: #07110d;
+  border-top: 1px solid var(--cin-brass);
+}
+
+/* ==========================================================================
+   PART 1: SITE MODE SUBPAGE STAGE HEADERS & FIELD SLIP SYSTEM
+   ========================================================================== */
+
+.cin-subhero {
+  position: relative;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(217, 119, 6, 0.2), transparent 50%),
+    linear-gradient(135deg, #0b1914 0%, #10241c 58%, #16382b 100%);
+  color: var(--cin-cream);
+  border-bottom: 2px solid var(--cin-brass);
+  padding: 2.4rem 0 2.2rem;
+  margin-bottom: 2rem;
+  overflow: clip;
+}
+
+.cin-subhero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 22vw;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(9, 21, 16, 0.55) 0px,
+    rgba(9, 21, 16, 0.55) 16px,
+    rgba(224, 159, 62, 0.06) 16px,
+    rgba(224, 159, 62, 0.06) 19px
+  );
+  border-left: 1px solid rgba(224, 159, 62, 0.2);
+  pointer-events: none;
+}
+
+.cin-subhero-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.28rem 0.7rem;
+  background: rgba(16, 36, 28, 0.9);
+  border: 1px solid var(--cin-brass);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cin-amber-bright);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.cin-subhero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.5vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--cin-cream);
+  margin-bottom: 0.55rem;
+}
+
+.cin-subhero-title .sw {
+  font-style: italic;
+  color: var(--cin-amber-bright);
+}
+
+.cin-subhero-desc {
+  color: var(--cin-cream-muted);
+  font-size: 0.95rem;
+  max-width: 68ch;
+  margin-bottom: 0;
+}
+
+/* Dispatch Filter Bar on Subpages */
+.cin-filter-console {
+  background: var(--cin-paper-card);
+  color: var(--cin-ink);
+  border: 1px solid rgba(20, 34, 27, 0.24);
+  border-top: 3px solid var(--cin-amber);
+  border-radius: 4px;
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 12px 30px rgba(11, 25, 20, 0.08);
+  margin-bottom: 1.75rem;
+}
+
+.cin-filter-console .form-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cin-ink-muted);
+  margin-bottom: 0.3rem;
+}
+
+.cin-filter-console .form-control,
+.cin-filter-console .form-select {
+  border-radius: 3px;
+  border: 1px solid rgba(20, 34, 27, 0.24);
+  background-color: #fff;
+  font-size: 0.87rem;
+  color: var(--cin-ink);
+}
+
+/* 12-Month Selector Strip on templates.php */
+.cin-months-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.55rem;
+}
+
+@media (max-width: 991px) {
+  .cin-months-strip {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .cin-months-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cin-months-strip .almanac-month-cell .m-name,
+.almanac-month-cell .m-name {
+  font-family: var(--font-sans) !important;
+  font-variant-numeric: tabular-nums lining-nums !important;
+  font-feature-settings: "tnum" 1, "lnum" 1 !important;
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.cin-months-strip .almanac-month-cell .m-num,
+.almanac-month-cell .m-num {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums lining-nums !important;
+  font-feature-settings: "tnum" 1, "lnum" 1 !important;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  opacity: 0.78;
+}
+
+.cin-day-stamp,
+.cin-day-badge {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums lining-nums !important;
+  font-feature-settings: "tnum" 1, "lnum" 1 !important;
+}
+
+/* Dossier Callout Strip */
+.cin-season-callout {
+  background: var(--cin-jade-deep);
+  color: var(--cin-cream);
+  border: 1px solid var(--cin-brass);
+  border-left: 4px solid var(--cin-amber-bright);
+  border-radius: 4px;
+  padding: 0.95rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+/* Field Slip Enhancements for Locations & Templates */
+.field-slip-fav {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+}
+
+.field-slip-fav button {
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  background: rgba(11, 25, 20, 0.86);
+  border: 1px solid var(--cin-brass);
+  color: var(--cin-cream);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.field-slip-fav button:hover {
+  background: var(--cin-ink);
+  border-color: var(--cin-amber-bright);
+}
+
+.field-spec-box {
+  background: var(--cin-paper-warm);
+  border: 1px solid rgba(20, 34, 27, 0.14);
+  border-left: 3px solid var(--cin-jade);
+  border-radius: 3px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.81rem;
+  color: var(--cin-ink);
+  margin-bottom: 0.9rem;
+}
+
+/* Template Detail Dossier Frame */
+.cin-dossier-hero {
+  background: var(--cin-paper-card);
+  border: 1px solid rgba(20, 34, 27, 0.24);
+  border-top: 4px solid var(--cin-amber);
+  border-radius: 4px;
+  overflow: clip;
+  box-shadow: 0 14px 36px rgba(11, 25, 20, 0.08);
+}
+
+.cin-day-dossier {
+  background: var(--cin-paper-card);
+  border: 1px solid rgba(20, 34, 27, 0.22);
+  border-radius: 4px;
+  padding: 1.35rem 1.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.cin-day-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--cin-rule-dark);
+}
+
+.cin-day-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.24rem 0.65rem;
+  background: var(--cin-jade-deep);
+  color: var(--cin-amber-bright);
+  border: 1px solid var(--cin-brass);
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+}
+
+.cin-activity-slip {
+  background: #fff;
+  border: 1px solid rgba(20, 34, 27, 0.16);
+  border-radius: 4px;
+  padding: 0.95rem 1.1rem;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.cin-activity-slip:hover,
+.cin-activity-slip.kb-focused {
+  border-color: var(--cin-amber);
+  background: #fffdf9;
+}
+
+.cin-map-frame {
+  background: var(--cin-paper-card);
+  border: 1px solid rgba(20, 34, 27, 0.24);
+  border-radius: 4px;
+  padding: 1.2rem;
+}
+
+.cin-map-frame .leaflet-map-box {
+  border-radius: 3px;
+  border: 1px solid rgba(20, 34, 27, 0.22);
+}
+
+/* ==========================================================================
+   PART 2: CINEMATIC APP MODE (references/app-mode.md)
+   For trips.php, trip_detail.php, and admin.php
+   - Working text: 13.5px, labels: 11.5px mono, tabular numerals
+   - One Accent (#d97706) = "Human must act here"
+   - Separate Status System: Shape + Glyph + Text (ok, warn, fail, neutral)
+   - Motion <= 120ms for frequent controls
+   ========================================================================== */
+
+body.cinematic-app {
+  background-color: #f1ece1;
+  color: var(--cin-ink);
+  font-size: 0.875rem; /* 14px working text */
+}
+
+/* App Top Console Header (Quiet Chrome, Low Contrast Borders) */
+.app-shift-bar {
+  background: var(--cin-night);
+  color: var(--cin-cream);
+  border-bottom: 1px solid var(--cin-brass);
+  padding: 1.15rem 0;
+}
+
+.app-shift-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(246, 238, 224, 0.65);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.app-shift-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.3vw, 2.1rem);
+  line-height: 1.1;
+  color: var(--cin-cream);
+  margin: 0.15rem 0 0.25rem;
+}
+
+.app-kbd-badge {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 0.1rem 0.38rem;
+  border-radius: 3px;
+  background: rgba(246, 238, 224, 0.12);
+  color: var(--cin-cream);
+  border: 1px solid rgba(246, 238, 224, 0.24);
+  margin-left: 0.3rem;
+}
+
+.btn-cin-ink .app-kbd-badge,
+.btn-cin-outline .app-kbd-badge {
+  background: rgba(20, 34, 27, 0.08);
+  color: inherit;
+  border-color: rgba(20, 34, 27, 0.22);
+}
+
+/* App Mode Navigation Rail (Instant <120ms switches) */
+.app-view-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  background: var(--cin-paper-warm);
+  border: 1px solid rgba(20, 34, 27, 0.2);
+  border-radius: 4px;
+  padding: 0.35rem;
+  margin-bottom: 1.25rem;
+}
+
+.app-view-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.46rem 0.85rem;
+  border-radius: 3px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--cin-ink-muted);
+  text-decoration: none;
+  transition: background-color 0.08s ease, color 0.08s ease;
+}
+
+.app-view-tab:hover {
+  color: var(--cin-ink);
+  background: rgba(20, 34, 27, 0.06);
+}
+
+.app-view-tab.active {
+  background: var(--cin-jade-deep);
+  color: var(--cin-cream);
+}
+
+/* Signature Set Container (The 10% Cinema Budget in App Mode) */
+.app-signature-set {
+  background: var(--cin-paper-card);
+  border: 1px solid rgba(20, 34, 27, 0.24);
+  border-radius: 4px;
+  padding: 1.15rem 1.35rem;
+  margin-bottom: 1.25rem;
+}
+
+.app-signature-set.is-lit {
+  border-left: 4px solid var(--cin-amber);
+}
+
+/* Signature Set A (trip_detail.php): Route Strip + Anti-Double-Count Reconciliation Bridge */
+.route-strip-nodes {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+}
+
+.route-day-node {
+  flex: 1 0 155px;
+  background: var(--cin-paper);
+  border: 1px solid rgba(20, 34, 27, 0.18);
+  border-radius: 3px;
+  padding: 0.55rem 0.75rem;
+  text-decoration: none;
+  color: var(--cin-ink);
+  transition: border-color 0.08s ease;
+}
+
+.route-day-node:hover,
+.route-day-node.active {
+  border-color: var(--cin-jade);
+  background: #fff;
+}
+
+.route-day-node .r-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cin-jade);
+}
+
+.route-day-node .r-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cin-ink-muted);
+}
+
+.route-day-node .r-title {
+  font-weight: 600;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.15rem;
+}
+
+.budget-bridge-meter {
+  height: 8px;
+  background: rgba(20, 34, 27, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  margin: 0.45rem 0;
+}
+
+.budget-bridge-fill-actual {
+  background: var(--cin-jade);
+  height: 100%;
+}
+
+.budget-bridge-fill-est {
+  background: rgba(22, 78, 58, 0.35);
+  height: 100%;
+}
+
+.budget-bridge-fill-over {
+  background: var(--cin-amber);
+  height: 100%;
+}
+
+/* Signature Set B (admin.php): 12-Month Editorial Matrix & Lit Triage Banner */
+.editorial-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0.38rem;
+}
+
+@media (max-width: 991px) {
+  .editorial-matrix-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 575px) {
+  .editorial-matrix-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.matrix-month-cell {
+  background: var(--cin-paper);
+  border: 1px solid rgba(20, 34, 27, 0.16);
+  border-radius: 3px;
+  padding: 0.45rem 0.5rem;
+  text-decoration: none;
+  color: var(--cin-ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.matrix-month-cell:hover {
+  border-color: var(--cin-amber);
+  background: #fff;
+}
+
+.matrix-month-cell .mm-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--cin-ink-muted);
+}
+
+.matrix-month-cell .mm-val {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cin-jade);
+}
+
+.matrix-month-cell .mm-sub {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--cin-ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Lit Region Banner (Only lit when human action is required) */
+.app-lit-callout {
+  background: rgba(217, 119, 6, 0.12);
+  border: 1px solid var(--cin-amber);
+  border-left: 4px solid var(--cin-amber);
+  border-radius: 3px;
+  padding: 0.65rem 0.95rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.app-calm-callout {
+  background: rgba(22, 78, 58, 0.07);
+  border: 1px solid rgba(22, 78, 58, 0.22);
+  border-radius: 3px;
+  padding: 0.6rem 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  color: var(--cin-ink-muted);
+}
+
+/* Status System: Shape + Glyph + Text (Separate from Accent) */
+.status-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  font-family: var(--font-mono);
+  font-size: 0.71rem;
+  font-weight: 600;
+  padding: 0.18rem 0.52rem;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.status-mark::before {
+  font-size: 0.62rem;
+  line-height: 1;
+}
+
+.status-ok {
+  background: rgba(21, 128, 61, 0.1);
+  color: #14532d;
+  border-color: rgba(21, 128, 61, 0.28);
+}
+.status-ok::before {
+  content: "●";
+  color: #15803d;
+}
+
+.status-warn {
+  background: rgba(217, 119, 6, 0.14);
+  color: #78350f;
+  border-color: rgba(217, 119, 6, 0.45);
+}
+.status-warn::before {
+  content: "▲";
+  color: #d97706;
+}
+
+.status-fail {
+  background: rgba(185, 28, 28, 0.1);
+  color: #7f1d1d;
+  border-color: rgba(185, 28, 28, 0.3);
+}
+.status-fail::before {
+  content: "■";
+  color: #b91c1c;
+}
+
+.status-neutral {
+  background: rgba(20, 34, 27, 0.06);
+  color: #4a5d52;
+  border-color: rgba(20, 34, 27, 0.18);
+}
+.status-neutral::before {
+  content: "○";
+  color: #4a5d52;
+}
+
+/* App Mode Tables: High Density (36-40px rows), Sticky Headers, Tabular Numbers */
+.app-work-surface {
+  background: var(--cin-paper-card);
+  border: 1px solid rgba(20, 34, 27, 0.22);
+  border-radius: 4px;
+  padding: 1.15rem 1.25rem;
+}
+
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+
+.app-table thead th {
+  font-family: var(--font-mono);
+  font-size: 0.69rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cin-ink-muted);
+  background: var(--cin-paper-warm);
+  border-bottom: 1px solid rgba(20, 34, 27, 0.22);
+  padding: 0.52rem 0.65rem;
+  white-space: nowrap;
+}
+
+.app-table tbody tr {
+  border-bottom: 1px solid rgba(20, 34, 27, 0.1);
+  transition: background-color 0.06s ease;
+}
+
+.app-table tbody tr:hover,
+.app-table tbody tr.kb-focused {
+  background-color: rgba(217, 119, 6, 0.08);
+}
+
+.app-table tbody tr.row-needs-action {
+  background-color: rgba(217, 119, 6, 0.07);
+  border-left: 3px solid var(--cin-amber);
+}
+
+.app-table td {
+  padding: 0.5rem 0.65rem;
+  vertical-align: middle;
+}
+
+.num-col {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+/* Command Palette & Shortcut Sheet Overlay */
+.cin-palette-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 25, 20, 0.62);
+  z-index: 2050;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 11vh;
+}
+
+.cin-palette-backdrop.open {
+  display: flex;
+}
+
+.cin-palette-box {
+  width: min(580px, 92vw);
+  background: var(--cin-paper-card);
+  color: var(--cin-ink);
+  border: 1px solid var(--cin-brass);
+  border-top: 3px solid var(--cin-amber);
+  border-radius: 4px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.cin-palette-input {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid rgba(20, 34, 27, 0.18);
+  background: #fff;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--cin-ink);
+}
+
+.cin-palette-list {
+  max-height: 320px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+}
+
+.cin-palette-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  color: var(--cin-ink);
+  text-decoration: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.cin-palette-item:hover,
+.cin-palette-item.active {
+  background: var(--cin-jade-deep);
+  color: var(--cin-cream);
+}
+
+/* ==========================================================================
+   PART 3: CINEMATIC ACCOUNT CHIP, DISPATCH DROPDOWN, FLASH BANNERS & MODALS
+   ========================================================================== */
+
+.cin-account-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.26rem 0.68rem 0.26rem 0.35rem;
+  background: rgba(16, 36, 28, 0.92);
+  color: var(--cin-cream);
+  border: 1px solid var(--cin-brass);
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.cin-account-chip:hover,
+.cin-account-chip:focus {
+  border-color: var(--cin-amber-bright);
+  background: #142f24;
+  color: #fff;
+}
+
+.cin-account-avatar {
+  border-radius: 3px;
+  object-fit: cover;
+  border: 1px solid var(--cin-brass);
+}
+
+.cin-account-name {
+  max-width: 135px;
+  letter-spacing: -0.01em;
+}
+
+.cin-account-role {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.1rem 0.4rem;
+  background: var(--cin-amber);
+  color: #fff;
+  border-radius: 2px;
+}
+
+.cin-account-menu {
+  min-width: 265px;
+  background: #0d1f18 !important;
+  color: var(--cin-cream) !important;
+  border: 1px solid var(--cin-brass) !important;
+  border-top: 3px solid var(--cin-amber) !important;
+  border-radius: 4px !important;
+  padding: 0.45rem !important;
+  margin-top: 0.5rem !important;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55) !important;
+}
+
+.cin-account-menu-head {
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 0.35rem;
+  background: rgba(244, 239, 228, 0.04);
+  border: 1px solid rgba(224, 159, 62, 0.22);
+  border-radius: 3px;
+}
+
+.cin-account-item {
+  display: flex !important;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.48rem 0.75rem !important;
+  border-radius: 3px !important;
+  color: rgba(246, 238, 224, 0.88) !important;
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.cin-account-item:hover,
+.cin-account-item:focus {
+  background: rgba(224, 159, 62, 0.18) !important;
+  color: #fff !important;
+}
+
+.cin-account-divider {
+  border-color: rgba(224, 159, 62, 0.22) !important;
+  margin: 0.35rem 0 !important;
+}
+
+/* Cinematic Flash Banners */
+.cin-flash-banner {
+  background: #0f241c !important;
+  color: var(--cin-cream) !important;
+  border: 1px solid var(--cin-brass) !important;
+  border-left: 4px solid var(--cin-amber-bright) !important;
+  border-radius: 4px !important;
+  padding: 0.75rem 1.1rem !important;
+  box-shadow: 0 12px 28px rgba(11, 25, 20, 0.16) !important;
+}
+
+.cin-flash-danger {
+  border-left-color: #ef4444 !important;
+}
+
+.cin-flash-info {
+  border-left-color: #38bdf8 !important;
+}
+
+/* Global Cinematic Modal Override across all pages */
+.modal-content {
+  background-color: var(--cin-paper-card) !important;
+  color: var(--cin-ink) !important;
+  border: 1px solid var(--cin-brass) !important;
+  border-top: 3px solid var(--cin-amber) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 28px 65px rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal-header {
+  background: var(--cin-night) !important;
+  color: var(--cin-cream) !important;
+  border-bottom: 1px solid var(--cin-brass) !important;
+  border-radius: 3px 3px 0 0 !important;
+  padding: 0.95rem 1.25rem !important;
+}
+
+.modal-header .modal-title {
+  color: var(--cin-cream) !important;
+  font-family: var(--font-display) !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+}
+
+.modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.modal-body {
+  padding: 1.35rem !important;
+}
+
+.modal-body .form-control,
+.modal-body .form-select {
+  border-radius: 3px !important;
+  border: 1px solid rgba(20, 34, 27, 0.25) !important;
+  background-color: #fff !important;
+  font-size: 0.88rem !important;
+  color: var(--cin-ink) !important;
+}
+
+.modal-body .form-label {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--cin-ink-muted);
+  margin-bottom: 0.28rem;
+}
+
+/* ==========================================================================
+   PART 4: EXTENDED DOSSIER HERO, SUBHERO MEDIA, STATUS ALIASES & APP HELPERS
+   ========================================================================== */
+
+.cin-subhero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cin-subhero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 25, 20, 0.94) 0%, rgba(11, 25, 20, 0.75) 60%, rgba(11, 25, 20, 0.88) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cin-subhero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.cin-subhero-sub {
+  color: var(--cin-cream-muted);
+  font-size: 0.95rem;
+  max-width: 68ch;
+  margin-bottom: 0;
+}
+
+.cin-dossier-hero-main {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(217, 119, 6, 0.18), transparent 52%),
+    linear-gradient(135deg, #0b1914 0%, #10241c 62%, #16382b 100%);
+  color: var(--cin-cream);
+  padding: 1.75rem 1.85rem;
+  border-bottom: 1px solid var(--cin-brass);
+}
+
+.cin-dossier-cover {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--cin-brass);
+  height: 280px;
+}
+
+.cin-dossier-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cin-dossier-meta-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  background: var(--cin-night);
+  color: var(--cin-cream);
+}
+
+@media (max-width: 767px) {
+  .cin-dossier-meta-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.cin-dossier-meta-cell {
+  padding: 0.9rem 1.25rem;
+  border-right: 1px solid rgba(224, 159, 62, 0.18);
+  border-top: 1px solid rgba(224, 159, 62, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cin-dossier-meta-cell .meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(246, 238, 224, 0.62);
+}
+
+.cin-dossier-meta-cell .meta-val {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--cin-cream);
+}
+
+.cin-empty-state {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: var(--cin-paper-card);
+  border: 1px dashed rgba(20, 34, 27, 0.25);
+  border-radius: 4px;
+}
+
+.cin-day-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.22rem 0.6rem;
+  background: var(--cin-jade-deep);
+  color: var(--cin-amber-bright);
+  border: 1px solid var(--cin-brass);
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.cin-act-time {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.18rem 0.5rem;
+  background: var(--cin-paper-warm);
+  border: 1px solid rgba(20, 34, 27, 0.18);
+  border-radius: 3px;
+  color: var(--cin-jade-deep);
+}
+
+.cin-map-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--cin-night);
+  color: var(--cin-cream);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--cin-brass);
+}
+
+.loc-coord-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cin-ink-muted);
+  margin-bottom: 0.35rem;
+}
+
+.journal-tip-box {
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  border-left: 3px solid var(--cin-amber);
+  border-radius: 3px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--cin-ink) !important;
+}
+
+.journal-tip-box strong {
+  color: var(--cin-ink) !important;
+}
+
+.cin-filter-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cin-ink-muted);
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.app-shift-bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.app-shift-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.app-kbd {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.1rem 0.38rem;
+  border-radius: 3px;
+  background: rgba(246, 238, 224, 0.14);
+  color: var(--cin-cream);
+  border: 1px solid rgba(246, 238, 224, 0.28);
+}
+
+.lit-pulse {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cin-amber);
+  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.25);
+  flex-shrink: 0;
+}
+
+/* Status aliases (.status-done, .status-info, .status-err, .status-muted) */
+.status-mark .status-shape {
+  display: none;
+}
+
+.status-done {
+  background: rgba(21, 128, 61, 0.1);
+  color: #14532d;
+  border-color: rgba(21, 128, 61, 0.28);
+}
+.status-done::before {
+  content: "●";
+  color: #15803d;
+}
+
+.status-info {
+  background: rgba(14, 116, 144, 0.1);
+  color: #155e75;
+  border-color: rgba(14, 116, 144, 0.28);
+}
+.status-info::before {
+  content: "◆";
+  color: #0e7490;
+}
+
+.status-err {
+  background: rgba(185, 28, 28, 0.1);
+  color: #7f1d1d;
+  border-color: rgba(185, 28, 28, 0.3);
+}
+.status-err::before {
+  content: "■";
+  color: #b91c1c;
+}
+
+.status-muted {
+  background: rgba(20, 34, 27, 0.06);
+  color: #4a5d52;
+  border-color: rgba(20, 34, 27, 0.18);
+}
+.status-muted::before {
+  content: "○";
+  color: #4a5d52;
+}

@@ -1,0 +1,16 @@
+{
+  "name": "travel_planner",
+  "version": "1.0.0",
+  "description": "**Nền tảng tham khảo lịch trình 12 tháng và lập kế hoạch du lịch miền Bắc**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "playwright-core": "^1.65.0"
+  }
+}

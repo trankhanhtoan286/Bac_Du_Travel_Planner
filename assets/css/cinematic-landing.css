@@ -1,0 +1,1263 @@
+/* ==========================================================================
+   BẮC DU (TRAVEL PLANNER) — CINEMATIC UI 2.0 (DIRECTOR'S CUT)
+   Directed after Trần Anh Hùng & Mark Lee Ping-bin's "The Vertical Ray of the Sun"
+   ========================================================================== */
+
+/* ==========================================================================
+   UNIFORM LINING NUMERALS (CINDISPLAYNUMS) FOR DISPLAY SERIF
+   Covers weights 400-800 to prevent oldstyle numeral dropping (1, 10, 11, 12, etc.)
+   ========================================================================== */
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Playfair Display'), local('Times New Roman'), local('Georgia'), local('Segoe UI'), local('Arial');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Playfair Display Medium'), local('Playfair Display'), local('Times New Roman Bold'), local('Times New Roman'), local('Georgia Bold'), local('Georgia'), local('Segoe UI Semibold'), local('Arial');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Playfair Display SemiBold'), local('Playfair Display Bold'), local('Playfair Display'), local('Times New Roman Bold'), local('Georgia Bold'), local('Segoe UI Semibold'), local('Arial Bold');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Playfair Display Bold'), local('Playfair Display'), local('Times New Roman Bold'), local('Georgia Bold'), local('Segoe UI Bold'), local('Arial Bold');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Playfair Display ExtraBold'), local('Playfair Display Bold'), local('Times New Roman Bold'), local('Georgia Bold'), local('Segoe UI Bold'), local('Arial Bold');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Playfair Display Italic'), local('Times New Roman Italic'), local('Georgia Italic');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+
+@font-face {
+  font-family: 'CinDisplayNums';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Playfair Display Bold Italic'), local('Times New Roman Bold Italic'), local('Georgia Bold Italic');
+  unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
+}
+
+:root {
+  --cin-night: #0b1914;
+  --cin-jade-deep: #10241c;
+  --cin-jade: #164e3a;
+  --cin-jade-soft: #226b50;
+  --cin-paper: #f4efe4;
+  --cin-paper-warm: #eae1cf;
+  --cin-paper-card: #fbf8f1;
+  --cin-ink: #14221b;
+  --cin-ink-muted: #4a5d52;
+  --cin-cream: #f6eee0;
+  --cin-cream-muted: rgba(246, 238, 224, 0.76);
+  --cin-amber: #d97706;
+  --cin-amber-bright: #f59e0b;
+  --cin-brass: rgba(224, 159, 62, 0.34);
+  --cin-rule-dark: rgba(20, 34, 27, 0.16);
+  --cin-rule-light: rgba(246, 238, 224, 0.16);
+  --cin-rule: rgba(20, 34, 27, 0.16);
+  --font-display: 'CinDisplayNums', 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-sans: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --bs-font-monospace: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+.font-monospace,
+.price-mono,
+.cin-eyebrow,
+.slip-tag,
+.num-col,
+code,
+kbd {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums lining-nums !important;
+  font-feature-settings: "tnum" 1, "lnum" 1 !important;
+}
+
+html {
+  scroll-padding-top: 96px;
+  scroll-padding-bottom: 96px;
+}
+
+body.cinematic-home {
+  font-family: var(--font-sans);
+  background-color: var(--cin-night);
+  color: var(--cin-ink);
+  overflow-x: clip;
+}
+
+/* Skip Link (UX Proof) */
+.skip-film-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 2000;
+  background: var(--cin-amber);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid #fff;
+  transition: top 0.2s ease;
+}
+
+.skip-film-link:focus {
+  top: 12px;
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+
+/* Visible Focus Proof — inset offset prevents ancestor overflow clipping */
+body.cinematic-home a:focus-visible,
+body.cinematic-home button:focus-visible,
+body.cinematic-home select:focus-visible,
+body.cinematic-home input:focus-visible {
+  outline: 2px solid var(--cin-amber-bright) !important;
+  outline-offset: -2px !important;
+  box-shadow: none !important;
+}
+
+/* Top Navigation — Grounded Dark Lacquer Slate */
+body.cinematic-home .navbar-bacdu {
+  background: rgba(11, 25, 20, 0.95);
+  border-bottom: 1px solid var(--cin-brass);
+  padding: 0.55rem 0;
+}
+
+body.cinematic-home .brand-logo {
+  color: var(--cin-cream) !important;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+}
+
+body.cinematic-home .brand-logo small {
+  color: var(--cin-amber-bright) !important;
+  font-family: var(--font-mono);
+  font-size: 0.62rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+body.cinematic-home .brand-logo-mark {
+  background: linear-gradient(135deg, var(--cin-amber) 0%, #b45309 100%);
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+body.cinematic-home .navbar-bacdu .nav-link {
+  color: rgba(246, 238, 224, 0.82);
+  font-size: 0.88rem;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 0.42rem 0.8rem !important;
+}
+
+body.cinematic-home .navbar-bacdu .nav-link:hover,
+body.cinematic-home .navbar-bacdu .nav-link.active {
+  color: var(--cin-cream);
+  background: rgba(224, 159, 62, 0.18);
+}
+
+body.cinematic-home .navbar-bacdu .btn-outline-dark {
+  color: var(--cin-cream);
+  border-color: var(--cin-brass);
+  border-radius: 4px;
+}
+
+body.cinematic-home .navbar-bacdu .btn-bacdu {
+  background: var(--cin-amber);
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+/* Fixed Decorative Film Instruments (aria-hidden, never over text) */
+.cin-instrument-rail {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: rgba(224, 159, 62, 0.75);
+  mix-blend-mode: difference;
+}
+
+.cin-instrument-rail .rail-track {
+  width: 2px;
+  height: 110px;
+  background: rgba(224, 159, 62, 0.25);
+  position: relative;
+  overflow: clip;
+}
+
+.cin-instrument-rail .rail-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--page-prog, 0.08) * 100%);
+  background: var(--cin-amber-bright);
+}
+
+@media (max-width: 991px) {
+  .cin-instrument-rail {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   SCENE FRAMES & TYPOGRAPHY SYSTEM
+   ========================================================================== */
+
+.cin-main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Pinned scenes get generous top clearance below sticky navbar (84px) and bottom safe area */
+.cin-main [data-scene]:not([data-flow]) > .frame {
+  box-sizing: border-box;
+  padding: 84px 4.5vw calc(28px + var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Flow scenes scroll naturally as rich editorial documents */
+.cin-main [data-scene][data-flow] > .frame {
+  box-sizing: border-box;
+  padding: 5.5rem 4.5vw;
+}
+
+.cin-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.cin-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+}
+
+.cin-display-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.15rem, 3.8vw + 0.8svh, 4.1rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--cin-cream);
+  margin: 0 0 0.85rem;
+}
+
+.cin-display-h1 .sw,
+.cin-display-h2 .sw {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--cin-amber-bright);
+}
+
+/* Allow Type-FX blur-resolve and read-fill stages to wrap naturally inside editorial columns */
+.tfx-blur-resolve > .tfx-stage,
+.tfx-read-fill > .tfx-stage {
+  white-space: normal !important;
+  display: inline !important;
+}
+
+.cin-display-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.85rem, 3.4vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.6rem;
+}
+
+/* Expedition Buttons (ART UI Map) */
+.btn-cin-amber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  background: var(--cin-amber);
+  color: #fff !important;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.72rem 1.4rem;
+  border: 1px solid var(--cin-amber-bright);
+  border-radius: 4px;
+  letter-spacing: 0.01em;
+}
+
+.btn-cin-amber:hover {
+  background: #b45309;
+  color: #fff !important;
+}
+
+.btn-cin-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  background: rgba(246, 238, 224, 0.08);
+  color: var(--cin-cream) !important;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.72rem 1.35rem;
+  border: 1px solid rgba(246, 238, 224, 0.35);
+  border-radius: 4px;
+}
+
+.btn-cin-ghost:hover {
+  background: rgba(246, 238, 224, 0.18);
+  border-color: var(--cin-cream);
+}
+
+.btn-cin-ink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--cin-ink);
+  color: var(--cin-paper) !important;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.86rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--cin-ink);
+  border-radius: 4px;
+}
+
+.btn-cin-ink:hover {
+  background: var(--cin-jade);
+  border-color: var(--cin-jade);
+  color: #fff !important;
+}
+
+.btn-cin-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background: transparent;
+  color: var(--cin-ink) !important;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.84rem;
+  padding: 0.52rem 1.05rem;
+  border: 1px solid rgba(20, 34, 27, 0.32);
+  border-radius: 4px;
+}
+
+.btn-cin-outline:hover,
+.btn-cin-outline.active {
+  background: var(--cin-ink);
+  color: var(--cin-paper) !important;
+  border-color: var(--cin-ink);
+}
+
+/* ==========================================================================
+   SCENE 1: ARRIVAL — EXT. HIGHLAND MIST & SHUTTER APERTURE
+   ========================================================================== */
+
+.scene-arrival {
+  --length: 205;
+  background: var(--cin-night);
+  color: var(--cin-cream);
+}
+
+.scene-arrival > .frame {
+  position: sticky;
+  top: 0;
+  background: var(--cin-night);
+}
+
+/* Layered Backdrop: Morning Mist Video + Highland Plate + Sun Shaft + Shutters */
+.arrival-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: clip;
+  pointer-events: none;
+}
+
+.arrival-plate-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.52;
+  filter: contrast(1.1) saturate(1.15);
+  transform-origin: center center;
+}
+
+.arrival-mist-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.34;
+  mix-blend-mode: screen;
+}
+
+.arrival-sun-shaft {
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(
+    118deg,
+    rgba(11, 25, 20, 0.92) 12%,
+    rgba(22, 78, 58, 0.45) 46%,
+    rgba(245, 158, 11, 0.32) 68%,
+    rgba(11, 25, 20, 0.88) 92%
+  );
+}
+
+/* Wooden Louvered Shutter Panels (Cửa chớp Bắc Bộ) that part on scroll */
+.shutter-wing {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28vw;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(9, 21, 16, 0.86) 0px,
+    rgba(9, 21, 16, 0.86) 18px,
+    rgba(22, 60, 44, 0.42) 18px,
+    rgba(22, 60, 44, 0.42) 22px
+  );
+  border-color: var(--cin-brass);
+  z-index: 1;
+}
+
+.shutter-left {
+  left: 0;
+  border-right: 1px solid var(--cin-brass);
+}
+
+.shutter-right {
+  right: 0;
+  border-left: 1px solid var(--cin-brass);
+}
+
+/* Lead Actor State 1 & 2: The Northern Almanac Compass Rose */
+.almanac-compass-stage {
+  position: absolute;
+  left: 44%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: min(52vmin, 420px);
+  height: min(52vmin, 420px);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.42;
+}
+
+.almanac-compass-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.arrival-grid {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1.25rem, 3vw, 3rem);
+  align-items: center;
+}
+
+.arrival-lead-copy {
+  max-width: 640px;
+  min-width: 0;
+}
+
+.arrival-meta-bar {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(16, 36, 28, 0.85);
+  border: 1px solid var(--cin-brass);
+  border-radius: 3px;
+  margin-bottom: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cin-amber-bright);
+  letter-spacing: 0.08em;
+}
+
+.arrival-subcopy {
+  font-size: clamp(0.92rem, 1.05vw, 1.08rem);
+  line-height: 1.58;
+  color: var(--cin-cream-muted);
+  margin-bottom: 1.25rem;
+  max-width: 58ch;
+}
+
+.arrival-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Dispatch Console (Quick Itinerary Search Box) */
+.dispatch-console {
+  background: rgba(244, 239, 228, 0.97);
+  color: var(--cin-ink);
+  border: 1px solid var(--cin-brass);
+  border-top: 4px solid var(--cin-amber);
+  border-radius: 4px;
+  padding: clamp(1rem, 2.2vmin, 1.45rem);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  min-width: 0;
+  width: 100%;
+}
+
+.dispatch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.65rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid var(--cin-rule-dark);
+}
+
+.dispatch-title {
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--cin-ink);
+}
+
+.dispatch-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.55rem;
+  background: rgba(22, 78, 58, 0.12);
+  color: var(--cin-jade);
+  border: 1px solid rgba(22, 78, 58, 0.3);
+  border-radius: 3px;
+}
+
+.dispatch-console .form-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--cin-ink-muted);
+  margin-bottom: 0.25rem;
+}
+
+.dispatch-console .form-select {
+  border-radius: 3px;
+  border: 1px solid rgba(20, 34, 27, 0.25);
+  background-color: #fff;
+  font-size: 0.88rem;
+  padding: 0.48rem 2rem 0.48rem 0.7rem;
+  color: var(--cin-ink);
+}
+
+.dispatch-hot-strip {
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed rgba(20, 34, 27, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--cin-ink-muted);
+}
+
+/* Short Laptop (1366x640) & Mobile Portrait Adaptation for Scene 1 */
+@media (max-height: 700px) and (min-width: 992px) {
+  .cin-main [data-scene]:not([data-flow]) > .frame {
+    padding-top: 74px;
+    padding-bottom: 16px;
+  }
+  .cin-display-h1 {
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
+    margin-bottom: 0.45rem;
+  }
+  .arrival-subcopy {
+    font-size: 0.86rem;
+    line-height: 1.42;
+    margin-bottom: 0.75rem;
+  }
+  .arrival-meta-bar {
+    margin-bottom: 0.45rem;
+    padding: 0.2rem 0.55rem;
+  }
+  .dispatch-console {
+    padding: 0.85rem 1rem;
+  }
+  .dispatch-console .form-select {
+    padding: 0.32rem 1.8rem 0.32rem 0.55rem;
+    font-size: 0.82rem;
+  }
+  .dispatch-header {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+  }
+  .dispatch-hot-strip {
+    margin-top: 0.45rem;
+    padding-top: 0.45rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .scene-arrival {
+    --length: 175;
+  }
+  .scene-arrival > .frame {
+    padding: 68px 4.5vw calc(14px + var(--safe-bottom)) !important;
+  }
+  .arrival-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+  .arrival-meta-bar {
+    font-size: 0.62rem;
+    padding: 0.18rem 0.5rem;
+    margin-bottom: 0.35rem;
+    gap: 0.35rem;
+  }
+  .cin-display-h1 {
+    font-size: clamp(1.55rem, 5.4vw, 2.2rem);
+    line-height: 1.04;
+    margin-bottom: 0.35rem;
+  }
+  .arrival-subcopy {
+    font-size: 0.78rem;
+    line-height: 1.38;
+    margin-bottom: 0.55rem;
+  }
+  .arrival-cta-row {
+    gap: 0.45rem;
+  }
+  .arrival-cta-row .btn-cin-amber,
+  .arrival-cta-row .btn-cin-ghost {
+    padding: 0.42rem 0.72rem;
+    font-size: 0.76rem;
+    gap: 0.35rem;
+  }
+  .dispatch-console {
+    padding: 0.65rem 0.85rem;
+  }
+  .dispatch-header {
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.4rem;
+  }
+  .dispatch-title {
+    font-size: 0.84rem;
+  }
+  .dispatch-stamp {
+    font-size: 0.6rem;
+    padding: 0.12rem 0.4rem;
+  }
+  .dispatch-console .form-label {
+    font-size: 0.66rem;
+    margin-bottom: 0.12rem;
+  }
+  .dispatch-console .form-select {
+    font-size: 0.78rem;
+    padding: 0.3rem 1.6rem 0.3rem 0.5rem;
+  }
+  .dispatch-console .btn-cin-ink {
+    padding: 0.42rem 0.8rem !important;
+    font-size: 0.8rem;
+  }
+  .dispatch-hot-strip {
+    margin-top: 0.4rem;
+    padding-top: 0.35rem;
+    font-size: 0.72rem;
+  }
+}
+
+/* ==========================================================================
+   SCENE 2: ALMANAC — THE 12-MONTH WHEEL & SEASONAL TEMPLATES (FLOW)
+   ========================================================================== */
+
+.scene-almanac {
+  background: var(--cin-paper);
+  color: var(--cin-ink);
+  border-top: 2px solid var(--cin-brass);
+}
+
+.almanac-container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.almanac-top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.25rem;
+  padding-bottom: 1.75rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--cin-rule-dark);
+}
+
+/* Audience's Part: Interactive 12-Month Compass Console + Dial Grid */
+.almanac-interactive-deck {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 1.75rem;
+  align-items: stretch;
+  margin-bottom: 2.5rem;
+}
+
+.compass-live-card {
+  background: var(--cin-jade-deep);
+  color: var(--cin-cream);
+  border: 1px solid var(--cin-brass);
+  border-radius: 4px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: clip;
+}
+
+.compass-dial-wrap {
+  width: 156px;
+  height: 156px;
+  margin: 0.5rem auto 1rem;
+  position: relative;
+}
+
+.compass-dial-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.compass-needle-group {
+  transform-origin: 100px 100px;
+}
+
+.almanac-months-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+}
+
+.almanac-month-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.85rem 0.9rem;
+  background: var(--cin-paper-card);
+  border: 1px solid rgba(20, 34, 27, 0.18);
+  border-radius: 4px;
+  color: var(--cin-ink);
+  text-align: left;
+  text-decoration: none;
+}
+
+.almanac-month-cell:hover {
+  border-color: var(--cin-amber);
+  background: #fff;
+}
+
+.almanac-month-cell.active {
+  background: var(--cin-jade-deep);
+  color: var(--cin-cream);
+  border-color: var(--cin-amber-bright);
+  box-shadow: inset 0 0 0 1px var(--cin-amber-bright);
+}
+
+.almanac-month-cell .m-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.almanac-month-cell .m-num {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  opacity: 0.78;
+}
+
+.almanac-month-cell .m-season,
+.almanac-month-cell .m-season-pill {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.12rem 0.45rem;
+  border-radius: 2px;
+  background: rgba(20, 34, 27, 0.08);
+  color: var(--cin-ink-muted);
+}
+
+.almanac-month-cell.active .m-season,
+.almanac-month-cell.active .m-season-pill {
+  background: var(--cin-amber);
+  color: #fff;
+}
+
+.almanac-month-cell .m-name {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.almanac-month-cell .m-highlight {
+  font-size: 0.75rem;
+  color: var(--cin-ink-muted);
+  margin-top: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.almanac-month-cell.active .m-highlight {
+  color: rgba(246, 238, 224, 0.82);
+}
+
+@media (max-width: 991px) {
+  .almanac-interactive-deck {
+    grid-template-columns: 1fr;
+  }
+  .almanac-months-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 575px) {
+  .almanac-months-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Monthly Dossier Header & Field Slip Cards */
+.almanac-dossier-box {
+  background: var(--cin-paper-warm);
+  border: 1px solid rgba(20, 34, 27, 0.22);
+  border-radius: 4px;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.dossier-banner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--cin-rule-dark);
+}
+
+/* Field Slip Card (Replaces generic rounded cards) */
+.field-slip {
+  background: var(--cin-paper-card);
+  border: 1px solid rgba(20, 34, 27, 0.22);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: clip;
+}
+
+.field-slip-media {
+  position: relative;
+  height: 215px;
+  overflow: clip;
+  background: var(--cin-jade-deep);
+  border-bottom: 1px solid rgba(20, 34, 27, 0.18);
+}
+
+.field-slip-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.field-slip-badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.slip-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.24rem 0.6rem;
+  background: rgba(11, 25, 20, 0.88);
+  color: var(--cin-cream);
+  border: 1px solid var(--cin-brass);
+  border-radius: 2px;
+}
+
+.slip-tag-jade {
+  background: var(--cin-jade);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.field-slip-body {
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.field-slip-title {
+  font-family: var(--font-display);
+  font-size: 1.42rem;
+  font-weight: 700;
+  line-height: 1.18;
+  margin-bottom: 0.7rem;
+}
+
+.field-slip-title a {
+  color: var(--cin-ink);
+}
+
+.field-slip-title a:hover {
+  color: var(--cin-amber);
+}
+
+.field-reason-box {
+  background: rgba(217, 119, 6, 0.09);
+  border-left: 3px solid var(--cin-amber);
+  padding: 0.65rem 0.8rem;
+  font-size: 0.83rem;
+  color: #5c3404;
+  margin-bottom: 1rem;
+}
+
+.field-slip-footer {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px dashed rgba(20, 34, 27, 0.22);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.price-mono {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.08rem;
+  color: var(--cin-jade);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   SCENE 3: CHRONICLE — 4-STEP LATERAL DOLLY FILMSTRIP (PINNED SET PIECE)
+   ========================================================================== */
+
+.scene-chronicle {
+  --length: 255;
+  background: var(--cin-jade-deep);
+  color: var(--cin-cream);
+  border-top: 1px solid var(--cin-brass);
+  border-bottom: 1px solid var(--cin-brass);
+}
+
+.scene-chronicle > .frame {
+  background:
+    radial-gradient(circle at 75% 25%, rgba(217, 119, 6, 0.16), transparent 52%),
+    linear-gradient(180deg, #0b1914 0%, #11261d 100%);
+  overflow: clip;
+}
+
+.chronicle-header {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.chronicle-rail-viewport {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.chronicle-track {
+  display: flex;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  width: max-content;
+  padding: 0.5rem 4vw;
+}
+
+.chronicle-step-card {
+  width: clamp(275px, 28vw, 370px);
+  background: var(--cin-paper);
+  color: var(--cin-ink);
+  border: 1px solid var(--cin-brass);
+  border-top: 4px solid var(--cin-amber);
+  border-radius: 4px;
+  padding: 1.35rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.step-index-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--cin-rule-dark);
+}
+
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--cin-amber);
+}
+
+.step-icon-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: var(--cin-jade-deep);
+  color: var(--cin-amber-bright);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+}
+
+.chronicle-route-bar {
+  max-width: 1320px;
+  width: 100%;
+  margin: 1.1rem auto 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cin-amber-bright);
+}
+
+.route-line-svg {
+  flex-grow: 1;
+  height: 18px;
+}
+
+@media (max-height: 700px) {
+  .chronicle-header {
+    margin-bottom: 0.65rem;
+  }
+  .chronicle-header .cin-display-h2 {
+    font-size: clamp(1.65rem, 2.8vw, 2.2rem);
+    margin-bottom: 0.2rem;
+  }
+  .chronicle-step-card {
+    padding: 0.95rem 1.1rem;
+  }
+  .chronicle-route-bar {
+    margin-top: 0.55rem;
+  }
+}
+
+/* ==========================================================================
+   SCENE 4: LOCATIONS — 3-GROUP STANDARDIZED FIELD ARCHIVE (FLOW)
+   ========================================================================== */
+
+.scene-locations {
+  background: #efe8d8;
+  color: var(--cin-ink);
+}
+
+.locations-container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.loc-coord-strip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cin-ink-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.45rem;
+  margin-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(20, 34, 27, 0.1);
+}
+
+/* ==========================================================================
+   SCENE 5: WITNESSES — COMMUNITY FIELD JOURNALS (FLOW)
+   ========================================================================== */
+
+.scene-witnesses {
+  background: #12241c;
+  color: var(--cin-cream);
+  border-top: 1px solid var(--cin-brass);
+}
+
+.witnesses-container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.journal-slip {
+  background: var(--cin-paper);
+  color: var(--cin-ink);
+  border: 1px solid var(--cin-brass);
+  border-radius: 4px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+}
+
+.journal-tip-box {
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  border-left: 3px solid var(--cin-amber);
+  border-radius: 3px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.83rem;
+  line-height: 1.55;
+  color: var(--cin-ink) !important;
+  margin-bottom: 1rem;
+}
+
+.journal-tip-box strong {
+  color: var(--cin-ink) !important;
+}
+
+/* ==========================================================================
+   SCENE 6: DEPARTURE — EXT. KM0 MILESTONE FINALE (PINNED HOLD)
+   ========================================================================== */
+
+.scene-departure {
+  --length: 145;
+  background: var(--cin-night);
+  color: var(--cin-cream);
+  border-top: 1px solid var(--cin-brass);
+}
+
+.scene-departure > .frame {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(217, 119, 6, 0.22), rgba(11, 25, 20, 0.96) 65%),
+    var(--cin-night);
+  text-align: center;
+  align-items: center;
+}
+
+.km0-monument-box {
+  max-width: 780px;
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(1.1rem, 3vmin, 2.5rem);
+  border: 1px solid var(--cin-brass);
+  background: rgba(16, 36, 28, 0.78);
+  border-radius: 4px;
+  position: relative;
+}
+
+.km0-monument-box .cin-display-h2 {
+  font-size: clamp(1.24rem, 4.2vw, 3.2rem);
+}
+
+.km0-compass-mini {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 0.85rem;
+}
+
+@media (max-height: 700px) {
+  .km0-compass-mini {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 0.45rem;
+  }
+  .km0-monument-box .cin-display-h2 {
+    font-size: clamp(1.65rem, 3vw, 2.35rem);
+  }
+}
+
+/* Footer End Credits Padding */
+body.cinematic-home .footer-bacdu {
+  background: #07110d;
+  border-top: 1px solid var(--cin-brass);
+  padding-bottom: 3.5rem;
+}
+

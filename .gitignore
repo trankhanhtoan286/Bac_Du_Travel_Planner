@@ -1,0 +1,15 @@
+# Runtime database copies
+database/*.sqlite
+database/*_runtime.sqlite
+
+# Dependencies
+node_modules/
+vendor/
+
+# OS / IDE / Agents
+.agents/
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
