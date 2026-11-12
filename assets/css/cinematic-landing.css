@@ -1261,3 +1261,6 @@ body.cinematic-home .footer-bacdu {
   padding-bottom: 3.5rem;
 }
 
+
+/* High Contrast Ink Enhancement - Tram */
+.journal-tip-box { color: var(--cin-ink) !important; }
