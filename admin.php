@@ -432,7 +432,7 @@ $allUsers = $pdo->query('
 $provinces = $pdo->query('SELECT * FROM provinces ORDER BY id ASC')->fetchAll();
 $categories = $pdo->query('SELECT * FROM categories ORDER BY location_type ASC, id ASC')->fetchAll();
 
-$pageTitle = 'Admin Dashboard & Ban biên tập nội dung';
+$pageTitle = 'Admin Dashboard và Ban biên tập nội dung';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
@@ -461,11 +461,11 @@ foreach ($allTemplates as $tplItem) {
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
       <div>
         <div class="app-shift-eyebrow">
-          <span><i class="bi bi-shield-lock-fill text-warning me-1"></i>BAN BIÊN TẬP & QUẢN TRỊ HỆ THỐNG · APP MODE</span>
+          <span><i class="bi bi-shield-lock-fill text-warning me-1"></i>BAN BIÊN TẬP VÀ QUẢN TRỊ HỆ THỐNG · APP MODE</span>
           <span>·</span>
           <span>MODULE M8 · CA TRỰC: @<?= e($admin['username']) ?></span>
         </div>
-        <h1 class="app-shift-title">Bàn Điều Phối Nội Dung & Kiểm Duyệt Bắc Du</h1>
+        <h1 class="app-shift-title">Bàn Điều Phối Nội Dung và Kiểm Duyệt Bắc Du</h1>
         <p class="small text-white-50 mb-0">
           Phím tắt ca trực: <kbd class="bg-dark border border-secondary">1</kbd>–<kbd class="bg-dark border border-secondary">6</kbd> chuyển phân khu · <kbd class="bg-dark border border-secondary">j</kbd>/<kbd class="bg-dark border border-secondary">k</kbd> duyệt dòng · <kbd class="bg-dark border border-secondary">/</kbd> mở Bảng lệnh nhanh.
         </p>
@@ -504,8 +504,8 @@ foreach ($allTemplates as $tplItem) {
       </div>
     <?php else: ?>
       <div class="app-calm-callout mb-3">
-        <span><span class="status-mark status-ok me-2">HÀNG ĐỢI ĐÃ SẠCH</span> Toàn bộ <?= $stats['approved_posts'] ?> bài trải nghiệm hợp lệ đã được duyệt công khai.</span>
-        <span class="font-monospace small">0 BÀI TỒN ĐỌNG</span>
+        <span><span class="status-mark status-ok me-2">Hàng đợi đã sạch</span> Toàn bộ <?= $stats['approved_posts'] ?> bài trải nghiệm hợp lệ đã được duyệt công khai.</span>
+        <span class="font-monospace small">0 bài tồn đọng</span>
       </div>
     <?php endif; ?>
 
@@ -758,7 +758,7 @@ foreach ($allTemplates as $tplItem) {
       <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
         <div>
           <span class="cin-eyebrow text-dark">Lưu trữ tọa độ 3 nhóm (UC10.4)</span>
-          <h4 class="field-slip-title mb-0">Quản lý Địa điểm Tham quan, Ăn uống & Lưu trú</h4>
+          <h4 class="field-slip-title mb-0">Quản lý Địa điểm Tham quan, Ăn uống và Lưu trú</h4>
           <small class="text-muted">Ưu tiên chuyển trạng thái Lưu trữ thay vì xóa cứng để bảo toàn lịch sử các chuyến đi.</small>
         </div>
         <button type="button" class="btn-cin-amber py-1 px-3" data-bs-toggle="modal" data-bs-target="#locationEditorModal" onclick="resetLocationModal()">

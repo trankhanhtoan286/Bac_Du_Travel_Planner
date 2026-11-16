@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$pageTitle = 'Hồ sơ cá nhân & Bảo mật';
+$pageTitle = 'Hồ sơ cá nhân và Bảo mật';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
