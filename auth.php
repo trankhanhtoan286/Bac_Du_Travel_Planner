@@ -144,7 +144,7 @@ require_once __DIR__ . '/includes/header.php';
             CỘT MỐC KM0 · BẮC DU TRAVEL PLANNER
           </span>
           <h1 class="cin-display-h2 text-white mb-3">
-            Lưu Trọn <span class="sw">Niên Lịch</span> &amp; Kế Hoạch Du Lịch Miền Bắc
+            Lưu Trọn <span class="sw">Niên Lịch</span> và Kế Hoạch Du Lịch Miền Bắc
           </h1>
           <p class="small mb-0" style="color: rgba(244,239,228,0.78); line-height: 1.65;">
             Đăng nhập để sao chép kịch bản mẫu 12 tháng thành kế hoạch độc lập, đối soát ngân sách chống cộng trùng và ghi chép trải nghiệm thực địa cùng cộng đồng.

@@ -175,7 +175,7 @@ function require_admin(): array
 {
     $user = require_login();
     if ($user['role'] !== 'admin') {
-        set_flash('danger', 'Bạn không có quyền truy cập khu vực Quản trị & Ban biên tập.');
+        set_flash('danger', 'Bạn không có quyền truy cập khu vực Quản trị và Ban biên tập.');
         header('Location: index.php');
         exit;
     }
@@ -203,18 +203,18 @@ function verify_user_password(string $plain, string $hash): bool
 function get_months_catalog(): array
 {
     return [
-        1  => ['name' => 'Tháng 1',  'season' => 'Mùa Xuân', 'tag' => 'Hoa đào rừng & Săn mây Tà Xùa', 'highlight' => 'Mộc Châu, Tà Xùa, Sa Pa'],
-        2  => ['name' => 'Tháng 2',  'season' => 'Mùa Xuân', 'tag' => 'Hoa mận trắng Nà Ka & Du xuân Tràng An', 'highlight' => 'Mộc Châu, Ninh Bình, Yên Tử'],
-        3  => ['name' => 'Tháng 3',  'season' => 'Mùa Xuân', 'tag' => 'Hoa lê Hà Giang & Hoa ban Tây Bắc', 'highlight' => 'Hà Giang, Điện Biên, Ninh Bình'],
-        4  => ['name' => 'Tháng 4',  'season' => 'Giao mùa', 'tag' => 'Đỗ quyên Fansipan & Thung lũng xanh', 'highlight' => 'Sa Pa, Pù Luông, Mai Châu'],
-        5  => ['name' => 'Tháng 5',  'season' => 'Mùa Hạ',   'tag' => 'Lúa vàng Tam Cốc & Mùa hái mận chín', 'highlight' => 'Ninh Bình, Mộc Châu, Sa Pa'],
-        6  => ['name' => 'Tháng 6',  'season' => 'Mùa Hạ',   'tag' => 'Du thuyền Vịnh Hạ Long & Sen Hang Múa', 'highlight' => 'Hạ Long, Cô Tô, Ninh Bình'],
-        7  => ['name' => 'Tháng 7',  'season' => 'Mùa Hạ',   'tag' => 'Biển đảo Quảng Ninh & Cao nguyên mát', 'highlight' => 'Hạ Long, Cô Tô, Mộc Châu'],
+        1  => ['name' => 'Tháng 1',  'season' => 'Mùa Xuân', 'tag' => 'Hoa đào rừng và Săn mây Tà Xùa', 'highlight' => 'Mộc Châu, Tà Xùa, Sa Pa'],
+        2  => ['name' => 'Tháng 2',  'season' => 'Mùa Xuân', 'tag' => 'Hoa mận trắng Nà Ka và Du xuân Tràng An', 'highlight' => 'Mộc Châu, Ninh Bình, Yên Tử'],
+        3  => ['name' => 'Tháng 3',  'season' => 'Mùa Xuân', 'tag' => 'Hoa lê Hà Giang và Hoa ban Tây Bắc', 'highlight' => 'Hà Giang, Điện Biên, Ninh Bình'],
+        4  => ['name' => 'Tháng 4',  'season' => 'Giao mùa', 'tag' => 'Đỗ quyên Fansipan và Thung lũng xanh', 'highlight' => 'Sa Pa, Pù Luông, Mai Châu'],
+        5  => ['name' => 'Tháng 5',  'season' => 'Mùa Hạ',   'tag' => 'Lúa vàng Tam Cốc và Mùa hái mận chín', 'highlight' => 'Ninh Bình, Mộc Châu, Sa Pa'],
+        6  => ['name' => 'Tháng 6',  'season' => 'Mùa Hạ',   'tag' => 'Du thuyền Vịnh Hạ Long và Sen Hang Múa', 'highlight' => 'Hạ Long, Cô Tô, Ninh Bình'],
+        7  => ['name' => 'Tháng 7',  'season' => 'Mùa Hạ',   'tag' => 'Biển đảo Quảng Ninh và Cao nguyên mát', 'highlight' => 'Hạ Long, Cô Tô, Mộc Châu'],
         8  => ['name' => 'Tháng 8',  'season' => 'Chớm Thu', 'tag' => 'Thác Bản Giốc nước ngọc bích', 'highlight' => 'Cao Bằng, Hạ Long, Ba Bể'],
         9  => ['name' => 'Tháng 9',  'season' => 'Mùa Thu',  'tag' => 'Mùa vàng ruộng bậc thang Mường Hoa', 'highlight' => 'Sa Pa, Cao Bằng, Hà Nội'],
-        10 => ['name' => 'Tháng 10', 'season' => 'Mùa Thu',  'tag' => 'Tam giác mạch Hà Giang & Thu Hà Nội', 'highlight' => 'Hà Giang, Pù Luông, Hà Nội'],
-        11 => ['name' => 'Tháng 11', 'season' => 'Chớm Đông','tag' => 'Cải trắng Mộc Châu & Biển mây Tây Bắc', 'highlight' => 'Hà Giang, Tà Xùa, Mộc Châu'],
-        12 => ['name' => 'Tháng 12', 'season' => 'Mùa Đông', 'tag' => 'Săn mây Tà Xùa & Dâu tây Bản Áng', 'highlight' => 'Tà Xùa, Sa Pa, Mộc Châu'],
+        10 => ['name' => 'Tháng 10', 'season' => 'Mùa Thu',  'tag' => 'Tam giác mạch Hà Giang và Thu Hà Nội', 'highlight' => 'Hà Giang, Pù Luông, Hà Nội'],
+        11 => ['name' => 'Tháng 11', 'season' => 'Chớm Đông','tag' => 'Cải trắng Mộc Châu và Biển mây Tây Bắc', 'highlight' => 'Hà Giang, Tà Xùa, Mộc Châu'],
+        12 => ['name' => 'Tháng 12', 'season' => 'Mùa Đông', 'tag' => 'Săn mây Tà Xùa và Dâu tây Bản Áng', 'highlight' => 'Tà Xùa, Sa Pa, Mộc Châu'],
     ];
 }
 
@@ -232,7 +232,7 @@ function location_type_meta(string $type): array
             'color' => '#0f766e',
         ],
         'food' => [
-            'label' => 'Ăn uống & Quán ngon',
+            'label' => 'Ăn uống và Quán ngon',
             'short' => 'Ăn uống',
             'badge' => 'badge-food',
             'icon'  => 'bi-cup-hot',
@@ -274,7 +274,7 @@ function expense_category_meta(string $category): array
         'transport' => ['label' => 'Di chuyển',      'icon' => 'bi-truck-front',   'color' => '#0ea5e9'],
         'stay'      => ['label' => 'Lưu trú',        'icon' => 'bi-house-door',    'color' => '#6366f1'],
         'ticket'    => ['label' => 'Vé tham quan',   'icon' => 'bi-ticket-perforated', 'color' => '#10b981'],
-        'shopping'  => ['label' => 'Mua sắm & Quà',  'icon' => 'bi-bag-heart',     'color' => '#ec4899'],
+        'shopping'  => ['label' => 'Mua sắm và Quà',  'icon' => 'bi-bag-heart',     'color' => '#ec4899'],
         'other'     => ['label' => 'Chi phí khác',   'icon' => 'bi-wallet2',       'color' => '#64748b'],
     ];
     return $map[$category] ?? $map['other'];
@@ -618,11 +618,11 @@ function clone_template_to_trip(
 
         // 5. Khởi tạo bộ Checklist chuẩn bị mặc định cho chuyến đi miền Bắc
         $defaultChecklists = [
-            ['Căn cước công dân (CCCD) & Giấy phép lái xe', 'Giấy tờ & Tiền mặt', 1],
+            ['Căn cước công dân (CCCD) và Giấy phép lái xe', 'Giấy tờ và Tiền mặt', 1],
             ['Áo khoác ấm / Trang phục phù hợp theo mùa miền Bắc', 'Trang phục', 2],
             ['Giày thể thao đế bám tốt để đi bộ tham quan', 'Trang phục', 3],
-            ['Sạc dự phòng, điện thoại & dây cáp sạc', 'Thiết bị điện tử', 4],
-            ['Thuốc say tàu xe, băng cá nhân & kem chống côn trùng', 'Y tế cá nhân', 5],
+            ['Sạc dự phòng, điện thoại và dây cáp sạc', 'Thiết bị điện tử', 4],
+            ['Thuốc say tàu xe, băng cá nhân và kem chống côn trùng', 'Y tế cá nhân', 5],
         ];
         $insCheck = $pdo->prepare('INSERT INTO checklists (trip_id, item_name, category, is_completed, sort_order) VALUES (?, ?, ?, 0, ?)');
         foreach ($defaultChecklists as $item) {

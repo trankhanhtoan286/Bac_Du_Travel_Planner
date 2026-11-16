@@ -137,10 +137,10 @@ if ($currentUser) {
               <li><a class="dropdown-item cin-account-item" href="trips.php"><i class="bi bi-luggage text-info"></i><span>Chuyến đi của tôi</span></a></li>
               <li><a class="dropdown-item cin-account-item" href="favorites.php"><i class="bi bi-heart-fill text-danger"></i><span>Sổ tay tọa độ (<?= $favCount ?>)</span></a></li>
               <li><a class="dropdown-item cin-account-item" href="experience_form.php"><i class="bi bi-pencil-square text-warning"></i><span>Viết nhật ký thực địa</span></a></li>
-              <li><a class="dropdown-item cin-account-item" href="profile.php"><i class="bi bi-person-gear text-light"></i><span>Hồ sơ &amp; Đổi mật khẩu</span></a></li>
+              <li><a class="dropdown-item cin-account-item" href="profile.php"><i class="bi bi-person-gear text-light"></i><span>Hồ sơ và Đổi mật khẩu</span></a></li>
               <?php if ($currentUser['role'] === 'admin'): ?>
                 <li><hr class="cin-account-divider"></li>
-                <li><a class="dropdown-item cin-account-item fw-bold" style="color: #fbbf24;" href="admin.php"><i class="bi bi-speedometer2"></i><span>Quản trị &amp; Ban biên tập</span></a></li>
+                <li><a class="dropdown-item cin-account-item fw-bold" style="color: #fbbf24;" href="admin.php"><i class="bi bi-speedometer2"></i><span>Quản trị và Ban biên tập</span></a></li>
               <?php endif; ?>
               <li><hr class="cin-account-divider"></li>
               <li>
