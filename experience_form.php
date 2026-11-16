@@ -189,12 +189,12 @@ require_once __DIR__ . '/includes/header.php';
       <section class="cin-day-dossier mb-0">
         <div class="cin-day-header">
           <div>
-            <span class="cin-day-badge me-2"><?= $post ? 'HỒ SƠ #' . (int)$post['id'] : 'NHẬT KÝ MỚI' ?></span>
+            <span class="cin-day-badge me-2"><?= $post ? 'Hồ sơ #' . (int)$post['id'] : 'Nhật ký mới' ?></span>
             <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.2rem;">
               <?= $post ? 'Chỉnh sửa báo cáo trải nghiệm thực địa' : 'Ghi chép trải nghiệm thực địa mới' ?>
             </span>
           </div>
-          <span class="font-monospace small text-muted">KIỂM DUYỆT TRƯỚC KHI XUẤT BẢN</span>
+          <span class="font-monospace small text-muted">Kiểm duyệt trước khi xuất bản</span>
         </div>
 
         <div class="cin-day-body p-4">

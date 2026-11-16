@@ -202,7 +202,7 @@ $budgetSummary = calculate_trip_budget_summary($pdo, (int)$trip['id'], (float)$t
 <main id="mainContent" class="container py-4">
   <div class="cin-season-callout mb-4">
     <div>
-      <span class="cin-eyebrow" style="color: var(--cin-amber-bright);">CHẾ ĐỘ CHỈ ĐỌC · BẢO MẬT THÔNG TIN RIÊNG TƯ</span>
+      <span class="cin-eyebrow" style="color: var(--cin-amber-bright);">Chế độ chỉ đọc · Bảo mật thông tin riêng tư</span>
       <div class="small mt-1" style="color: rgba(244,239,228,0.85);">
         Được chia sẻ bởi <strong><?= e($trip['owner_name']) ?></strong>. Mã đặt chỗ, thông tin liên hệ cá nhân và ghi chú riêng tư đã được ẩn tự động theo Mục 4.12 Đặc tả.
       </div>
@@ -275,7 +275,7 @@ $budgetSummary = calculate_trip_budget_summary($pdo, (int)$trip['id'], (float)$t
               <span class="font-monospace small text-muted"><?= format_date_vn($day['trip_date']) ?></span>
               <h3 class="h6 fw-bold mb-0" style="font-family: var(--font-display); font-size: 1.12rem;"><?= e($day['title']) ?></h3>
             </div>
-            <span class="font-monospace small text-muted"><?= count($day['activities']) ?> HOẠT ĐỘNG</span>
+            <span class="font-monospace small text-muted"><?= count($day['activities']) ?> hoạt động</span>
           </div>
 
           <div class="cin-day-body">
@@ -289,7 +289,7 @@ $budgetSummary = calculate_trip_budget_summary($pdo, (int)$trip['id'], (float)$t
                       <i class="bi <?= e($actMeta['icon']) ?>"></i><?= e($actMeta['label']) ?>
                     </span>
                   </div>
-                  <span class="price-mono"><?= format_vnd($act['estimated_cost'], true) ?></span>
+                  <span class="price-mono"><?= format_vnd_html($act['estimated_cost'], true) ?></span>
                 </div>
                 <h4 class="h6 fw-bold mt-1 mb-1" style="font-family: var(--font-display); font-size: 1.06rem;"><?= e($act['title']) ?></h4>
                 <?php if (!empty($act['description'])): ?>
@@ -316,7 +316,7 @@ $budgetSummary = calculate_trip_budget_summary($pdo, (int)$trip['id'], (float)$t
     <div class="col-lg-5">
       <div class="cin-map-frame mb-4">
         <div class="cin-map-header">
-          <span><i class="bi bi-map-fill text-warning me-1"></i>BẢN ĐỒ ĐIỂM DỪNG CHUYẾN ĐI</span>
+          <span><i class="bi bi-map-fill text-warning me-1"></i>Bản đồ điểm dừng chuyến đi</span>
           <div class="d-flex gap-1">
             <button type="button" class="btn-cin-amber py-1 px-2" style="font-size: 0.68rem;" onclick="BacDuMap.renderMarkers('all', 'all')">Tất cả</button>
             <?php foreach ($daysWithActs as $dBtn): ?>

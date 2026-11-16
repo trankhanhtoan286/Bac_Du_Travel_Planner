@@ -83,7 +83,7 @@ if (is_logged_in()) {
     $userTripDays = $stmtTD->fetchAll();
 }
 
-$pageTitle = 'Trải nghiệm Cộng đồng & Review Thực tế';
+$pageTitle = 'Trải nghiệm Cộng đồng và Review Thực tế';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
@@ -212,9 +212,9 @@ require_once __DIR__ . '/includes/header.php';
               <div>
                 <div class="fw-bold"><?= e($post['author_name']) ?></div>
                 <div class="font-monospace text-muted" style="font-size: 0.74rem;">
-                  TRẢI NGHIỆM: <strong>THÁNG <?= (int)$post['visit_month'] ?>/<?= (int)$post['visit_year'] ?></strong>
+                  Trải nghiệm: <strong>Tháng <?= (int)$post['visit_month'] ?>/<?= (int)$post['visit_year'] ?></strong>
                   <?php if ((float)$post['ref_cost'] > 0): ?>
-                    · CHI PHÍ THỰC TẾ: <strong class="price-mono" style="font-size: 0.78rem;"><?= format_vnd($post['ref_cost']) ?>/<?= e($post['cost_unit']) ?></strong>
+                    · Chi phí thực tế: <strong class="price-mono" style="font-size: 0.78rem;"><?= format_vnd_html($post['ref_cost'], false, $post['cost_unit']) ?></strong>
                   <?php endif; ?>
                 </div>
               </div>

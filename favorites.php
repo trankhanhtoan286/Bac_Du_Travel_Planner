@@ -247,7 +247,7 @@ require_once __DIR__ . '/includes/header.php';
                   <div>
                     <span class="small d-block" style="color: var(--cin-ink-muted); font-size: 0.7rem;">Giá tham khảo</span>
                     <span class="price-mono">
-                      <?= format_vnd($loc['ref_price'], true) ?><?= (float)$loc['ref_price'] > 0 ? '<small class="text-muted fw-normal">/' . e($loc['price_unit']) . '</small>' : '' ?>
+                      <?= format_vnd_html($loc['ref_price'], true, (float)$loc['ref_price'] > 0 ? $loc['price_unit'] : null) ?>
                     </span>
                   </div>
                   <div class="d-flex gap-2">
