@@ -513,7 +513,7 @@ foreach ($allTemplates as $tplItem) {
       <!-- 2. 12-MONTH SEASONAL COVERAGE & COPY MATRIX -->
       <div class="col-lg-8">
         <div class="d-flex justify-content-between align-items-center mb-1">
-          <span class="cin-eyebrow text-dark">Ma trận độ phủ Lịch trình mẫu & Lượt sao chép theo 12 tháng</span>
+          <span class="cin-eyebrow text-dark">Ma trận độ phủ Lịch trình mẫu và Lượt sao chép theo 12 tháng</span>
           <span class="small font-monospace text-muted">Nhấp từng tháng để kiểm tra trang Khách</span>
         </div>
         <div class="editorial-matrix-grid">
@@ -546,7 +546,7 @@ foreach ($allTemplates as $tplItem) {
               <td class="py-1 num-col fw-bold"><?= $stats['trips'] ?></td>
             </tr>
             <tr>
-              <td class="py-1 text-muted">Tài khoản thành viên & Admin</td>
+              <td class="py-1 text-muted">Tài khoản thành viên và Admin</td>
               <td class="py-1 num-col fw-bold"><?= $stats['users'] ?></td>
             </tr>
           </tbody>
@@ -566,7 +566,7 @@ foreach ($allTemplates as $tplItem) {
     </a>
     <a class="app-view-tab <?= $tab === 'templates' ? 'active' : '' ?>"
        href="admin.php?tab=templates" data-key="2">
-      <i class="bi bi-calendar2-range"></i> 2. Lịch trình mẫu & Insights (<?= count($allTemplates) ?>)
+      <i class="bi bi-calendar2-range"></i> 2. Lịch trình mẫu và Insights (<?= count($allTemplates) ?>)
     </a>
     <a class="app-view-tab <?= $tab === 'locations' ? 'active' : '' ?>"
        href="admin.php?tab=locations" data-key="3">
@@ -578,11 +578,11 @@ foreach ($allTemplates as $tplItem) {
     </a>
     <a class="app-view-tab <?= $tab === 'template_days' ? 'active' : '' ?>"
        href="admin.php?tab=template_days" data-key="5">
-      <i class="bi bi-calendar2-week"></i> 5. Ngày & HĐ Mẫu (UC10.7)
+      <i class="bi bi-calendar2-week"></i> 5. Ngày và Hoạt động mẫu (UC10.7)
     </a>
     <a class="app-view-tab <?= $tab === 'catalogs' ? 'active' : '' ?>"
        href="admin.php?tab=catalogs" data-key="6">
-      <i class="bi bi-tags"></i> 6. Tỉnh/Thành & Danh mục
+      <i class="bi bi-tags"></i> 6. Tỉnh/Thành và Danh mục
     </a>
   </nav>
 
@@ -673,7 +673,7 @@ foreach ($allTemplates as $tplItem) {
         <div>
           <span class="cin-eyebrow text-dark">Hiệu suất chuyển đổi mẫu (UC10.5 -> UC10.8)</span>
           <h4 class="field-slip-title mb-0">
-            Bảng Quản trị Lịch trình Mẫu & Phân tích Chuyển đổi
+            Bảng Quản trị Lịch trình Mẫu và Phân tích Chuyển đổi
           </h4>
         </div>
         <button type="button" class="btn-cin-amber py-1 px-3" data-bs-toggle="modal" data-bs-target="#templateEditorModal" onclick="resetTemplateModal()">
@@ -685,7 +685,7 @@ foreach ($allTemplates as $tplItem) {
         <table class="app-table">
           <thead>
             <tr>
-              <th>Lịch trình mẫu & Điểm đến</th>
+              <th>Lịch trình mẫu và Điểm đến</th>
               <th>Tháng phù hợp</th>
               <th class="num-col">Dự toán / người</th>
               <th class="num-col">Lượt xem</th>
@@ -726,7 +726,7 @@ foreach ($allTemplates as $tplItem) {
                 </td>
                 <td class="text-end text-nowrap">
                   <a href="admin.php?tab=template_days&template_id=<?= (int)$tpl['id'] ?>" class="btn-cin-outline py-0 px-2" style="font-size:0.75rem;" title="Quản lý ngày và hoạt động trong lịch trình mẫu (UC10.7)">
-                    <i class="bi bi-calendar2-week"></i> Ngày & HĐ
+                    <i class="bi bi-calendar2-week"></i> Ngày và HĐ
                   </a>
                   <button type="button" class="btn-cin-outline py-0 px-2" style="font-size:0.75rem;"
                           onclick='editTemplateModal(<?= json_encode($tpl, JSON_UNESCAPED_UNICODE) ?>, <?= json_encode($tMonths) ?>)'>
@@ -770,9 +770,9 @@ foreach ($allTemplates as $tplItem) {
         <table class="app-table">
           <thead>
             <tr>
-              <th>Tên địa điểm & Địa chỉ</th>
+              <th>Tên địa điểm và Địa chỉ</th>
               <th>Tỉnh / Thành</th>
-              <th>Nhóm & Danh mục</th>
+              <th>Nhóm và Danh mục</th>
               <th class="num-col">Giá tham khảo</th>
               <th class="num-col">Ngày cập nhật</th>
               <th>Trạng thái</th>
@@ -828,8 +828,8 @@ foreach ($allTemplates as $tplItem) {
   <?php if ($tab === 'users'): ?>
     <div class="app-work-surface">
       <div class="mb-3">
-        <span class="cin-eyebrow text-dark">Phân quyền & Trạng thái (UC10.1)</span>
-        <h4 class="field-slip-title mb-0">Quản lý Tài khoản Người dùng & Phân quyền</h4>
+        <span class="cin-eyebrow text-dark">Phân quyền và Trạng thái (UC10.1)</span>
+        <h4 class="field-slip-title mb-0">Quản lý Tài khoản Người dùng và Phân quyền</h4>
       </div>
       <div class="table-responsive">
         <table class="app-table">
@@ -837,7 +837,7 @@ foreach ($allTemplates as $tplItem) {
             <tr>
               <th class="num-col">ID</th>
               <th>Họ và tên / Username</th>
-              <th>Email & Điện thoại</th>
+              <th>Email và Điện thoại</th>
               <th>Vai trò</th>
               <th class="num-col">Chuyến đi</th>
               <th class="num-col">Bài viết</th>
@@ -935,7 +935,7 @@ foreach ($allTemplates as $tplItem) {
       <div class="cin-day-header">
         <div>
           <span class="cin-day-badge me-2">UC10.7 · KỊCH BẢN MẪU</span>
-          <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.2rem;">Quản lý Ngày &amp; Hoạt động trong Lịch trình mẫu</span>
+          <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.2rem;">Quản lý Ngày và Hoạt động trong Lịch trình mẫu</span>
         </div>
         <form action="admin.php" method="get" class="d-flex align-items-center gap-2 m-0">
           <input type="hidden" name="tab" value="template_days">
@@ -1093,7 +1093,7 @@ foreach ($allTemplates as $tplItem) {
                       <thead>
                         <tr>
                           <th>Thứ tự / Giờ</th>
-                          <th>Hoạt động &amp; Địa điểm</th>
+                          <th>Hoạt động và Địa điểm</th>
                           <th>Loại</th>
                           <th class="num-col">Chi phí/người</th>
                           <th class="text-end">Thao tác</th>
@@ -1250,7 +1250,7 @@ foreach ($allTemplates as $tplItem) {
               <input type="hidden" name="category_id" id="cat_id_input" value="0">
               <div class="col-md-5">
                 <label class="form-label small fw-bold mb-1">Tên danh mục *</label>
-                <input type="text" name="name" id="cat_name_input" class="form-control form-control-sm" placeholder="VD: Thác nước & Suối" required>
+                <input type="text" name="name" id="cat_name_input" class="form-control form-control-sm" placeholder="VD: Thác nước và Suối" required>
               </div>
               <div class="col-md-4">
                 <label class="form-label small fw-bold mb-1">Nhóm chính</label>
