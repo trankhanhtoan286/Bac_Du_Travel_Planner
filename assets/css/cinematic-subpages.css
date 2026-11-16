@@ -1287,6 +1287,3 @@ body.cinematic-app {
   content: "○";
   color: #4a5d52;
 }
-
-/* Mobile Screen Optimization - Tram */
-@media (max-width: 768px) { .subpage-header { padding: 1.5rem 1rem; } }
