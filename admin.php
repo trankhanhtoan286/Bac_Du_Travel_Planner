@@ -1204,13 +1204,14 @@ foreach ($allTemplates as $tplItem) {
                 </thead>
                 <tbody>
                   <?php foreach ($provinces as $pr): ?>
+                    <?php $pActive = isset($pr['is_active']) ? (bool)$pr['is_active'] : (($pr['status'] ?? 'active') === 'active'); ?>
                     <tr data-kb-row="1">
                       <td class="fw-bold"><?= e($pr['name']) ?></td>
-                      <td><?= e($pr['region_sub']) ?></td>
+                      <td><?= e($pr['subregion'] ?? $pr['region_sub'] ?? 'Miền Bắc') ?></td>
                       <td>
-                        <span class="status-mark <?= ($pr['status'] ?? 'active') === 'active' ? 'status-done' : 'status-muted' ?>">
-                          <span class="status-shape <?= ($pr['status'] ?? 'active') === 'active' ? 'shape-circle' : 'shape-square' ?>"></span>
-                          <?= ($pr['status'] ?? 'active') === 'active' ? 'Hoạt động' : 'Đã ẩn' ?>
+                        <span class="status-mark <?= $pActive ? 'status-done' : 'status-muted' ?>">
+                          <span class="status-shape <?= $pActive ? 'shape-circle' : 'shape-square' ?>"></span>
+                          <?= $pActive ? 'Hoạt động' : 'Đã ẩn' ?>
                         </span>
                       </td>
                       <td class="text-end">
@@ -1220,9 +1221,9 @@ foreach ($allTemplates as $tplItem) {
                           <?= csrf_field() ?>
                           <input type="hidden" name="action" value="toggle_province">
                           <input type="hidden" name="province_id" value="<?= (int)$pr['id'] ?>">
-                          <input type="hidden" name="new_status" value="<?= ($pr['status'] ?? 'active') === 'active' ? 'archived' : 'active' ?>">
+                          <input type="hidden" name="new_status" value="<?= $pActive ? 'archived' : 'active' ?>">
                           <button type="submit" class="btn-cin-outline py-0 px-2">
-                            <?= ($pr['status'] ?? 'active') === 'active' ? 'Ẩn' : 'Bật' ?>
+                            <?= $pActive ? 'Ẩn' : 'Bật' ?>
                           </button>
                         </form>
                       </td>
@@ -1286,14 +1287,18 @@ foreach ($allTemplates as $tplItem) {
                 </thead>
                 <tbody>
                   <?php foreach ($categories as $cat): ?>
-                    <?php $cMeta = location_type_meta($cat['location_type']); ?>
+                    <?php 
+                      $cMeta = location_type_meta($cat['location_type']); 
+                      $cActive = isset($cat['is_active']) ? (bool)$cat['is_active'] : (($cat['status'] ?? 'active') === 'active');
+                      $iconName = $cat['icon'] ?? $cat['icon_class'] ?? 'bi-tag';
+                    ?>
                     <tr data-kb-row="1">
-                      <td class="fw-bold"><i class="bi <?= e($cat['icon_class']) ?> me-1"></i><?= e($cat['name']) ?></td>
+                      <td class="fw-bold"><i class="bi <?= e($iconName) ?> me-1"></i><?= e($cat['name']) ?></td>
                       <td><span class="slip-tag py-0 px-2" style="font-size: 0.65rem;"><?= e($cMeta['short']) ?></span></td>
                       <td>
-                        <span class="status-mark <?= ($cat['status'] ?? 'active') === 'active' ? 'status-done' : 'status-muted' ?>">
-                          <span class="status-shape <?= ($cat['status'] ?? 'active') === 'active' ? 'shape-circle' : 'shape-square' ?>"></span>
-                          <?= ($cat['status'] ?? 'active') === 'active' ? 'Hoạt động' : 'Đã ẩn' ?>
+                        <span class="status-mark <?= $cActive ? 'status-done' : 'status-muted' ?>">
+                          <span class="status-shape <?= $cActive ? 'shape-circle' : 'shape-square' ?>"></span>
+                          <?= $cActive ? 'Hoạt động' : 'Đã ẩn' ?>
                         </span>
                       </td>
                       <td class="text-end">
@@ -1303,9 +1308,9 @@ foreach ($allTemplates as $tplItem) {
                           <?= csrf_field() ?>
                           <input type="hidden" name="action" value="toggle_category">
                           <input type="hidden" name="category_id" value="<?= (int)$cat['id'] ?>">
-                          <input type="hidden" name="new_status" value="<?= ($cat['status'] ?? 'active') === 'active' ? 'archived' : 'active' ?>">
+                          <input type="hidden" name="new_status" value="<?= $cActive ? 'archived' : 'active' ?>">
                           <button type="submit" class="btn-cin-outline py-0 px-2">
-                            <?= ($cat['status'] ?? 'active') === 'active' ? 'Ẩn' : 'Bật' ?>
+                            <?= $cActive ? 'Ẩn' : 'Bật' ?>
                           </button>
                         </form>
                       </td>
