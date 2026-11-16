@@ -76,7 +76,7 @@ require_once __DIR__ . '/includes/header.php';
           <span>·</span>
           <span>MODULE M8 · LỮ KHÁCH: <strong class="text-white"><?= e($user['full_name']) ?></strong> (@<?= e($user['username']) ?>)</span>
         </div>
-        <h1 class="app-shift-title">Tổng Quan Hành Trình &amp; Nhật Ký Thực Địa</h1>
+        <h1 class="app-shift-title">Tổng Quan Hành Trình và Nhật Ký Thực Địa</h1>
         <p class="small text-white-50 mb-0">
           Nhấn <kbd class="app-kbd">j</kbd> / <kbd class="app-kbd">k</kbd> để duyệt qua danh sách chuyến đi, <kbd class="app-kbd">Enter</kbd> để mở bàn điều phối, hoặc <kbd class="app-kbd">/</kbd> để mở Bảng lệnh nhanh.
         </p>
@@ -104,7 +104,7 @@ require_once __DIR__ . '/includes/header.php';
   <section class="app-signature-set <?= $rejectedPostsCount > 0 ? 'is-lit' : '' ?> mb-4" id="personalDispatchSet" aria-label="Bàn điều phối hành trình cá nhân">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pb-2 mb-3 border-bottom">
       <span class="cin-eyebrow mb-0" style="color: var(--cin-jade);">
-        <i class="bi bi-compass-fill text-warning me-1"></i>HỒ SƠ HÀNH TRÌNH &amp; NHẬT KÝ CỦA <?= e(mb_strtoupper($user['full_name'])) ?>
+        <i class="bi bi-compass-fill text-warning me-1"></i>HỒ SƠ HÀNH TRÌNH VÀ NHẬT KÝ CỦA <?= e(mb_strtoupper($user['full_name'])) ?>
       </span>
       <span class="font-monospace small" style="color: var(--cin-ink-muted);">
         ĐIỂM XUẤT PHÁT MẶC ĐỊNH: <strong style="color: var(--cin-ink);"><?= e($user['hometown'] ?: 'Hà Nội') ?></strong>
@@ -136,7 +136,7 @@ require_once __DIR__ . '/includes/header.php';
           </span>
         </div>
         <a href="profile.php" class="btn-cin-outline py-1 px-2">
-          <i class="bi bi-person-gear"></i> Hồ sơ &amp; Mật khẩu
+          <i class="bi bi-person-gear"></i> Hồ sơ và Mật khẩu
         </a>
       </div>
     <?php endif; ?>
@@ -289,7 +289,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="col-lg-5">
       <section class="cin-day-dossier mb-0 h-100">
         <div class="cin-day-header">
-          <span class="fw-bold"><i class="bi bi-journal-check text-warning me-1"></i>Nhật ký trải nghiệm &amp; Trạng thái duyệt</span>
+          <span class="fw-bold"><i class="bi bi-journal-check text-warning me-1"></i>Nhật ký trải nghiệm và Trạng thái duyệt</span>
           <a href="experience_form.php" class="btn-cin-amber py-1 px-2">+ Viết bài</a>
         </div>
         <div class="cin-day-body">

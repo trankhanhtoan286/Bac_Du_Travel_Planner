@@ -71,11 +71,11 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
       <div>
         <div class="app-shift-eyebrow">
-          <span><i class="bi bi-person-badge-fill text-warning me-1"></i>HỒ SƠ LỮ KHÁCH &amp; BẢO MẬT TÀI KHOẢN · MODULE M1</span>
+          <span><i class="bi bi-person-badge-fill text-warning me-1"></i>HỒ SƠ LỮ KHÁCH VÀ BẢO MẬT TÀI KHOẢN · MODULE M1</span>
           <span>·</span>
           <span>ĐỊNH DANH: <strong class="text-white">@<?= e($user['username']) ?></strong></span>
         </div>
-        <h1 class="app-shift-title">Cập Nhật Thông Tin Cá Nhân &amp; Đổi Mật Khẩu</h1>
+        <h1 class="app-shift-title">Cập Nhật Thông Tin Cá Nhân và Đổi Mật Khẩu</h1>
       </div>
       <div class="d-flex flex-wrap gap-2">
         <a href="dashboard.php" class="btn-cin-ghost py-1 px-3" data-key="d">
@@ -101,7 +101,7 @@ require_once __DIR__ . '/includes/header.php';
           <div class="mb-3">
             <span class="status-mark <?= $user['role'] === 'admin' ? 'status-err' : 'status-done' ?>">
               <span class="status-shape <?= $user['role'] === 'admin' ? 'shape-diamond' : 'shape-circle' ?>"></span>
-              <?= $user['role'] === 'admin' ? 'Quản trị viên & Ban biên tập' : 'Thành viên Bắc Du' ?>
+              <?= $user['role'] === 'admin' ? 'Quản trị viên và Ban biên tập' : 'Thành viên Bắc Du' ?>
             </span>
           </div>
           <p class="small mb-3" style="color: var(--cin-ink-muted);"><?= e($user['bio'] ?: 'Chưa có giới thiệu bản thân.') ?></p>

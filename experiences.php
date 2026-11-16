@@ -99,7 +99,7 @@ require_once __DIR__ . '/includes/header.php';
           NHÂN CHỨNG MÙA VỤ · MODULE M3 (<?= count($posts) ?> NHẬT KÝ)
         </span>
         <h1 class="cin-subhero-title">
-          Nhật Ký <span class="sw">Thực Địa</span> &amp; Góc Nhìn Cộng Đồng
+          Nhật Ký <span class="sw">Thực Địa</span> và Góc Nhìn Cộng Đồng
         </h1>
         <p class="cin-subhero-sub">
           Mọi bài viết đều được đối chiếu tọa độ và kiểm duyệt bởi Ban biên tập trước khi xuất bản, kèm chi phí thực tế và lời khuyên cho người đi sau.
