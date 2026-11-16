@@ -127,9 +127,9 @@ require_once __DIR__ . '/includes/header.php';
 <main id="mainContent" class="container py-4">
   <nav aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb small mb-0 font-monospace" style="font-size: 0.76rem;">
-      <li class="breadcrumb-item"><a href="index.php" style="color: var(--cin-jade);">TRANG CHỦ</a></li>
-      <li class="breadcrumb-item"><a href="locations.php" style="color: var(--cin-jade);">ĐỊA ĐIỂM & BẢN ĐỒ</a></li>
-      <li class="breadcrumb-item"><a href="locations.php?province_id=<?= (int)$location['province_id'] ?>" style="color: var(--cin-jade);"><?= e(mb_strtoupper($location['province_name'])) ?></a></li>
+      <li class="breadcrumb-item"><a href="index.php" style="color: var(--cin-jade);">Trang chủ</a></li>
+      <li class="breadcrumb-item"><a href="locations.php" style="color: var(--cin-jade);">Địa điểm và Bản đồ</a></li>
+      <li class="breadcrumb-item"><a href="locations.php?province_id=<?= (int)$location['province_id'] ?>" style="color: var(--cin-jade);"><?= e($location['province_name']) ?></a></li>
       <li class="breadcrumb-item active" aria-current="page"><?= e($location['name']) ?></li>
     </ol>
   </nav>
@@ -237,12 +237,12 @@ require_once __DIR__ . '/includes/header.php';
       <section class="cin-day-dossier">
         <div class="cin-day-header">
           <div class="d-flex align-items-center gap-2">
-            <span class="cin-day-badge"><i class="bi <?= e($typeMeta['icon']) ?> me-1"></i>HỒ SƠ ĐẶC THÙ</span>
+            <span class="cin-day-badge"><i class="bi <?= e($typeMeta['icon']) ?> me-1"></i>Hồ sơ đặc thù</span>
             <h2 class="h6 fw-bold mb-0" style="font-family: var(--font-display); font-size: 1.15rem;">
               Thông số chuyên biệt — Nhóm <?= e($typeMeta['label']) ?>
             </h2>
           </div>
-          <span class="font-monospace small text-muted">MỤC 4.6 ĐẶC TẢ</span>
+          <span class="font-monospace small text-muted">Mục 4.6 đặc tả</span>
         </div>
 
         <div class="cin-day-body">
@@ -250,7 +250,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="row g-3">
               <div class="col-md-6">
                 <div class="field-spec-box h-100 mt-0">
-                  <div class="spec-line"><i class="bi bi-ticket-perforated text-success me-1"></i><strong>Giá vé & dịch vụ:</strong></div>
+                  <div class="spec-line"><i class="bi bi-ticket-perforated text-success me-1"></i><strong>Giá vé và dịch vụ:</strong></div>
                   <div class="mt-1 price-mono"><?= e($location['ticket_price_info'] ?: format_vnd($location['ref_price'], true)) ?></div>
                 </div>
               </div>
@@ -304,7 +304,7 @@ require_once __DIR__ . '/includes/header.php';
               </div>
               <div class="col-12">
                 <div class="field-spec-box mt-0">
-                  <div class="spec-line"><i class="bi bi-tag-fill text-warning me-1"></i><strong>Chi tiết hạng phòng & giá tham khảo:</strong> <?= e($location['room_price_info']) ?></div>
+                  <div class="spec-line"><i class="bi bi-tag-fill text-warning me-1"></i><strong>Chi tiết hạng phòng và giá tham khảo:</strong> <?= e($location['room_price_info']) ?></div>
                   <div class="spec-line mt-1"><i class="bi bi-wifi text-info me-1"></i><strong>Tiện ích cơ bản:</strong> <?= e($location['amenities']) ?></div>
                 </div>
               </div>
@@ -410,7 +410,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="col-lg-5">
       <div class="cin-map-frame mb-4">
         <div class="cin-map-header">
-          <span><i class="bi bi-geo-alt-fill text-warning me-1"></i>TỌA ĐỘ TRÊN BẢN ĐỒ SỐ</span>
+          <span><i class="bi bi-geo-alt-fill text-warning me-1"></i>Tọa độ trên bản đồ số</span>
           <span class="font-monospace" style="color: var(--cin-amber-bright);"><?= number_format((float)$location['latitude'], 4) ?>°N · <?= number_format((float)$location['longitude'], 4) ?>°E</span>
         </div>
         <div id="singleLocationMap" class="leaflet-map-box" style="height: 300px; border-radius: 0; border: 0;"></div>
@@ -526,7 +526,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
             <div class="mb-3">
-              <label class="form-label small fw-bold">Chọn Chuyến đi & Ngày thực hiện</label>
+              <label class="form-label small fw-bold">Chọn Chuyến đi và Ngày thực hiện</label>
               <select name="trip_day_id" class="form-select" required>
                 <?php foreach ($userTripDays as $td): ?>
                   <option value="<?= (int)$td['trip_day_id'] ?>">

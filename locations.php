@@ -84,7 +84,7 @@ foreach ($locations as $loc) {
     ];
 }
 
-$pageTitle = 'Khám phá Địa điểm Tham quan, Ăn uống, Lưu trú & Bản đồ';
+$pageTitle = 'Khám phá Địa điểm Tham quan, Ăn uống, Lưu trú và Bản đồ';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
@@ -93,12 +93,12 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3">
       <div>
         <div class="cin-subhero-meta">
-          <span><i class="bi bi-geo-alt-fill me-1"></i>LƯU TRỮ THỰC ĐỊA MIỀN BẮC</span>
+          <span><i class="bi bi-geo-alt-fill me-1"></i>Lưu trữ thực địa miền Bắc</span>
           <span>·</span>
-          <span>TAM GIÁC GIÁC QUAN · MODULE M5</span>
+          <span>Tam giác giác quan · Module M5</span>
         </div>
         <h1 class="cin-subhero-title">
-          Điểm tham quan, <span class="sw">Hương vị & Hiên nhà</span> miền Bắc
+          Điểm tham quan, <span class="sw">Hương vị và Hiên nhà</span> miền Bắc
         </h1>
         <p class="cin-subhero-desc">
           Dữ liệu chuẩn hóa theo 3 nhóm: Điểm tham quan, Ăn uống và Lưu trú kèm tọa độ GPS thực địa, giá tham khảo cập nhật và chỉ đường Google Maps.
@@ -106,7 +106,7 @@ require_once __DIR__ . '/includes/header.php';
       </div>
       <div>
         <span class="slip-tag slip-tag-jade px-3 py-2">
-          ĐANG HIỂN THỊ: <?= count($locations) ?> TỌA ĐỘ
+          Đang hiển thị: <?= count($locations) ?> tọa độ
         </span>
       </div>
     </div>
@@ -304,11 +304,8 @@ require_once __DIR__ . '/includes/header.php';
                 <div>
                   <span class="small text-muted d-block" style="font-size:0.72rem;">Giá tham khảo</span>
                   <span class="price-mono">
-                    <?= format_vnd($loc['ref_price'], true) ?>
+                    <?= format_vnd_html($loc['ref_price'], true, (float)$loc['ref_price'] > 0 ? $loc['price_unit'] : null) ?>
                   </span>
-                  <?php if ((float)$loc['ref_price'] > 0): ?>
-                    <small class="text-muted">/<?= e($loc['price_unit']) ?></small>
-                  <?php endif; ?>
                 </div>
                 <div class="d-flex gap-1">
                   <a href="<?= e(google_maps_view_url($loc['latitude'], $loc['longitude'], $loc['google_maps_url'])) ?>"

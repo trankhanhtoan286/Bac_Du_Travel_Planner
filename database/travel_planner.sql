@@ -512,7 +512,7 @@ INSERT INTO `locations` (
  NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active', 1),
 
 (5, 1, 4, 'Nhà hàng Cá Hồi Xuân Bắc 181', 'nha-hang-ca-hoi-xuan-bac-181', 'food',
- 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80',
+ 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&auto=format&fit=crop&q=80',
  'Thưởng thức set cá hồi tươi sống 6 món đặc sản Mộc Châu trong không gian nhà sàn gỗ.',
  'Nhà hàng nổi tiếng lâu năm tại tiểu khu Chiềng Đi với bể nuôi cá hồi, cá tầm nước lạnh tự nhiên. Một set cá hồi đầy đủ gồm gỏi cá hồi, da cá chiên giòn, cá hồi nướng mắc khén, chả cá, lẩu cá hồi và cháo cá.',
  'Tiểu khu Chiềng Đi, Quốc lộ 6, Thị trấn Nông trường Mộc Châu, Sơn La', 20.8315000, 104.6612000,
@@ -939,7 +939,7 @@ INSERT INTO `itinerary_templates` (
  'published', 1, 342, 48, '2026-02-01'),
 
 (2, 'Hà Giang 3 Ngày 2 Đêm: Cung Đường Hạnh Phúc & Sông Nho Quế', 'ha-giang-3n2d-cung-duong-hanh-phuc', 2, 'Đồng Văn - Mèo Vạc (Hà Giang)',
- 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=900&auto=format&fit=crop&q=80',
+ 'https://images.unsplash.com/photo-1528127269322-539801943592?w=900&auto=format&fit=crop&q=80',
  3, 2, 'Hà Nội', 'Xe giường nằm đêm Hà Nội - Hà Giang + Xe máy/Ô tô vòng lặp',
  3100000, 2,
  'Tháng 3 mùa hoa đào, hoa lê và hoa gạo đỏ bên sông Nho Quế; Tháng 10 - 11 là mùa lễ hội hoa tam giác mạch phủ hồng khắp cao nguyên đá Đồng Văn.',
