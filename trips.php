@@ -143,7 +143,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
       <div>
         <div class="app-shift-eyebrow">
-          <span><i class="bi bi-compass me-1 text-warning"></i>BÀN ĐIỀU PHỐI LỘ TRÌNH · APP MODE</span>
+          <span><i class="bi bi-compass me-1 text-warning"></i>Bàn điều phối lộ trình · App Mode</span>
           <span>·</span>
           <span>MODULE M4 · @<?= e($user['username']) ?></span>
         </div>

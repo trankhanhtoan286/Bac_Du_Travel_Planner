@@ -4,7 +4,7 @@
       <div class="col-lg-4">
         <div class="mb-3">
           <h5 class="mb-1 text-white fw-bold font-sans-title"><?= e(APP_NAME) ?> — Travel Planner</h5>
-          <small class="text-white-50">Nền tảng lịch trình 12 tháng & kế hoạch du lịch miền Bắc</small>
+          <small class="text-white-50">Nền tảng lịch trình 12 tháng và kế hoạch du lịch miền Bắc</small>
         </div>
         <p class="small text-white-50 mb-3">
           Giúp bạn trả lời trọn vẹn: Tháng này nên đi đâu ở miền Bắc? Đi mấy ngày, tham quan đâu, ăn ở đâu, nghỉ ở đâu và biến gợi ý của Ban biên tập thành kế hoạch cá nhân độc lập.
@@ -36,7 +36,7 @@
         <ul class="list-unstyled small d-flex flex-column gap-2">
           <li><a href="templates.php">Lịch trình mẫu 12 tháng</a></li>
           <li><a href="locations.php">Điểm tham quan, Ăn uống, Lưu trú</a></li>
-          <li><a href="trips.php">Tạo & Quản lý chuyến đi</a></li>
+          <li><a href="trips.php">Tạo và quản lý chuyến đi</a></li>
           <li><a href="experiences.php">Trải nghiệm cộng đồng</a></li>
           <li><a href="favorites.php">Địa điểm đã lưu</a></li>
         </ul>
@@ -61,7 +61,7 @@
     </div>
 
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3 small text-white-50">
-      <div>&copy; <?= date('Y') ?> <strong><?= e(APP_NAME) ?> (Travel Planner)</strong> — Đồ án Hệ thống Tham khảo Lịch trình & Lập kế hoạch Du lịch Miền Bắc.</div>
+      <div>&copy; <?= date('Y') ?> <strong><?= e(APP_NAME) ?> (Travel Planner)</strong> — Đồ án Hệ thống Tham khảo Lịch trình và Lập kế hoạch Du lịch Miền Bắc.</div>
       <div class="mt-2 mt-md-0">Giá cả, giờ mở cửa và mùa cảnh quan là thông tin tham khảo có ngày cập nhật bởi Ban biên tập.</div>
     </div>
   </div>

@@ -28,7 +28,7 @@ if ($currentUser) {
   <title><?= e($pageTitle) ?></title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -57,8 +57,8 @@ if ($currentUser) {
   <div class="container">
     <a class="navbar-brand brand-logo" href="index.php">
       <div>
-        <span class="d-block lh-1" style="font-family: var(--font-display, 'Cormorant Garamond', serif); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.01em;"><?= e(APP_NAME) ?></span>
-        <small class="fw-medium" style="font-family: var(--font-mono, monospace); font-size: 0.64rem; letter-spacing: 0.12em; color: #f59e0b;">MIỀN BẮC · 12 THÁNG</small>
+        <span class="d-block lh-1" style="font-family: var(--font-display, 'Playfair Display', serif); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.01em;"><?= e(APP_NAME) ?></span>
+        <small class="fw-semibold" style="font-family: var(--font-mono, monospace); font-size: 0.65rem; letter-spacing: 0.08em; color: #f59e0b;">Miền Bắc · 12 Tháng</small>
       </div>
     </a>
 
@@ -80,7 +80,7 @@ if ($currentUser) {
         </li>
         <li class="nav-item">
           <a class="nav-link <?= in_array($currentPage, ['locations.php', 'location_detail.php'], true) ? 'active' : '' ?>" href="locations.php">
-            <i class="bi bi-geo-alt me-1"></i>Địa điểm & Bản đồ
+            <i class="bi bi-geo-alt me-1"></i>Địa điểm và Bản đồ
           </a>
         </li>
         <li class="nav-item">
@@ -127,7 +127,7 @@ if ($currentUser) {
             <ul class="dropdown-menu dropdown-menu-end cin-account-menu">
               <li class="cin-account-menu-head">
                 <div class="d-flex align-items-center justify-content-between mb-1">
-                  <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.62rem;">HỒ SƠ ĐỊNH DANH</span>
+                  <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.65rem;">Hồ sơ định danh</span>
                   <span class="font-monospace" style="font-size: 0.65rem; color: rgba(244,239,228,0.6);">ID #<?= (int)$currentUser['id'] ?></span>
                 </div>
                 <div class="fw-bold text-white" style="font-family: var(--font-display); font-size: 1.1rem;"><?= e($currentUser['full_name']) ?></div>

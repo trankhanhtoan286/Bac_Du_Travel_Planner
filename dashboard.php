@@ -72,7 +72,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
       <div>
         <div class="app-shift-eyebrow">
-          <span><i class="bi bi-grid-1x2-fill text-warning me-1"></i>BÀN ĐIỀU HÀNH CÁ NHÂN · USER DASHBOARD</span>
+          <span><i class="bi bi-grid-1x2-fill text-warning me-1"></i>Bàn điều hành cá nhân · User Dashboard</span>
           <span>·</span>
           <span>MODULE M8 · LỮ KHÁCH: <strong class="text-white"><?= e($user['full_name']) ?></strong> (@<?= e($user['username']) ?>)</span>
         </div>
@@ -146,28 +146,28 @@ require_once __DIR__ . '/includes/header.php';
         <div class="row g-2 font-monospace small h-100">
           <div class="col-6 col-md-3">
             <div class="p-3 h-100" style="background: var(--cin-paper); border: 1px solid rgba(20, 34, 27, 0.16); border-radius: 3px;">
-              <div style="color: var(--cin-ink-muted); font-size: 0.68rem; font-weight: 700;">TỔNG CHUYẾN ĐI</div>
+              <div style="color: var(--cin-ink-muted); font-size: 0.68rem; font-weight: 700;">Tổng chuyến đi</div>
               <div class="fs-4 fw-bold mt-1" style="color: var(--cin-ink);"><?= count($myTrips) ?></div>
               <div style="color: var(--cin-jade); font-size: 0.72rem; font-weight: 600;"><?= $upcomingCount ?> sắp tới · <?= $ongoingCount ?> đang đi</div>
             </div>
           </div>
           <div class="col-6 col-md-3">
             <div class="p-3 h-100" style="background: var(--cin-paper); border: 1px solid rgba(20, 34, 27, 0.16); border-radius: 3px;">
-              <div style="color: var(--cin-ink-muted); font-size: 0.68rem; font-weight: 700;">ĐÃ HOÀN THÀNH</div>
+              <div style="color: var(--cin-ink-muted); font-size: 0.68rem; font-weight: 700;">Đã hoàn thành</div>
               <div class="fs-4 fw-bold mt-1" style="color: var(--cin-ink);"><?= $completedCount ?></div>
               <div style="color: var(--cin-ink-muted); font-size: 0.72rem;">Hồ sơ lưu trữ</div>
             </div>
           </div>
           <div class="col-6 col-md-3">
             <div class="p-3 h-100" style="background: var(--cin-paper); border: 1px solid rgba(20, 34, 27, 0.16); border-radius: 3px;">
-              <div style="color: var(--cin-ink-muted); font-size: 0.68rem; font-weight: 700;">TỌA ĐỘ YÊU THÍCH</div>
+              <div style="color: var(--cin-ink-muted); font-size: 0.68rem; font-weight: 700;">Tọa độ yêu thích</div>
               <div class="fs-4 fw-bold mt-1" style="color: var(--cin-amber);"><?= count($myFavs) ?></div>
               <a href="favorites.php" style="color: var(--cin-jade); font-size: 0.72rem; font-weight: 700;">Mở sổ tay &rarr;</a>
             </div>
           </div>
           <div class="col-6 col-md-3">
             <div class="p-3 h-100" style="background: var(--cin-paper); border: 1px solid rgba(20, 34, 27, 0.16); border-radius: 3px;">
-              <div style="color: var(--cin-ink-muted); font-size: 0.68rem; font-weight: 700;">NHẬT KÝ CỘNG ĐỒNG</div>
+              <div style="color: var(--cin-ink-muted); font-size: 0.68rem; font-weight: 700;">Nhật ký cộng đồng</div>
               <div class="fs-4 fw-bold mt-1" style="color: var(--cin-ink);"><?= count($myPosts) ?></div>
               <a href="experience_form.php" style="color: var(--cin-jade); font-size: 0.72rem; font-weight: 700;">+ Viết bài mới &rarr;</a>
             </div>
@@ -176,7 +176,7 @@ require_once __DIR__ . '/includes/header.php';
       </div>
       <div class="col-lg-4">
         <div class="p-3 h-100 d-flex flex-column justify-content-center" style="background: var(--cin-paper-warm); border: 1px solid rgba(20, 34, 27, 0.18); border-left: 3px solid var(--cin-amber); border-radius: 3px;">
-          <div class="small font-monospace text-uppercase fw-bold mb-1" style="color: var(--cin-jade-deep); font-size: 0.72rem;">
+          <div class="small font-monospace fw-bold mb-1" style="color: var(--cin-jade-deep); font-size: 0.72rem; letter-spacing: 0.02em;">
             <i class="bi bi-keyboard me-1 text-warning"></i>Điều hướng bàn phím (App Mode)
           </div>
           <div class="small" style="color: var(--cin-ink-muted); font-size: 0.8rem;">
@@ -334,7 +334,7 @@ require_once __DIR__ . '/includes/header.php';
 
                   <div class="d-flex justify-content-end gap-2 mt-2 pt-2 border-top">
                     <a href="experience_form.php?id=<?= (int)$mp['id'] ?>" class="btn-cin-ink py-1 px-2">
-                      <i class="bi bi-pencil"></i><?= $mp['status'] === 'rejected' ? 'Sửa & Gửi duyệt lại' : 'Chỉnh sửa' ?>
+                      <i class="bi bi-pencil"></i><?= $mp['status'] === 'rejected' ? 'Sửa và gửi duyệt lại' : 'Chỉnh sửa' ?>
                     </a>
                     <a href="experiences.php?post_id=<?= (int)$mp['id'] ?>" class="btn-cin-outline py-1 px-2">
                       Xem

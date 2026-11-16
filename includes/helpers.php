@@ -27,6 +27,22 @@ function format_vnd($amount, bool $showFree = false): string
 }
 
 /**
+ * Định dạng tiền tệ VNĐ trả về HTML phân tách số (Mono) và đơn vị (Sans)
+ */
+function format_vnd_html($amount, bool $showFree = false, ?string $unit = null): string
+{
+    $num = (float)$amount;
+    if ($num <= 0 && $showFree) {
+        return '<span class="price-free">Miễn phí</span>';
+    }
+    $html = number_format($num, 0, ',', '.') . '<span class="currency-symbol">đ</span>';
+    if ($unit) {
+        $html .= '<span class="price-unit">/' . e($unit) . '</span>';
+    }
+    return $html;
+}
+
+/**
  * Định dạng ngày kiểu Việt Nam (dd/mm/yyyy)
  */
 function format_date_vn(?string $dateStr): string

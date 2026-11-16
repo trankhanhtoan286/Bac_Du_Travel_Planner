@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 define('APP_NAME', 'Bắc Du');
-define('APP_TAGLINE', 'Lịch trình theo mùa & Kế hoạch vi vu miền Bắc');
+define('APP_TAGLINE', 'Lịch trình theo mùa và Kế hoạch vi vu miền Bắc');
 define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
 define('DB_PORT', getenv('DB_PORT') ?: '3306');
 define('DB_NAME', getenv('DB_NAME') ?: 'travel_planner');

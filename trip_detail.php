@@ -551,13 +551,13 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
       <div>
         <div class="app-shift-eyebrow mb-1">
-          <span><i class="bi bi-compass text-warning me-1"></i>BÀN ĐIỀU PHỐI LỘ TRÌNH · APP MODE</span>
+          <span><i class="bi bi-compass text-warning me-1"></i>Bàn điều phối lộ trình · App Mode</span>
           <span>·</span>
-          <span>HỒ SƠ #<?= str_pad((string)$trip['id'], 3, '0', STR_PAD_LEFT) ?></span>
+          <span>Hồ sơ #<?= str_pad((string)$trip['id'], 3, '0', STR_PAD_LEFT) ?></span>
           <?php if (!empty($trip['source_template_id'])): ?>
             <span>·</span>
             <a href="template_detail.php?id=<?= (int)$trip['source_template_id'] ?>" class="text-warning">
-              <i class="bi bi-magic me-1"></i>GỐC MẪU: <?= e($trip['source_template_title']) ?>
+              <i class="bi bi-magic me-1"></i>Gốc mẫu: <?= e($trip['source_template_title']) ?>
             </a>
           <?php endif; ?>
         </div>
@@ -602,7 +602,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <?php if ($isBudgetOver): ?>
       <div class="app-lit-callout mb-3">
         <div>
-          <span class="status-mark status-warn me-2">CẦN ĐIỀU CHỈNH NGÂN SÁCH</span>
+          <span class="status-mark status-warn me-2">Cần điều chỉnh ngân sách</span>
           <span class="small fw-semibold">
             Dự toán hoặc chi phí thực tế đang vượt trần ngân sách thiết lập (Chênh lệch: <strong class="font-monospace text-danger"><?= format_vnd($budgetSummary['remaining_vs_estimated']) ?></strong>).
           </span>
@@ -612,7 +612,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <?php elseif ($hasUnfinishedChecklist): ?>
       <div class="app-lit-callout mb-3">
         <div>
-          <span class="status-mark status-warn me-2">CẦN HOÀN TẤT CHUẨN BỊ</span>
+          <span class="status-mark status-warn me-2">Cần hoàn tất chuẩn bị</span>
           <span class="small">
             Còn <strong><?= $checklistTotal - $checklistDone ?>/<?= $checklistTotal ?> mục</strong> trong Checklist hành lý chưa đánh dấu hoàn thành trước giờ khởi hành.
           </span>
@@ -621,8 +621,8 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
       </div>
     <?php else: ?>
       <div class="app-calm-callout mb-3">
-        <span><span class="status-mark status-ok me-2">SẴN SÀNG KHỞI HÀNH</span> Ngân sách nằm trong hạn mức an toàn và toàn bộ <?= $checklistTotal ?> mục Checklist đã hoàn tất.</span>
-        <span class="font-monospace small">CHỐNG TÍNH TRÙNG: ĐANG BẬT</span>
+        <span><span class="status-mark status-ok me-2">Sẵn sàng khởi hành</span> Ngân sách nằm trong hạn mức an toàn và toàn bộ <?= $checklistTotal ?> mục Checklist đã hoàn tất.</span>
+        <span class="font-monospace small">Chống tính trùng: Đang bật</span>
       </div>
     <?php endif; ?>
 
@@ -631,7 +631,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
       <div class="col-lg-7">
         <div class="d-flex justify-content-between align-items-center mb-1">
           <span class="cin-eyebrow text-dark">Trục ngày hành trình (<?= count($daysData) ?> ngày · <?= $totalActivitiesCount ?> điểm dừng)</span>
-          <span class="small font-monospace text-muted">Nhấp để lọc bản đồ & cuộn tới ngày</span>
+          <span class="small font-monospace text-muted">Nhấp để lọc bản đồ và cuộn tới ngày</span>
         </div>
         <div class="route-strip-nodes">
           <?php foreach ($daysData as $dNode): ?>
@@ -659,15 +659,15 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
         </div>
         <div class="row g-2 text-end font-monospace">
           <div class="col-4">
-            <div class="text-muted" style="font-size:0.68rem;">NGÂN SÁCH TRẦN</div>
+            <div class="text-muted" style="font-size:0.68rem;">Ngân sách trần</div>
             <div class="fw-bold text-dark num-col"><?= format_vnd($budgetSummary['total_budget']) ?></div>
           </div>
           <div class="col-4">
-            <div class="text-muted" style="font-size:0.68rem;">DỰ TOÁN LIÊN KẾT</div>
+            <div class="text-muted" style="font-size:0.68rem;">Dự toán liên kết</div>
             <div class="fw-bold text-primary num-col"><?= format_vnd($budgetSummary['total_estimated']) ?></div>
           </div>
           <div class="col-4">
-            <div class="text-muted" style="font-size:0.68rem;">THỰC CHI / CÒN LẠI</div>
+            <div class="text-muted" style="font-size:0.68rem;">Thực chi / Còn lại</div>
             <div class="fw-bold <?= $budgetSummary['remaining_vs_actual'] >= 0 ? 'text-success' : 'text-danger' ?> num-col">
               <?= format_vnd($budgetSummary['total_actual']) ?>
             </div>
@@ -689,15 +689,15 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
   <nav class="app-view-tabs" role="tablist" aria-label="Các phân khu quản lý chuyến đi">
     <a class="app-view-tab <?= $activeTab === 'itinerary' ? 'active' : '' ?>"
        href="trip_detail.php?id=<?= $tripId ?>&tab=itinerary" data-key="1">
-      <i class="bi bi-calendar2-week"></i> 1. Lịch trình & Bản đồ (<?= count($daysData) ?> ngày)
+      <i class="bi bi-calendar2-week"></i> 1. Lịch trình và Bản đồ (<?= count($daysData) ?> ngày)
     </a>
     <a class="app-view-tab <?= $activeTab === 'budget' ? 'active' : '' ?>"
        href="trip_detail.php?id=<?= $tripId ?>&tab=budget" data-key="2">
-      <i class="bi bi-wallet2"></i> 2. Ngân sách & Khoản chi (<?= count($expensesList) ?>)
+      <i class="bi bi-wallet2"></i> 2. Ngân sách và Khoản chi (<?= count($expensesList) ?>)
     </a>
     <a class="app-view-tab <?= $activeTab === 'stay_transport' ? 'active' : '' ?>"
        href="trip_detail.php?id=<?= $tripId ?>&tab=stay_transport" data-key="3">
-      <i class="bi bi-house-heart"></i> 3. Lưu trú & Phương tiện
+      <i class="bi bi-house-heart"></i> 3. Lưu trú và Phương tiện
     </a>
     <a class="app-view-tab <?= $activeTab === 'checklist' ? 'active' : '' ?>"
        href="trip_detail.php?id=<?= $tripId ?>&tab=checklist" data-key="4">
@@ -897,7 +897,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
             <table class="app-table">
               <thead>
                 <tr>
-                  <th>Nhóm & Nội dung khoản chi</th>
+                  <th>Nhóm và Nội dung khoản chi</th>
                   <th class="num-col">Dự kiến (VNĐ)</th>
                   <th class="num-col">Thực chi (VNĐ)</th>
                   <th class="num-col">Chênh lệch</th>
@@ -951,7 +951,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
               </tbody>
               <tfoot class="fw-bold border-top">
                 <tr>
-                  <td class="pt-2">TỔNG CỘNG TOÀN CHUYẾN ĐI</td>
+                  <td class="pt-2">Tổng cộng toàn chuyến đi</td>
                   <td class="num-col pt-2 text-primary fs-6"><?= format_vnd($budgetSummary['total_estimated']) ?></td>
                   <td class="num-col pt-2 text-success fs-6"><?= format_vnd($budgetSummary['total_actual']) ?></td>
                   <td class="num-col pt-2"><?= format_vnd($budgetSummary['total_estimated'] - $budgetSummary['total_actual']) ?></td>
@@ -966,7 +966,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
       <div class="col-lg-4">
         <div class="app-work-surface mb-4">
           <span class="cin-eyebrow text-dark">Cơ cấu 6 nhóm chi phí</span>
-          <h5 class="field-slip-title mb-2">Phân bổ dự toán & thực chi</h5>
+          <h5 class="field-slip-title mb-2">Phân bổ dự toán và thực chi</h5>
           <canvas id="budgetChart" height="220" class="mb-3"></canvas>
           <div class="d-flex flex-column gap-2 small">
             <?php foreach ($budgetSummary['by_category'] as $catRow): ?>
@@ -1221,7 +1221,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
         <section class="cin-day-dossier mb-0">
           <div class="cin-day-header">
             <div class="d-flex align-items-center gap-2">
-              <span class="cin-day-badge">CHIA SẺ · UC05</span>
+              <span class="cin-day-badge">Chia sẻ · UC05</span>
               <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.2rem;">Cấu hình Liên kết Chia sẻ Chỉ đọc</span>
             </div>
             <span class="status-mark <?= (int)$trip['is_shared'] === 1 ? 'status-done' : 'status-muted' ?>">
@@ -1531,7 +1531,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">KẾ HOẠCH LƯU TRÚ · MODULE M6</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">Kế hoạch lưu trú · Module M6</span>
           <h5 class="modal-title mb-0">Thêm nơi lưu trú cho chuyến đi</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -1624,7 +1624,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">PHƯƠNG TIỆN DI CHUYỂN · MODULE M6</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">Phương tiện di chuyển · Module M6</span>
           <h5 class="modal-title mb-0">Thêm phương tiện di chuyển</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
