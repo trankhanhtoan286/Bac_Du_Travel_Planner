@@ -252,7 +252,7 @@ $budgetSummary = calculate_trip_budget_summary($pdo, (int)$trip['id'], (float)$t
         <span class="meta-val"><?= format_date_vn($trip['start_date']) ?> &rarr; <?= format_date_vn($trip['end_date']) ?></span>
       </div>
       <div class="cin-dossier-meta-cell">
-        <span class="meta-label">Quy mô &amp; Tổng dự toán</span>
+        <span class="meta-label">Quy mô và Tổng dự toán</span>
         <span class="meta-val" style="color: var(--cin-amber-bright);"><?= (int)$trip['pax_count'] ?> người · <?= format_vnd($budgetSummary['total_estimated']) ?></span>
       </div>
     </div>
@@ -329,7 +329,7 @@ $budgetSummary = calculate_trip_budget_summary($pdo, (int)$trip['id'], (float)$t
 
       <section class="cin-day-dossier">
         <div class="cin-day-header">
-          <span class="fw-bold"><i class="bi bi-house-heart-fill text-primary me-1"></i>Lưu trú &amp; Phương tiện</span>
+          <span class="fw-bold"><i class="bi bi-house-heart-fill text-primary me-1"></i>Lưu trú và Phương tiện</span>
         </div>
         <div class="cin-day-body">
           <?php if (empty($sharedAccommodations) && empty($sharedTransports)): ?>

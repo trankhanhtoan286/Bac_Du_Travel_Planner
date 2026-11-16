@@ -293,7 +293,7 @@ require_once __DIR__ . '/includes/header.php';
               <div class="col-md-6">
                 <div class="field-spec-box h-100 mt-0">
                   <div class="spec-line"><i class="bi bi-house-heart text-primary me-1"></i><strong>Loại hình lưu trú:</strong></div>
-                  <div class="mt-1 fw-bold"><?= e($location['stay_type'] ?: 'Homestay & Bungalow') ?></div>
+                  <div class="mt-1 fw-bold"><?= e($location['stay_type'] ?: 'Homestay và Bungalow') ?></div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -460,7 +460,7 @@ require_once __DIR__ . '/includes/header.php';
       <?php if (!empty($nearbyLocations)): ?>
         <section class="cin-day-dossier mt-4 mb-0">
           <div class="cin-day-header">
-            <span class="fw-bold"><i class="bi bi-compass-fill text-warning me-1"></i>Điểm tham quan, Ăn uống &amp; Lưu trú cùng khu vực <?= e($location['province_name']) ?></span>
+            <span class="fw-bold"><i class="bi bi-compass-fill text-warning me-1"></i>Điểm tham quan, Ăn uống và Lưu trú cùng khu vực <?= e($location['province_name']) ?></span>
             <a href="locations.php?province_id=<?= (int)$location['province_id'] ?>" class="btn-cin-outline py-1 px-2">Tất cả &rarr;</a>
           </div>
           <div class="cin-day-body">
