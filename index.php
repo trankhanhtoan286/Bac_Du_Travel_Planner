@@ -74,7 +74,7 @@ if (is_logged_in()) {
 
 $compassAngle = ($selectedMonth - 1) * 30;
 
-$pageTitle = 'Khám phá Lịch trình 12 Tháng & Lập kế hoạch Du lịch Miền Bắc';
+$pageTitle = 'Khám phá Lịch trình 12 Tháng và Lập kế hoạch Du lịch Miền Bắc';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
@@ -127,14 +127,14 @@ require_once __DIR__ . '/includes/header.php';
       <div class="arrival-grid">
         <div class="arrival-lead-copy">
           <div class="arrival-meta-bar">
-            <span><i class="bi bi-compass me-1"></i>NỀN TẢNG DU LỊCH MIỀN BẮC THEO 12 THÁNG</span>
+            <span><i class="bi bi-compass me-1"></i>Nền tảng du lịch miền Bắc theo 12 tháng</span>
             <span>·</span>
             <span><?= e($monthInfo['name']) ?> (<?= e($monthInfo['season']) ?>)</span>
           </div>
 
           <h1 class="cin-display-h1">
             Tháng này đi đâu ở miền Bắc?<br>
-            <span class="sw" id="heroBlurTitle">Chọn mùa đẹp nhất, lên lịch trình ngay.</span>
+            <span>Chọn <span class="sw" id="heroBlurTitle">mùa đẹp nhất</span>, lên lịch trình ngay.</span>
           </h1>
 
           <p class="arrival-subcopy">
@@ -213,7 +213,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="almanac-top-bar">
           <div>
             <span class="cin-eyebrow" style="color: var(--cin-jade);">Bốn mùa miền Bắc · Sổ Địa Dư</span>
-            <h2 class="cin-display-h2 mt-1">Chọn tháng khởi hành — <span class="sw">Xem gợi ý chuẩn mùa</span></h2>
+            <h2 class="cin-display-h2 mt-1">Chọn tháng khởi hành — Gợi ý <span class="sw">chuẩn mùa</span></h2>
             <p class="mb-0" style="color: var(--cin-ink-muted);">
               Mỗi tháng đều có những vùng đất bước vào độ đẹp nhất do Ban biên tập chọn lọc.
             </p>
@@ -228,8 +228,8 @@ require_once __DIR__ . '/includes/header.php';
           <!-- Left: Live Compass Telemetry Card (Lead State 3) -->
           <div class="compass-live-card" aria-live="polite">
             <div>
-              <div class="d-flex justify-content-between align-items-center small font-monospace" style="color: var(--cin-amber-bright);">
-                <span>LA BÀN MÙA VỤ</span>
+              <div class="d-flex justify-content-between align-items-center small font-monospace" style="color: var(--cin-amber-bright); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em;">
+                <span>La bàn mùa vụ</span>
                 <span id="liveCompassSeason"><?= e($monthInfo['season']) ?></span>
               </div>
               <div class="compass-dial-wrap" aria-hidden="true">
@@ -251,8 +251,8 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
             <div>
-              <div class="font-monospace small text-uppercase" style="color: rgba(246,238,224,0.65); font-size: 0.7rem;">
-                TỌA ĐỘ MÙA ĐANG CHỌN
+              <div class="font-monospace small" style="color: rgba(251, 247, 238, 0.76); font-size: 0.72rem; letter-spacing: 0.04em;">
+                Tọa độ trạm mùa đang chọn
               </div>
               <h3 class="h4 fw-bold mb-1" style="font-family: var(--font-display); color: var(--cin-cream);" id="liveCompassMonthName">
                 <?= e($monthInfo['name']) ?> — <?= e($monthInfo['tag']) ?>
@@ -308,7 +308,7 @@ require_once __DIR__ . '/includes/header.php';
             </a>
           </div>
 
-          <div class="row g-4">
+          <div class="row g-4" id="monthlyTemplatesContainer">
             <?php foreach ($monthTemplates as $tpl): ?>
               <div class="col-md-6 col-lg-4">
                 <article class="field-slip">
@@ -316,7 +316,7 @@ require_once __DIR__ . '/includes/header.php';
                     <img src="<?= e($tpl['thumbnail_url']) ?>" alt="<?= e($tpl['title']) ?>" data-grade>
                     <div class="field-slip-badges">
                       <span class="slip-tag">
-                        <i class="bi bi-clock me-1"></i><?= (int)$tpl['duration_days'] ?>N<?= (int)$tpl['duration_nights'] ?>Đ
+                        <i class="bi bi-clock me-1"></i><?= (int)$tpl['duration_days'] ?>N · <?= (int)$tpl['duration_nights'] ?>Đ
                       </span>
                       <span class="slip-tag slip-tag-jade">
                         <i class="bi bi-geo-alt-fill me-1"></i><?= e($tpl['main_destination']) ?>
@@ -336,7 +336,7 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="field-slip-footer">
                       <div>
                         <div class="small" style="color: var(--cin-ink-muted); font-size: 0.74rem;">Ngân sách tham khảo</div>
-                        <div class="price-mono"><?= format_vnd($tpl['ref_budget_per_person']) ?><small class="fw-normal text-muted">/người</small></div>
+                        <div class="price-mono"><?= format_vnd_html($tpl['ref_budget_per_person'], false, 'người') ?></div>
                       </div>
                       <a href="template_detail.php?id=<?= (int)$tpl['id'] ?>&month=<?= $selectedMonth ?>" class="btn-cin-ink">
                         Xem chi tiết <i class="bi bi-arrow-right"></i>
@@ -364,9 +364,11 @@ require_once __DIR__ . '/includes/header.php';
             <span id="chronicleManifesto">Từ lịch trình mẫu đến chuyến đi độc lập chỉ qua 4 bước</span>
           </h2>
         </div>
-        <span class="font-monospace small" style="color: rgba(246,238,224,0.7);">
-          CUỘN ĐỂ DI CHUYỂN QUA CÁC TRẠM &rarr;
-        </span>
+        <div class="d-flex align-items-center gap-2">
+          <span class="d-inline-flex align-items-center justify-content-center border border-warning rounded-pill px-2 py-1 font-monospace small" style="color: var(--cin-amber-bright); font-size: 0.7rem; background: rgba(245, 158, 11, 0.1);">
+            <i class="bi bi-mouse me-1"></i>Cuộn chuột để trượt 4 trạm &rarr;
+          </span>
+        </div>
       </div>
 
       <div class="chronicle-rail-viewport">
@@ -377,12 +379,12 @@ require_once __DIR__ . '/includes/header.php';
                 <span class="step-num">01</span>
                 <span class="step-icon-badge"><i class="bi bi-calendar2-check-fill"></i></span>
               </div>
-              <h3 class="h5 fw-bold mb-2" style="font-family: var(--font-display);">1. Chọn tháng & Xem mẫu</h3>
+              <h3 class="h5 fw-bold mb-2" style="font-family: var(--font-display);">Chọn tháng và xem mẫu</h3>
               <p class="small mb-0" style="color: var(--cin-ink-muted);">
                 Tham khảo lịch trình mẫu theo 12 tháng kèm điểm tham quan, quán ăn, lưu trú và dự toán.
               </p>
             </div>
-            <div class="mt-3 pt-2 border-top small font-monospace text-uppercase" style="color: var(--cin-jade);">
+            <div class="mt-3 pt-2 border-top small font-monospace" style="color: var(--cin-jade); font-weight: 600; letter-spacing: 0.03em;">
               Trạm 01 · Định vị mùa đẹp nhất
             </div>
           </article>
@@ -393,12 +395,12 @@ require_once __DIR__ . '/includes/header.php';
                 <span class="step-num">02</span>
                 <span class="step-icon-badge"><i class="bi bi-copy"></i></span>
               </div>
-              <h3 class="h5 fw-bold mb-2" style="font-family: var(--font-display);">2. Sao chép thành chuyến đi riêng</h3>
+              <h3 class="h5 fw-bold mb-2" style="font-family: var(--font-display);">Sao chép thành chuyến đi riêng</h3>
               <p class="small mb-0" style="color: var(--cin-ink-muted);">
                 Nhấn "Dùng lịch trình này", hệ thống tự động quy đổi ngày thực tế và tạo kế hoạch độc lập.
               </p>
             </div>
-            <div class="mt-3 pt-2 border-top small font-monospace text-uppercase" style="color: var(--cin-jade);">
+            <div class="mt-3 pt-2 border-top small font-monospace" style="color: var(--cin-jade); font-weight: 600; letter-spacing: 0.03em;">
               Trạm 02 · Nhân bản 1 cú nhấp
             </div>
           </article>
@@ -409,12 +411,12 @@ require_once __DIR__ . '/includes/header.php';
                 <span class="step-num">03</span>
                 <span class="step-icon-badge"><i class="bi bi-sliders"></i></span>
               </div>
-              <h3 class="h5 fw-bold mb-2" style="font-family: var(--font-display);">3. Tùy chỉnh & Quản lý ngân sách</h3>
+              <h3 class="h5 fw-bold mb-2" style="font-family: var(--font-display);">Tùy chỉnh và quản lý ngân sách</h3>
               <p class="small mb-0" style="color: var(--cin-ink-muted);">
                 Đổi quán ăn, nơi ở, theo dõi chi phí Dự kiến vs Thực tế (không tính trùng) và Checklist.
               </p>
             </div>
-            <div class="mt-3 pt-2 border-top small font-monospace text-uppercase" style="color: var(--cin-jade);">
+            <div class="mt-3 pt-2 border-top small font-monospace" style="color: var(--cin-jade); font-weight: 600; letter-spacing: 0.03em;">
               Trạm 03 · Cân đối ngân sách
             </div>
           </article>
@@ -425,13 +427,13 @@ require_once __DIR__ . '/includes/header.php';
                 <span class="step-num">04</span>
                 <span class="step-icon-badge"><i class="bi bi-share-fill"></i></span>
               </div>
-              <h3 class="h5 fw-bold mb-2" style="font-family: var(--font-display);">4. Xem Bản đồ & Chia sẻ</h3>
+              <h3 class="h5 fw-bold mb-2" style="font-family: var(--font-display);">Xem bản đồ và chia sẻ</h3>
               <p class="small mb-0" style="color: var(--cin-ink-muted);">
                 Xem điểm dừng theo ngày trên bản đồ Leaflet, mở Google Maps chỉ đường và chia sẻ link chỉ đọc.
               </p>
             </div>
-            <div class="mt-3 pt-2 border-top small font-monospace text-uppercase" style="color: var(--cin-jade);">
-              Trạm 04 · Khởi hành & Chia sẻ
+            <div class="mt-3 pt-2 border-top small font-monospace" style="color: var(--cin-jade); font-weight: 600; letter-spacing: 0.03em;">
+              Trạm 04 · Khởi hành và chia sẻ
             </div>
           </article>
         </div>
@@ -439,18 +441,18 @@ require_once __DIR__ . '/includes/header.php';
 
       <!-- Lead Actor State 4: Northern Route Elevation Progress Line -->
       <div class="chronicle-route-bar" aria-hidden="true">
-        <span>KM 00 · HÀ NỘI</span>
+        <span>Km 00 · Hà Nội</span>
         <svg class="route-line-svg" viewBox="0 0 600 18" preserveAspectRatio="none">
           <line x1="0" y1="9" x2="600" y2="9" stroke="rgba(246, 238, 224, 0.2)" stroke-width="2" stroke-dasharray="4 4"/>
           <line id="chronicleRouteProgress" x1="0" y1="9" x2="300" y2="9" stroke="#f59e0b" stroke-width="3"/>
         </svg>
-        <span>ĐỈNH HÀNH TRÌNH · MIỀN BẮC</span>
+        <span>Đỉnh hành trình · Miền Bắc</span>
       </div>
     </div>
   </section>
 
   <!-- ========================================================================
-       SCENE 4: LOCATIONS — ĐỊA ĐIỂM THAM QUAN, ĂN UỐNG & LƯU TRÚ (FLOW)
+       SCENE 4: LOCATIONS — ĐỊA ĐIỂM THAM QUAN, ĂN UỐNG VÀ LƯU TRÚ (FLOW)
        ======================================================================== -->
   <section class="scene-locations" data-scene="locations" data-flow>
     <div class="frame">
@@ -458,7 +460,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="almanac-top-bar">
           <div>
             <span class="cin-eyebrow" style="color: var(--cin-jade);">Dữ liệu chuẩn hóa 3 nhóm</span>
-            <h2 class="cin-display-h2 mt-1">Điểm tham quan, Quán ngon & <span class="sw">Lưu trú chọn lọc</span></h2>
+            <h2 class="cin-display-h2 mt-1">Điểm đến, Quán ngon và Lưu trú <span class="sw">chọn lọc</span></h2>
             <p class="mb-0" style="color: var(--cin-ink-muted);">
               Mỗi địa điểm đều có giá tham khảo, lưu ý theo mùa, tọa độ bản đồ và đánh giá thực tế.
             </p>
@@ -496,6 +498,9 @@ require_once __DIR__ . '/includes/header.php';
                     <span class="slip-tag">
                       <i class="bi <?= e($typeMeta['icon']) ?> me-1"></i><?= e($typeMeta['label']) ?>
                     </span>
+                    <span class="stamp-seal-verified" title="Địa điểm đã được ban biên tập thẩm định dữ liệu">
+                      <i class="bi bi-patch-check-fill"></i>ĐÃ THẨM ĐỊNH
+                    </span>
                   </div>
                   <div class="card-fav-overlay">
                     <form action="favorites.php" method="post" class="m-0">
@@ -513,7 +518,7 @@ require_once __DIR__ . '/includes/header.php';
                   <!-- Lead Actor State 5: GPS Coordinate Verification Strip -->
                   <div class="loc-coord-strip">
                     <span><i class="bi bi-geo-alt-fill text-success me-1"></i><?= e($loc['province_name']) ?></span>
-                    <span><?= number_format((float)$loc['latitude'], 2) ?>°N · <?= number_format((float)$loc['longitude'], 2) ?>°E</span>
+                    <span class="telemetry-coords"><?= number_format((float)$loc['latitude'], 2) ?>°N · <?= number_format((float)$loc['longitude'], 2) ?>°E</span>
                   </div>
 
                   <div class="d-flex justify-content-between align-items-baseline mb-1">
@@ -534,10 +539,7 @@ require_once __DIR__ . '/includes/header.php';
                     <div>
                       <span class="small d-block" style="color: var(--cin-ink-muted); font-size: 0.72rem;">Giá tham khảo</span>
                       <span class="price-mono">
-                        <?= format_vnd($loc['ref_price'], true) ?>
-                        <?php if ((float)$loc['ref_price'] > 0): ?>
-                          <small class="text-muted fw-normal">/<?= e($loc['price_unit']) ?></small>
-                        <?php endif; ?>
+                        <?= format_vnd_html($loc['ref_price'], true, (float)$loc['ref_price'] > 0 ? $loc['price_unit'] : null) ?>
                       </span>
                     </div>
                     <div class="d-flex gap-2">
@@ -593,17 +595,20 @@ require_once __DIR__ . '/includes/header.php';
                     <img src="<?= e($post['first_image']) ?>" alt="<?= e($post['title']) ?>" data-grade>
                     <div class="field-slip-badges">
                       <span class="slip-tag">
-                        Trải nghiệm T<?= (int)$post['visit_month'] ?>/<?= (int)$post['visit_year'] ?>
+                        Trải nghiệm Tháng <?= (int)$post['visit_month'] ?>/<?= (int)$post['visit_year'] ?>
                       </span>
                     </div>
                   </div>
                 <?php endif; ?>
                 <div class="field-slip-body">
-                  <div class="d-flex justify-content-between align-items-center mb-2">
-                    <a href="location_detail.php?id=<?= (int)$post['location_id'] ?>" class="badge <?= e($locMeta['badge']) ?> rounded-1 px-2 py-1">
+                  <div class="d-flex justify-content-between align-items-center mb-2 gap-2">
+                    <a href="location_detail.php?id=<?= (int)$post['location_id'] ?>" 
+                       class="text-decoration-none small px-2 py-1 rounded-1 text-truncate" 
+                       style="background: rgba(22, 78, 58, 0.12); color: var(--cin-jade); border: 1px solid rgba(22, 78, 58, 0.28); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.02em; max-width: calc(100% - 95px);"
+                       title="<?= e($post['location_name']) ?>">
                       <i class="bi bi-geo-alt-fill me-1"></i><?= e($post['location_name']) ?>
                     </a>
-                    <span class="small fw-bold" style="color: var(--cin-amber);">
+                    <span class="small fw-bold text-nowrap flex-shrink-0" style="color: var(--cin-amber); letter-spacing: 1px;">
                       <?php for ($i = 1; $i <= 5; $i++): ?>
                         <i class="bi <?= $i <= (int)$post['rating'] ? 'bi-star-fill' : 'bi-star' ?>"></i>
                       <?php endfor; ?>
@@ -662,7 +667,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
 
         <span class="cin-eyebrow justify-content-center mb-2" style="color: var(--cin-amber-bright);">
-          CỘT MỐC KM0 · BẮC DU TRAVEL PLANNER
+          Cột mốc Km0 · Bắc Du Travel Planner
         </span>
         <h2 class="cin-display-h2 text-white mb-3" id="finalSlitTitle">
           Mùa đẹp nhất đang gọi tên bạn.
@@ -732,10 +737,12 @@ require_once __DIR__ . '/includes/header.php';
   });
 
   // 3. Opening Titles (Intro)
-  reel.intro((tl) => {
-    tl.from('.arrival-meta-bar', { opacity: 0, y: 12, duration: 0.6, ease: 'power3.out' }, 0)
-      .from('.dispatch-console', { opacity: 0, y: 18, duration: 0.75, ease: 'power3.out' }, 0.15);
-  });
+  if (!matchMedia('(max-width: 991px)').matches) {
+    reel.intro((tl) => {
+      tl.from('.arrival-meta-bar', { opacity: 0, y: 12, duration: 0.6, ease: 'power3.out' }, 0)
+        .from('.dispatch-console', { opacity: 0, y: 18, duration: 0.75, ease: 'power3.out' }, 0.15);
+    });
+  }
 
   // 4. Scene 1: Arrival — Shutter Aperture Opens & Compass Rose Calibrates
   const baseAngle = <?= (int)$compassAngle ?>;
@@ -814,13 +821,16 @@ require_once __DIR__ . '/includes/header.php';
     }
   });
 
-  // 7. Audience's Part: Interactive 12-Month Almanac Dial Preview (Hover/Focus)
+  // 7. Audience's Part: Interactive 12-Month Almanac Dial & Instant Ajax Dossier
   const monthCells = document.querySelectorAll('.almanac-month-cell');
   const liveNeedle = document.getElementById('liveCompassNeedle');
   const liveSeason = document.getElementById('liveCompassSeason');
   const liveName = document.getElementById('liveCompassMonthName');
   const liveHighlight = document.getElementById('liveCompassHighlight');
   const liveAction = document.getElementById('liveCompassAction');
+  const tplBox = document.getElementById('monthlyTemplatesContainer');
+  const tagHeading = document.getElementById('activeMonthTagHeading');
+  const countOdometer = document.getElementById('tplCountOdometer');
 
   function previewMonth(cell) {
     const m = parseInt(cell.dataset.month || '2', 10);
@@ -835,9 +845,44 @@ require_once __DIR__ . '/includes/header.php';
     }
   }
 
+  async function loadMonthTemplates(m, cell) {
+    monthCells.forEach((c) => c.classList.remove('active'));
+    cell.classList.add('active');
+    previewMonth(cell);
+
+    if (!tplBox) return;
+    tplBox.style.opacity = '0.4';
+    tplBox.style.transition = 'opacity 0.25s ease';
+
+    try {
+      const res = await fetch(`index.php?month=${m}`);
+      const text = await res.text();
+      const doc = new DOMParser().parseFromString(text, 'text/html');
+      const newDossier = doc.getElementById('monthly-recommendations');
+      const currentDossier = document.getElementById('monthly-recommendations');
+
+      if (newDossier && currentDossier) {
+        currentDossier.innerHTML = newDossier.innerHTML;
+      }
+
+      history.replaceState(null, '', `index.php?month=${m}`);
+      if (reel) reel.measure();
+    } catch (err) {
+      console.warn('Lỗi tải danh sách lịch trình qua Ajax:', err);
+    } finally {
+      const refreshedBox = document.getElementById('monthlyTemplatesContainer');
+      if (refreshedBox) refreshedBox.style.opacity = '1';
+    }
+  }
+
   monthCells.forEach((cell) => {
     cell.addEventListener('mouseenter', () => previewMonth(cell));
     cell.addEventListener('focus', () => previewMonth(cell));
+    cell.addEventListener('click', (e) => {
+      e.preventDefault();
+      const m = parseInt(cell.dataset.month || '2', 10);
+      loadMonthTemplates(m, cell);
+    });
   });
 
   // 8. Interactive Category Filter Lens on Featured Locations (Scene 4)

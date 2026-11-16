@@ -73,31 +73,34 @@
   --cin-paper-card: #fbf8f1;
   --cin-ink: #14221b;
   --cin-ink-muted: #4a5d52;
-  --cin-cream: #f6eee0;
-  --cin-cream-muted: rgba(246, 238, 224, 0.76);
+  --cin-cream: #fbf7ee;
+  --cin-cream-muted: rgba(251, 247, 238, 0.88);
+  --cin-cream-soft: rgba(251, 247, 238, 0.72);
   --cin-amber: #d97706;
   --cin-amber-bright: #f59e0b;
   --cin-brass: rgba(224, 159, 62, 0.34);
   --cin-rule-dark: rgba(20, 34, 27, 0.16);
   --cin-rule-light: rgba(246, 238, 224, 0.16);
   --cin-rule: rgba(20, 34, 27, 0.16);
-  --font-display: 'CinDisplayNums', 'Cormorant Garamond', 'Times New Roman', serif;
-  --font-sans: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-body: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --bs-font-monospace: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'CinDisplayNums', 'Playfair Display', Georgia, serif;
+  --font-display-italic: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --font-body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  --bs-font-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
 }
 
 .font-monospace,
-.price-mono,
 .cin-eyebrow,
-.slip-tag,
 .num-col,
+.dispatch-stamp,
+.telemetry-coords,
+.chronicle-route-bar,
 code,
 kbd {
   font-family: var(--font-mono) !important;
   font-variant-numeric: tabular-nums lining-nums !important;
-  font-feature-settings: "tnum" 1, "lnum" 1 !important;
+  font-feature-settings: "tnum" 1, "zero" 0 !important;
 }
 
 html {
@@ -110,6 +113,31 @@ body.cinematic-home {
   background-color: var(--cin-night);
   color: var(--cin-ink);
   overflow-x: clip;
+  position: relative;
+}
+
+/* 35mm Dynamic Film Grain & Vignette Overlay (Stage 2) */
+body.cinematic-home::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grainFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grainFilter)' opacity='0.035'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+  opacity: 0.65;
+}
+
+/* Cinematic Atmospheric Vignette (Soft Corner Scrim) */
+body.cinematic-home::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, transparent 62%, rgba(5, 12, 9, 0.45) 100%);
+  mix-blend-mode: multiply;
 }
 
 /* Skip Link (UX Proof) */
@@ -267,8 +295,7 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   font-family: var(--font-mono);
   font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  letter-spacing: 0.08em;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
@@ -286,17 +313,22 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(2.15rem, 3.8vw + 0.8svh, 4.1rem);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   color: var(--cin-cream);
   margin: 0 0 0.85rem;
+  text-wrap: balance;
+  font-feature-settings: "liga" 1, "kern" 1;
 }
 
 .cin-display-h1 .sw,
 .cin-display-h2 .sw {
+  font-family: var(--font-display-italic);
   font-style: italic;
   font-weight: 600;
   color: var(--cin-amber-bright);
+  font-feature-settings: "dlig" 1, "swsh" 1;
+  letter-spacing: -0.015em;
 }
 
 /* Allow Type-FX blur-resolve and read-fill stages to wrap naturally inside editorial columns */
@@ -310,12 +342,14 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(1.85rem, 3.4vw, 3.4rem);
-  line-height: 1.04;
-  letter-spacing: -0.015em;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   margin: 0 0 0.6rem;
+  text-wrap: balance;
+  font-feature-settings: "liga" 1, "kern" 1;
 }
 
-/* Expedition Buttons (ART UI Map) */
+/* Expedition Buttons (ART UI Map) — with Brass Sheen Reflection (Stage 3) */
 .btn-cin-amber {
   display: inline-flex;
   align-items: center;
@@ -330,11 +364,33 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   border: 1px solid var(--cin-amber-bright);
   border-radius: 4px;
   letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.25s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.btn-cin-amber::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.35) 50%, transparent 100%);
+  transform: rotate(25deg);
+  transition: transform 0.6s ease;
+  pointer-events: none;
 }
 
 .btn-cin-amber:hover {
   background: #b45309;
   color: #fff !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 16px rgba(217, 119, 6, 0.38);
+}
+
+.btn-cin-amber:hover::before {
+  transform: rotate(25deg) translateX(420%);
 }
 
 .btn-cin-ghost {
@@ -350,11 +406,13 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   padding: 0.72rem 1.35rem;
   border: 1px solid rgba(246, 238, 224, 0.35);
   border-radius: 4px;
+  transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
 }
 
 .btn-cin-ghost:hover {
   background: rgba(246, 238, 224, 0.18);
   border-color: var(--cin-cream);
+  transform: translateY(-1px);
 }
 
 .btn-cin-ink {
@@ -370,12 +428,34 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   padding: 0.6rem 1.2rem;
   border: 1px solid var(--cin-ink);
   border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.btn-cin-ink::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.28) 50%, transparent 100%);
+  transform: rotate(25deg);
+  transition: transform 0.6s ease;
+  pointer-events: none;
 }
 
 .btn-cin-ink:hover {
   background: var(--cin-jade);
   border-color: var(--cin-jade);
   color: #fff !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 14px rgba(20, 34, 27, 0.35);
+}
+
+.btn-cin-ink:hover::before {
+  transform: rotate(25deg) translateX(420%);
 }
 
 .btn-cin-outline {
@@ -539,10 +619,12 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
 
 .arrival-subcopy {
   font-size: clamp(0.92rem, 1.05vw, 1.08rem);
-  line-height: 1.58;
+  font-weight: 500;
+  line-height: 1.65;
   color: var(--cin-cream-muted);
   margin-bottom: 1.25rem;
-  max-width: 58ch;
+  max-width: 56ch;
+  text-wrap: pretty;
 }
 
 .arrival-cta-row {
@@ -551,15 +633,17 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   gap: 0.75rem;
 }
 
-/* Dispatch Console (Quick Itinerary Search Box) */
+/* Dispatch Console (Quick Itinerary Search Box — Dark Lacquer Glassmorphism) */
 .dispatch-console {
-  background: rgba(244, 239, 228, 0.97);
-  color: var(--cin-ink);
+  background: rgba(16, 36, 28, 0.82);
+  color: var(--cin-cream);
   border: 1px solid var(--cin-brass);
-  border-top: 4px solid var(--cin-amber);
-  border-radius: 4px;
+  border-top: 3px solid var(--cin-amber-bright);
+  border-radius: 6px;
   padding: clamp(1rem, 2.2vmin, 1.45rem);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(246, 238, 224, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   min-width: 0;
   width: 100%;
 }
@@ -570,7 +654,7 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   justify-content: space-between;
   padding-bottom: 0.65rem;
   margin-bottom: 0.8rem;
-  border-bottom: 1px solid var(--cin-rule-dark);
+  border-bottom: 1px solid var(--cin-rule-light);
 }
 
 .dispatch-title {
@@ -578,19 +662,18 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   font-size: 0.98rem;
   font-weight: 700;
   margin: 0;
-  color: var(--cin-ink);
+  color: var(--cin-cream);
 }
 
 .dispatch-stamp {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   padding: 0.2rem 0.55rem;
-  background: rgba(22, 78, 58, 0.12);
-  color: var(--cin-jade);
-  border: 1px solid rgba(22, 78, 58, 0.3);
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--cin-amber-bright);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   border-radius: 3px;
 }
 
@@ -598,62 +681,90 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 600;
-  color: var(--cin-ink-muted);
+  color: var(--cin-cream-muted);
   margin-bottom: 0.25rem;
 }
 
 .dispatch-console .form-select {
-  border-radius: 3px;
-  border: 1px solid rgba(20, 34, 27, 0.25);
-  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid rgba(246, 238, 224, 0.2);
+  background-color: rgba(9, 21, 16, 0.75);
   font-size: 0.88rem;
   padding: 0.48rem 2rem 0.48rem 0.7rem;
-  color: var(--cin-ink);
+  color: var(--cin-cream);
+  color-scheme: dark;
+}
+
+.dispatch-console .form-select option {
+  background-color: #10241c;
+  color: #f4efe4;
+}
+
+.dispatch-console .form-select:focus {
+  border-color: var(--cin-amber-bright);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+}
+
+.dispatch-console .btn-cin-ink {
+  background: var(--cin-amber);
+  color: #fff !important;
+  border-color: var(--cin-amber-bright);
+}
+
+.dispatch-console .btn-cin-ink:hover {
+  background: #b45309;
+  border-color: #f59e0b;
 }
 
 .dispatch-hot-strip {
   margin-top: 0.75rem;
   padding-top: 0.65rem;
-  border-top: 1px dashed rgba(20, 34, 27, 0.2);
+  border-top: 1px dashed var(--cin-rule-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.8rem;
-  color: var(--cin-ink-muted);
+  color: var(--cin-cream-muted);
 }
 
-/* Short Laptop (1366x640) & Mobile Portrait Adaptation for Scene 1 */
-@media (max-height: 700px) and (min-width: 992px) {
+.dispatch-hot-strip a {
+  color: var(--cin-amber-bright) !important;
+}
+
+/* Short Laptop (1366x768 / 1440x900 scaling) & Viewport Breathing Room */
+@media (max-height: 800px) and (min-width: 992px) {
   .cin-main [data-scene]:not([data-flow]) > .frame {
-    padding-top: 74px;
-    padding-bottom: 16px;
+    padding-top: 76px;
+    padding-bottom: 20px;
   }
   .cin-display-h1 {
-    font-size: clamp(2rem, 3.6vw, 2.8rem);
-    margin-bottom: 0.45rem;
+    font-size: clamp(2rem, 3.4vw, 3.1rem);
+    line-height: 1.04;
+    margin-bottom: 0.55rem;
   }
   .arrival-subcopy {
-    font-size: 0.86rem;
-    line-height: 1.42;
-    margin-bottom: 0.75rem;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin-bottom: 0.85rem;
+    max-width: 50ch;
   }
   .arrival-meta-bar {
-    margin-bottom: 0.45rem;
-    padding: 0.2rem 0.55rem;
+    margin-bottom: 0.55rem;
+    padding: 0.22rem 0.6rem;
   }
   .dispatch-console {
-    padding: 0.85rem 1rem;
+    padding: 0.95rem 1.15rem;
   }
   .dispatch-console .form-select {
-    padding: 0.32rem 1.8rem 0.32rem 0.55rem;
-    font-size: 0.82rem;
+    padding: 0.38rem 1.8rem 0.38rem 0.6rem;
+    font-size: 0.84rem;
   }
   .dispatch-header {
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.4rem;
+    margin-bottom: 0.55rem;
+    padding-bottom: 0.45rem;
   }
   .dispatch-hot-strip {
-    margin-top: 0.45rem;
+    margin-top: 0.55rem;
     padding-top: 0.45rem;
   }
 }
@@ -734,7 +845,21 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
 .scene-almanac {
   background: var(--cin-paper);
   color: var(--cin-ink);
-  border-top: 2px solid var(--cin-brass);
+  position: relative;
+  border-top: 1px solid var(--cin-brass);
+}
+
+/* Cinematic Dissolve Cut Transition (Stage 2) */
+.scene-almanac::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: linear-gradient(180deg, rgba(11, 25, 20, 0.42) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .almanac-container {
@@ -789,6 +914,8 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
 
 .compass-needle-group {
   transform-origin: 100px 100px;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
 }
 
 .almanac-months-grid {
@@ -912,7 +1039,7 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   border-bottom: 1px solid var(--cin-rule-dark);
 }
 
-/* Field Slip Card (Replaces generic rounded cards) */
+/* Field Slip Card (Stage 4: Travel Journal & Cartographic Props) */
 .field-slip {
   background: var(--cin-paper-card);
   border: 1px solid rgba(20, 34, 27, 0.22);
@@ -922,6 +1049,14 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   height: 100%;
   position: relative;
   overflow: clip;
+  box-shadow: 0 4px 18px rgba(16, 36, 28, 0.06);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.25s ease;
+}
+
+.field-slip:hover {
+  transform: translateY(-4px);
+  border-color: var(--cin-amber);
+  box-shadow: 0 12px 30px rgba(16, 36, 28, 0.14);
 }
 
 .field-slip-media {
@@ -937,6 +1072,11 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.field-slip:hover .field-slip-media img {
+  transform: scale(1.05);
 }
 
 .field-slip-badges {
@@ -949,21 +1089,42 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   gap: 6px;
 }
 
+/* Con dấu Mộc & Triện Son Lữ Hành (Stage 4) */
 .slip-tag {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
   font-weight: 600;
-  padding: 0.24rem 0.6rem;
-  background: rgba(11, 25, 20, 0.88);
+  padding: 0.22rem 0.6rem;
+  background: rgba(11, 25, 20, 0.9);
   color: var(--cin-cream);
   border: 1px solid var(--cin-brass);
-  border-radius: 2px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(4px);
+  display: inline-flex;
+  align-items: center;
 }
 
 .slip-tag-jade {
-  background: var(--cin-jade);
+  background: rgba(22, 78, 58, 0.92);
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+/* Con dấu Triện Son Đỏ Cam: Thẩm định chất lượng */
+.stamp-seal-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #c2410c;
+  background: rgba(194, 65, 12, 0.08);
+  border: 1px dashed rgba(194, 65, 12, 0.45);
+  border-radius: 3px;
+  padding: 0.2rem 0.45rem;
+  letter-spacing: 0.04em;
 }
 
 .field-slip-body {
@@ -975,10 +1136,12 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
 
 .field-slip-title {
   font-family: var(--font-display);
-  font-size: 1.42rem;
+  font-size: clamp(1.24rem, 1.35vw, 1.52rem);
   font-weight: 700;
-  line-height: 1.18;
-  margin-bottom: 0.7rem;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.65rem;
+  text-wrap: balance;
 }
 
 .field-slip-title a {
@@ -1009,11 +1172,39 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
 }
 
 .price-mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   color: var(--cin-jade);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.015em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12rem;
+}
+
+.price-mono .currency-symbol {
+  font-family: var(--font-sans) !important;
+  font-weight: 600;
+  font-size: 0.82em;
+  color: currentColor;
+  opacity: 0.88;
+}
+
+.price-mono .price-unit,
+.price-mono small {
+  font-family: var(--font-sans) !important;
+  font-weight: 500;
+  font-size: 0.76em;
+  color: var(--cin-ink-muted);
+  opacity: 0.85;
+}
+
+.price-mono .price-free {
+  font-family: var(--font-sans) !important;
+  font-weight: 600;
+  font-size: 0.95em;
+  color: var(--cin-jade);
 }
 
 /* ==========================================================================
@@ -1074,6 +1265,20 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
+.chronicle-step-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  line-height: 1.36;
+  letter-spacing: -0.015em;
+  color: var(--cin-ink);
+  text-wrap: balance;
+}
+
+.chronicle-step-card p {
+  line-height: 1.58;
+  color: var(--cin-ink-muted);
+}
+
 .step-index-row {
   display: flex;
   justify-content: space-between;
@@ -1084,10 +1289,12 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
 }
 
 .step-num {
-  font-family: var(--font-mono);
-  font-size: 1.35rem;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
   font-weight: 700;
   color: var(--cin-amber);
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .step-icon-badge {
@@ -1150,8 +1357,9 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
 }
 
 .loc-coord-strip {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 500;
   color: var(--cin-ink-muted);
   display: flex;
   justify-content: space-between;
@@ -1159,6 +1367,13 @@ body.cinematic-home .navbar-bacdu .btn-bacdu {
   padding-bottom: 0.45rem;
   margin-bottom: 0.45rem;
   border-bottom: 1px solid rgba(20, 34, 27, 0.1);
+}
+
+.loc-coord-strip .telemetry-coords {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--cin-ink-muted);
 }
 
 /* ==========================================================================

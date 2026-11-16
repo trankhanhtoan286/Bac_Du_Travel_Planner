@@ -141,9 +141,9 @@ require_once __DIR__ . '/includes/header.php';
   <div class="container position-relative" style="z-index: 2;">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb small mb-0 font-monospace">
-        <li class="breadcrumb-item"><a href="index.php" class="text-warning">TRANG CHỦ</a></li>
-        <li class="breadcrumb-item"><a href="templates.php" class="text-warning">LỊCH TRÌNH 12 THÁNG</a></li>
-        <li class="breadcrumb-item active text-white-50" aria-current="page">HỒ SƠ MẪU #<?= str_pad((string)$template['id'], 2, '0', STR_PAD_LEFT) ?></li>
+        <li class="breadcrumb-item"><a href="index.php" class="text-warning">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="templates.php" class="text-warning">Lịch trình 12 tháng</a></li>
+        <li class="breadcrumb-item active text-white-50" aria-current="page">Hồ sơ mẫu #<?= str_pad((string)$template['id'], 2, '0', STR_PAD_LEFT) ?></li>
       </ol>
     </nav>
   </div>
@@ -157,7 +157,7 @@ require_once __DIR__ . '/includes/header.php';
         <img src="<?= e($template['thumbnail_url']) ?>" alt="<?= e($template['title']) ?>" class="w-100 h-100 object-fit-cover">
         <div class="field-slip-badges">
           <span class="slip-tag">
-            <i class="bi bi-clock me-1"></i><?= (int)$template['duration_days'] ?> NGÀY <?= (int)$template['duration_nights'] ?> ĐÊM
+            <i class="bi bi-clock me-1"></i><?= (int)$template['duration_days'] ?> ngày <?= (int)$template['duration_nights'] ?> đêm
           </span>
           <span class="slip-tag slip-tag-jade">
             <i class="bi bi-geo-alt-fill me-1"></i><?= e($template['main_destination']) ?>
@@ -203,9 +203,9 @@ require_once __DIR__ . '/includes/header.php';
 
         <div class="pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-3">
           <div>
-            <div class="small text-muted font-monospace">DỰ TOÁN THAM KHẢO (CƠ SỞ <?= (int)$template['base_pax_count'] ?> NGƯỜI)</div>
+            <div class="small text-muted font-monospace">Dự toán tham khảo (cơ sở <?= (int)$template['base_pax_count'] ?> người)</div>
             <div class="price-mono fs-3 lh-1">
-              <?= format_vnd($template['ref_budget_per_person']) ?><small class="fs-6 text-muted fw-normal">/người</small>
+              <?= format_vnd_html($template['ref_budget_per_person'], false, 'người') ?>
             </div>
           </div>
 

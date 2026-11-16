@@ -71,7 +71,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3">
       <div>
         <div class="cin-subhero-meta">
-          <span><i class="bi bi-compass me-1"></i>SỔ ĐỊA DƯ 12 THÁNG</span>
+          <span><i class="bi bi-compass me-1"></i>Sổ địa dư 12 tháng</span>
           <span>·</span>
           <span>20°15'N — 23°22'N · MODULE M2</span>
         </div>
@@ -173,7 +173,7 @@ require_once __DIR__ . '/includes/header.php';
         <span class="slip-tag me-2"><?= e($monthsCatalog[$month]['name']) ?> · <?= e($monthsCatalog[$month]['season']) ?></span>
         <span>Chủ đề mùa vụ: <strong class="text-warning"><?= e($monthsCatalog[$month]['tag']) ?></strong> — Tâm điểm: <strong><?= e($monthsCatalog[$month]['highlight']) ?></strong></span>
       </div>
-      <span class="font-monospace small text-warning"><?= count($templates) ?> HỒ SƠ LỊCH TRÌNH</span>
+      <span class="font-monospace small text-warning"><?= count($templates) ?> hồ sơ lịch trình</span>
     </div>
   <?php endif; ?>
 
@@ -234,8 +234,7 @@ require_once __DIR__ . '/includes/header.php';
               <div class="field-slip-footer">
                 <div>
                   <span class="small text-muted d-block" style="font-size: 0.72rem;">Dự toán tham khảo</span>
-                  <span class="price-mono"><?= format_vnd($tpl['ref_budget_per_person']) ?></span>
-                  <small class="text-muted">/người</small>
+                  <span class="price-mono"><?= format_vnd_html($tpl['ref_budget_per_person'], false, 'người') ?></span>
                 </div>
                 <a href="template_detail.php?id=<?= (int)$tpl['id'] ?><?= $month > 0 ? '&month=' . $month : '' ?>" class="btn-cin-ink">
                   Mở hồ sơ <i class="bi bi-arrow-right"></i>

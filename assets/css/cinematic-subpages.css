@@ -56,6 +56,33 @@
   unicode-range: U+0030-0039, U+002E, U+002C, U+002F, U+002D, U+002B, U+0025, U+0023, U+20AB;
 }
 
+/* Global Cinematic Design System Tokens for Subpages & App Mode */
+:root {
+  --cin-night: #0b1914;
+  --cin-jade-deep: #10241c;
+  --cin-jade: #164e3a;
+  --cin-jade-soft: #226b50;
+  --cin-paper: #f4efe4;
+  --cin-paper-warm: #eae1cf;
+  --cin-paper-card: #fbf8f1;
+  --cin-ink: #14221b;
+  --cin-ink-muted: #4a5d52;
+  --cin-cream: #f6eee0;
+  --cin-cream-muted: rgba(246, 238, 224, 0.76);
+  --cin-amber: #d97706;
+  --cin-amber-bright: #f59e0b;
+  --cin-brass: rgba(224, 159, 62, 0.34);
+  --cin-rule-dark: rgba(20, 34, 27, 0.16);
+  --cin-rule-light: rgba(246, 238, 224, 0.16);
+  --cin-rule: rgba(20, 34, 27, 0.16);
+  --font-display: 'CinDisplayNums', 'Playfair Display', Georgia, serif;
+  --font-display-italic: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --font-body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  --bs-font-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
 body.cinematic-subpage,
 body.cinematic-app {
   font-family: var(--font-sans);
@@ -192,10 +219,10 @@ body.cinematic-app .footer-bacdu {
   border: 1px solid var(--cin-brass);
   border-radius: 3px;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
   color: var(--cin-amber-bright);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   margin-bottom: 0.75rem;
 }
 
@@ -235,10 +262,9 @@ body.cinematic-app .footer-bacdu {
 
 .cin-filter-console .form-label {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.03em;
   color: var(--cin-ink-muted);
   margin-bottom: 0.3rem;
 }
@@ -448,10 +474,10 @@ body.cinematic-app {
 
 .app-shift-eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(246, 238, 224, 0.65);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: rgba(251, 247, 238, 0.78);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -1109,10 +1135,9 @@ body.cinematic-app {
 
 .cin-dossier-meta-cell .meta-label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: rgba(246, 238, 224, 0.62);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: rgba(251, 247, 238, 0.75);
 }
 
 .cin-dossier-meta-cell .meta-val {
@@ -1120,6 +1145,42 @@ body.cinematic-app {
   font-size: 0.88rem;
   font-weight: 700;
   color: var(--cin-cream);
+}
+
+.price-mono {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--cin-jade);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.015em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12rem;
+}
+
+.price-mono .currency-symbol {
+  font-family: var(--font-sans) !important;
+  font-weight: 600;
+  font-size: 0.82em;
+  color: currentColor;
+  opacity: 0.88;
+}
+
+.price-mono .price-unit,
+.price-mono small {
+  font-family: var(--font-sans) !important;
+  font-weight: 500;
+  font-size: 0.76em;
+  color: var(--cin-ink-muted);
+  opacity: 0.85;
+}
+
+.price-mono .price-free {
+  font-family: var(--font-sans) !important;
+  font-weight: 600;
+  font-size: 0.95em;
+  color: var(--cin-jade);
 }
 
 .cin-empty-state {
