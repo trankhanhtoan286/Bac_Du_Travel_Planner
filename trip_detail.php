@@ -579,7 +579,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
         <button type="button" class="btn-cin-ghost py-1 px-3" onclick="window.BacDuApp && window.BacDuApp.openPalette()" data-key="/">
           <i class="bi bi-terminal"></i> Lệnh nhanh
         </button>
-        <button type="button" class="btn-cin-ghost py-1 px-3" data-bs-toggle="modal" data-bs-target="#editTripModal" data-key="i" data-palette-label="Sửa thông tin & Ngày đi/về">
+        <button type="button" class="btn-cin-ghost py-1 px-3" data-bs-toggle="modal" data-bs-target="#editTripModal" data-key="i" data-palette-label="Sửa thông tin và Ngày đi/về">
           <i class="bi bi-sliders"></i> Sửa chuyến đi
         </button>
         <?php if ((int)$trip['is_shared'] === 1): ?>
@@ -998,7 +998,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
           <div class="cin-day-header">
             <div>
               <span class="cin-day-badge me-2">LƯU TRÚ (<?= count($accommodationsList) ?>)</span>
-              <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.15rem;">Kế hoạch Homestay &amp; Khách sạn</span>
+              <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.15rem;">Kế hoạch Homestay và Khách sạn</span>
             </div>
             <button type="button" class="btn-cin-amber py-1 px-2" data-bs-toggle="modal" data-bs-target="#addAccommodationModal">
               <i class="bi bi-plus-lg"></i>Thêm nơi lưu trú
@@ -1056,7 +1056,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
           <div class="cin-day-header">
             <div>
               <span class="cin-day-badge me-2">DI CHUYỂN (<?= count($transportsList) ?>)</span>
-              <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.15rem;">Thông tin Phương tiện &amp; Vé xe</span>
+              <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.15rem;">Thông tin Phương tiện và Vé xe</span>
             </div>
             <button type="button" class="btn-cin-amber py-1 px-2" data-bs-toggle="modal" data-bs-target="#addTransportModal">
               <i class="bi bi-plus-lg"></i>Thêm phương tiện
@@ -1138,10 +1138,10 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
               <div class="mb-3">
                 <label class="form-label small fw-bold">Nhóm chuẩn bị</label>
                 <select name="category" id="ck_category" class="form-select">
-                  <option value="Giấy tờ & Tiền mặt">Giấy tờ &amp; Tiền mặt</option>
+                  <option value="Giấy tờ và Tiền mặt">Giấy tờ và Tiền mặt</option>
                   <option value="Trang phục">Trang phục theo mùa</option>
-                  <option value="Thiết bị điện tử">Thiết bị điện tử &amp; Máy ảnh</option>
-                  <option value="Y tế cá nhân">Y tế &amp; Đồ dùng cá nhân</option>
+                  <option value="Thiết bị điện tử">Thiết bị điện tử và Máy ảnh</option>
+                  <option value="Y tế cá nhân">Y tế và Đồ dùng cá nhân</option>
                   <option value="Công việc trước chuyến đi">Công việc trước chuyến đi</option>
                 </select>
               </div>
@@ -1490,7 +1490,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
               <option value="transport">Di chuyển</option>
               <option value="stay">Lưu trú</option>
               <option value="ticket">Vé tham quan</option>
-              <option value="shopping">Mua sắm &amp; Quà</option>
+              <option value="shopping">Mua sắm và Quà</option>
               <option value="other">Khác</option>
             </select>
           </div>

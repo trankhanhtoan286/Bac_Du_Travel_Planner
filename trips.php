@@ -74,9 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Tạo checklist mặc định
             $defaultCheck = [
-                ['Căn cước công dân (CCCD) & Giấy tờ tùy thân', 'Giấy tờ & Tiền mặt', 1],
+                ['Căn cước công dân (CCCD) và Giấy tờ tùy thân', 'Giấy tờ và Tiền mặt', 1],
                 ['Trang phục phù hợp thời tiết miền Bắc', 'Trang phục', 2],
-                ['Sạc dự phòng & thiết bị chụp ảnh', 'Thiết bị điện tử', 3],
+                ['Sạc dự phòng và thiết bị chụp ảnh', 'Thiết bị điện tử', 3],
             ];
             $insCk = $pdo->prepare('INSERT INTO checklists (trip_id, item_name, category, is_completed, sort_order) VALUES (?, ?, ?, 0, ?)');
             foreach ($defaultCheck as $ck) {
