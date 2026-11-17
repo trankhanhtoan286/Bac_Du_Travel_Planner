@@ -33,12 +33,12 @@ if ($currentUser) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=12">
+  <link rel="stylesheet" href="assets/css/style.css?v=13">
   <?php if ($currentPage === 'index.php'): ?>
-  <link rel="stylesheet" href="assets/kit/reel.css?v=12">
+  <link rel="stylesheet" href="assets/kit/reel.css?v=13">
   <?php endif; ?>
-  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=12">
-  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=12">
+  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=13">
+  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=13">
 </head>
 <?php
   $appModePages = ['trips.php', 'trip_detail.php', 'admin.php', 'dashboard.php', 'profile.php', 'experience_form.php'];
@@ -90,9 +90,16 @@ if ($currentUser) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-nowrap <?= in_array($currentPage, ['trips.php', 'trip_detail.php'], true) ? 'active' : '' ?>" href="trips.php">
-            <i class="bi bi-luggage me-1"></i>Chuyến đi của tôi
-          </a>
+          <?php if (!$currentUser && $currentPage === 'auth.php'): ?>
+            <a class="nav-link text-nowrap" href="#login_identifier"
+               onclick="event.preventDefault(); const el=document.getElementById('login_identifier')||document.querySelector('.auth-form-pane input'); if(el){el.focus();} if(window.showBacDuToast){window.showBacDuToast('warning','Vui lòng đăng nhập bên dưới để mở không gian <strong>Chuyến đi của tôi</strong>.');}">
+              <i class="bi bi-luggage me-1"></i>Chuyến đi của tôi<i class="bi bi-lock-fill ms-1 opacity-50" style="font-size: 0.65rem;" title="Yêu cầu đăng nhập"></i>
+            </a>
+          <?php else: ?>
+            <a class="nav-link text-nowrap <?= in_array($currentPage, ['trips.php', 'trip_detail.php'], true) ? 'active' : '' ?>" href="trips.php">
+              <i class="bi bi-luggage me-1"></i>Chuyến đi của tôi<?php if (!$currentUser): ?><i class="bi bi-lock-fill ms-1 opacity-50" style="font-size: 0.65rem;" title="Yêu cầu đăng nhập"></i><?php endif; ?>
+            </a>
+          <?php endif; ?>
         </li>
         <?php if ($currentUser && $currentUser['role'] === 'admin'): ?>
         <li class="nav-item">
@@ -106,14 +113,13 @@ if ($currentUser) {
         <?php endif; ?>
       </ul>
 
+      <?php if ($currentUser || $currentPage !== 'auth.php'): ?>
       <div class="d-flex align-items-center gap-2 flex-nowrap">
         <?php if ($currentUser): ?>
           <a href="favorites.php" class="btn-cin-ghost py-1 px-2 position-relative text-nowrap d-inline-flex align-items-center gap-1" title="Sổ tay tọa độ yêu thích">
             <i class="bi bi-heart-fill text-danger"></i>
             <span class="d-none d-xl-inline small">Đã lưu</span>
-            <?php if ($favCount > 0): ?>
-              <span class="slip-tag slip-tag-amber py-0 px-1" style="font-size: 0.65rem;"><?= $favCount ?></span>
-            <?php endif; ?>
+            <span id="navFavBadge" class="slip-tag slip-tag-amber py-0 px-1 <?= $favCount > 0 ? '' : 'd-none' ?>" style="font-size: 0.65rem;"><?= $favCount ?></span>
           </a>
 
           <div class="dropdown">
@@ -136,7 +142,7 @@ if ($currentUser) {
               </li>
               <li><a class="dropdown-item cin-account-item <?= $currentPage === 'dashboard.php' ? 'active' : '' ?>" href="dashboard.php"><i class="bi bi-grid-1x2 text-warning"></i><span>Tổng quan cá nhân</span></a></li>
               <li><a class="dropdown-item cin-account-item <?= in_array($currentPage, ['trips.php', 'trip_detail.php'], true) ? 'active' : '' ?>" href="trips.php"><i class="bi bi-luggage text-info"></i><span>Chuyến đi của tôi</span></a></li>
-              <li><a class="dropdown-item cin-account-item <?= $currentPage === 'favorites.php' ? 'active' : '' ?>" href="favorites.php"><i class="bi bi-heart-fill text-danger"></i><span>Sổ tay tọa độ (<?= $favCount ?>)</span></a></li>
+              <li><a class="dropdown-item cin-account-item <?= $currentPage === 'favorites.php' ? 'active' : '' ?>" href="favorites.php"><i class="bi bi-heart-fill text-danger"></i><span>Sổ tay tọa độ (<span id="menuFavCount"><?= $favCount ?></span>)</span></a></li>
               <li><a class="dropdown-item cin-account-item <?= $currentPage === 'experience_form.php' ? 'active' : '' ?>" href="experience_form.php"><i class="bi bi-pencil-square text-warning"></i><span>Viết nhật ký thực địa</span></a></li>
               <li><a class="dropdown-item cin-account-item <?= $currentPage === 'profile.php' ? 'active' : '' ?>" href="profile.php"><i class="bi bi-person-gear text-light"></i><span>Hồ sơ và Đổi mật khẩu</span></a></li>
               <?php if ($currentUser['role'] === 'admin'): ?>
@@ -156,28 +162,32 @@ if ($currentUser) {
             </ul>
           </div>
         <?php else: ?>
-          <?php if ($currentPage === 'auth.php'): ?>
-            <a href="index.php" class="btn-cin-ghost py-1 px-3 text-nowrap">
-              <i class="bi bi-arrow-left me-1"></i>Khám phá trước
-            </a>
-          <?php else: ?>
-            <a href="auth.php?tab=login" class="btn-cin-ghost py-1 px-3">Đăng nhập</a>
-            <a href="auth.php?tab=register" class="btn-cin-amber py-1 px-3">Đăng ký</a>
-          <?php endif; ?>
+          <a href="auth.php?tab=login" class="btn-cin-ghost py-1 px-3">Đăng nhập</a>
+          <a href="auth.php?tab=register" class="btn-cin-amber py-1 px-3">Đăng ký</a>
         <?php endif; ?>
       </div>
+      <?php endif; ?>
     </div>
   </div>
 </nav>
 
+<div class="cin-toast-stack" id="cinToastStack" aria-live="polite">
 <?php if (!empty($flashes)): ?>
-<div class="container mt-3">
   <?php foreach ($flashes as $fl): ?>
-    <div class="alert alert-dismissible fade show cin-flash-banner cin-flash-<?= e($fl['type']) ?> d-flex align-items-center gap-2" role="alert">
-      <i class="bi <?= $fl['type'] === 'success' ? 'bi-check-circle-fill text-warning' : ($fl['type'] === 'danger' ? 'bi-exclamation-octagon-fill text-danger' : 'bi-info-circle-fill text-info') ?> fs-5"></i>
-      <div class="small"><?= $fl['message'] ?></div>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    <?php
+      $fType = $fl['type'] ?? 'info';
+      $fIcon = match ($fType) {
+          'success' => 'bi-check-circle-fill text-success',
+          'warning' => 'bi-exclamation-triangle-fill text-warning',
+          'danger'  => 'bi-exclamation-octagon-fill text-danger',
+          default   => 'bi-info-circle-fill text-info',
+      };
+    ?>
+    <div class="alert alert-dismissible fade show cin-flash-banner cin-flash-<?= e($fType) ?> d-flex align-items-start gap-2" role="alert">
+      <i class="bi <?= $fIcon ?> fs-6 mt-1 flex-shrink-0"></i>
+      <div class="small lh-sm"><?= $fl['message'] ?></div>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Đóng"></button>
     </div>
   <?php endforeach; ?>
-</div>
 <?php endif; ?>
+</div>

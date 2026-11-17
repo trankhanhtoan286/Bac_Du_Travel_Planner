@@ -24,8 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $coverUrl = trim($_POST['cover_image_url'] ?? '');
         $description = trim($_POST['description'] ?? '');
 
+        $dateAdjustedWarn = false;
         if (strtotime($endDate) < strtotime($startDate)) {
             $endDate = $startDate;
+            $dateAdjustedWarn = true;
         }
 
         if ($title === '' || $mainDest === '') {
@@ -35,7 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($coverUrl === '') {
-            $coverUrl = 'https://images.unsplash.com/photo-1528127269322-539801943592?w=900&auto=format&fit=crop&q=80';
+            if ($provinceId) {
+                $stmtProvImg = $pdo->prepare('SELECT image_url FROM provinces WHERE id = ? LIMIT 1');
+                $stmtProvImg->execute([$provinceId]);
+                $coverUrl = (string)($stmtProvImg->fetchColumn() ?: '');
+            }
+            if ($coverUrl === '') {
+                $coverUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg/960px-View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg';
+            }
         }
 
         $pdo->beginTransaction();
@@ -84,7 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $pdo->commit();
-            set_flash('success', 'Đã tạo chuyến đi mới thành công! Hãy bắt đầu thêm hoạt động và dự toán chi phí.');
+            if (!empty($dateAdjustedWarn)) {
+                set_flash('warning', 'Ngày kết thúc nhỏ hơn ngày khởi hành nên hệ thống đã điều chỉnh về chuyến đi trong ngày (' . format_date_vn($startDate) . '). Bạn có thể mở rộng thêm ngày bất cứ lúc nào.');
+            } else {
+                set_flash('success', 'Đã tạo chuyến đi mới thành công! Hãy bắt đầu thêm hoạt động và dự toán chi phí.');
+            }
             header('Location: trip_detail.php?id=' . $tripId);
             exit;
         } catch (Throwable $err) {

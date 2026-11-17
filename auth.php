@@ -5,6 +5,24 @@ $pdo = get_db();
 $tab = $_GET['tab'] ?? 'login';
 $redirect = $_GET['redirect'] ?? $_POST['redirect'] ?? 'index.php';
 
+// Nếu người dùng đã đăng nhập mà truy cập GET vào auth.php -> chuyển thẳng về trang đích hoặc Tổng quan cá nhân
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && is_logged_in()) {
+    $safeTarget = ($redirect !== '' && $redirect !== 'index.php' && !str_starts_with($redirect, 'http') && !str_starts_with($redirect, '//'))
+        ? $redirect
+        : 'dashboard.php';
+    header('Location: ' . $safeTarget);
+    exit;
+}
+
+// Giữ lại giá trị nhập liệu khi xảy ra lỗi Validate (chống mất dữ liệu Form State Loss)
+$oldIdentifier = '';
+$oldFullName   = '';
+$oldUsername   = '';
+$oldEmail      = '';
+$oldForgotUser = '';
+$oldForgotEmail = '';
+$oldForgotPhone = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
@@ -17,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!verify_csrf()) {
         set_flash('danger', 'Phiên làm việc không hợp lệ, vui lòng thử lại.');
-        header('Location: auth.php?tab=' . urlencode($tab));
+        header('Location: auth.php?tab=' . urlencode($tab) . '&redirect=' . urlencode($redirect));
         exit;
     }
 
@@ -25,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'login') {
         $identifier = trim($_POST['identifier'] ?? '');
         $password = (string)($_POST['password'] ?? '');
+        $oldIdentifier = $identifier;
 
         if ($identifier === '' || $password === '') {
             set_flash('danger', 'Vui lòng nhập đầy đủ Email/Username và Mật khẩu.');
@@ -55,6 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = (string)($_POST['password'] ?? '');
         $confirm = (string)($_POST['confirm_password'] ?? '');
 
+        $oldFullName = $fullName;
+        $oldUsername = $username;
+        $oldEmail    = $email;
+
         if ($fullName === '' || $username === '' || $email === '' || $password === '') {
             set_flash('danger', 'Vui lòng điền đầy đủ các trường thông tin bắt buộc.');
             $tab = 'register';
@@ -84,18 +107,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ');
                 $ins->execute([$fullName, $username, $email, $hash, 'user', 'active', 'Hà Nội']);
                 $_SESSION['user_id'] = (int)$pdo->lastInsertId();
-                set_flash('success', 'Đăng ký tài khoản thành công! Hãy bắt đầu tạo chuyến đi đầu tiên của bạn.');
-                header('Location: dashboard.php');
+                set_flash('success', 'Đăng ký tài khoản thành công! Chào mừng <strong>' . e($fullName) . '</strong> đến với Bắc Du.');
+                $safeRedirect = ($redirect !== '' && $redirect !== 'index.php' && !str_starts_with($redirect, 'http') && !str_starts_with($redirect, '//'))
+                    ? $redirect
+                    : 'dashboard.php';
+                header('Location: ' . $safeRedirect);
                 exit;
             }
         }
     }
-    // UC01.4: Quên mật khẩu (Xác minh khớp Username + Email để đặt lại mật khẩu mới trên XAMPP)
+    // UC01.4: Quên mật khẩu (Xác minh khớp Username + Email + SĐT hồ sơ & khóa bảo vệ tài khoản Admin)
     elseif ($action === 'forgot_password') {
         $username = strtolower(trim($_POST['username'] ?? ''));
         $email = strtolower(trim($_POST['email'] ?? ''));
+        $phone = preg_replace('/\s+/', '', trim($_POST['phone'] ?? ''));
         $newPw = (string)($_POST['new_password'] ?? '');
         $confirmPw = (string)($_POST['confirm_password'] ?? '');
+
+        $oldForgotUser  = $username;
+        $oldForgotEmail = $email;
+        $oldForgotPhone = $phone;
 
         if ($username === '' || $email === '' || $newPw === '') {
             set_flash('danger', 'Vui lòng nhập đầy đủ Username, Email đã đăng ký và Mật khẩu mới.');
@@ -111,18 +142,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$username, $email]);
             $foundUser = $stmt->fetch();
 
+            $savedPhone = preg_replace('/\s+/', '', trim((string)($foundUser['phone'] ?? '')));
+
             if (!$foundUser) {
                 set_flash('danger', 'Không tìm thấy tài khoản khớp đồng thời cả Username và Email bạn cung cấp.');
                 $tab = 'forgot';
+            } elseif ($foundUser['role'] === 'admin') {
+                set_flash('danger', 'Tài khoản Quản trị viên (Admin) được bảo vệ cấp hệ thống, không thể đặt lại mật khẩu qua biểu mẫu công khai.');
+                $tab = 'forgot';
             } elseif ($foundUser['status'] === 'locked') {
                 set_flash('danger', 'Tài khoản này đang bị khóa, không thể đặt lại mật khẩu.');
+                $tab = 'forgot';
+            } elseif ($savedPhone !== '' && $savedPhone !== $phone) {
+                set_flash('danger', 'Số điện thoại xác minh không khớp với hồ sơ tài khoản đã đăng ký.');
                 $tab = 'forgot';
             } else {
                 $newHash = password_hash($newPw, PASSWORD_DEFAULT);
                 $upd = $pdo->prepare('UPDATE users SET password_hash = ? WHERE id = ?');
                 $upd->execute([$newHash, $foundUser['id']]);
                 set_flash('success', 'Đã khôi phục mật khẩu mới thành công cho tài khoản <strong>@' . e($foundUser['username']) . '</strong>! Vui lòng đăng nhập.');
-                header('Location: auth.php?tab=login');
+                header('Location: auth.php?tab=login&redirect=' . urlencode($redirect));
                 exit;
             }
         }
@@ -229,7 +268,7 @@ require_once __DIR__ . '/includes/header.php';
                   <label for="login_identifier" class="form-label fw-semibold small mb-1">Email hoặc Username</label>
                   <div class="auth-field-box">
                     <span class="auth-field-icon"><i class="bi bi-person"></i></span>
-                    <input type="text" name="identifier" id="login_identifier" class="form-control" placeholder="Nhập username hoặc email của bạn" autocomplete="username" required>
+                    <input type="text" name="identifier" id="login_identifier" class="form-control" value="<?= e($oldIdentifier) ?>" placeholder="Nhập username hoặc email của bạn" autocomplete="username" required>
                   </div>
                 </div>
 
@@ -281,7 +320,7 @@ require_once __DIR__ . '/includes/header.php';
                   <label class="form-label fw-semibold small mb-1">Họ và tên</label>
                   <div class="auth-field-box">
                     <span class="auth-field-icon"><i class="bi bi-person-vcard"></i></span>
-                    <input type="text" name="full_name" class="form-control" placeholder="VD: Ngô Xuân Kiên" required>
+                    <input type="text" name="full_name" class="form-control" value="<?= e($oldFullName) ?>" placeholder="VD: Ngô Xuân Kiên" required>
                   </div>
                 </div>
 
@@ -290,14 +329,14 @@ require_once __DIR__ . '/includes/header.php';
                     <label class="form-label fw-semibold small mb-1">Username</label>
                     <div class="auth-field-box">
                       <span class="auth-field-icon"><i class="bi bi-at"></i></span>
-                      <input type="text" name="username" class="form-control" placeholder="ngoxuankien" required>
+                      <input type="text" name="username" class="form-control" value="<?= e($oldUsername) ?>" placeholder="ngoxuankien" required>
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <label class="form-label fw-semibold small mb-1">Email</label>
                     <div class="auth-field-box">
                       <span class="auth-field-icon"><i class="bi bi-envelope"></i></span>
-                      <input type="email" name="email" class="form-control" placeholder="ban@email.com" required>
+                      <input type="email" name="email" class="form-control" value="<?= e($oldEmail) ?>" placeholder="ban@email.com" required>
                     </div>
                   </div>
                 </div>
@@ -308,13 +347,19 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="auth-field-box">
                       <span class="auth-field-icon"><i class="bi bi-lock"></i></span>
                       <input type="password" name="password" id="reg_password" class="form-control" minlength="6" placeholder="Ít nhất 6 ký tự" required>
+                      <button type="button" class="auth-pw-toggle" onclick="toggleAuthPw(this, 'reg_password')" title="Hiện / Ẩn mật khẩu" aria-label="Hiện hoặc ẩn mật khẩu">
+                        <i class="bi bi-eye"></i>
+                      </button>
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <label class="form-label fw-semibold small mb-1">Xác nhận mật khẩu</label>
                     <div class="auth-field-box">
                       <span class="auth-field-icon"><i class="bi bi-shield-check"></i></span>
-                      <input type="password" name="confirm_password" class="form-control" minlength="6" placeholder="Nhập lại mật khẩu" required>
+                      <input type="password" name="confirm_password" id="reg_confirm_password" class="form-control" minlength="6" placeholder="Nhập lại mật khẩu" required>
+                      <button type="button" class="auth-pw-toggle" onclick="toggleAuthPw(this, 'reg_confirm_password')" title="Hiện / Ẩn mật khẩu" aria-label="Hiện hoặc ẩn mật khẩu">
+                        <i class="bi bi-eye"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -327,26 +372,35 @@ require_once __DIR__ . '/includes/header.php';
             <?php else: ?>
               <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">KHÔI PHỤC BẢO MẬT</span>
               <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display); color: var(--cin-ink);">Đặt lại mật khẩu</h2>
-              <p class="small text-muted mb-4">Xác minh Username và Email đã đăng ký để thiết lập mật khẩu mới.</p>
+              <p class="small text-muted mb-4">Xác minh đồng thời Username, Email và Số điện thoại hồ sơ để đặt lại mật khẩu.</p>
 
               <form action="auth.php?tab=forgot" method="post">
                 <?= csrf_field() ?>
                 <input type="hidden" name="action" value="forgot_password">
+                <input type="hidden" name="redirect" value="<?= e($redirect) ?>">
 
                 <div class="row g-3 mb-3">
                   <div class="col-sm-6">
                     <label class="form-label fw-semibold small mb-1">Username tài khoản</label>
                     <div class="auth-field-box">
                       <span class="auth-field-icon"><i class="bi bi-at"></i></span>
-                      <input type="text" name="username" class="form-control" placeholder="VD: kien" required>
+                      <input type="text" name="username" class="form-control" value="<?= e($oldForgotUser) ?>" placeholder="VD: kien" required>
                     </div>
                   </div>
                   <div class="col-sm-6">
-                    <label class="form-label fw-semibold small mb-1">Email đã đăng ký</label>
+                    <label class="form-label fw-semibold small mb-1">Số điện thoại hồ sơ</label>
                     <div class="auth-field-box">
-                      <span class="auth-field-icon"><i class="bi bi-envelope"></i></span>
-                      <input type="email" name="email" class="form-control" placeholder="ban@email.com" required>
+                      <span class="auth-field-icon"><i class="bi bi-telephone"></i></span>
+                      <input type="text" name="phone" class="form-control" value="<?= e($oldForgotPhone) ?>" placeholder="Nếu đã lưu trong hồ sơ">
                     </div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-semibold small mb-1">Email đã đăng ký</label>
+                  <div class="auth-field-box">
+                    <span class="auth-field-icon"><i class="bi bi-envelope"></i></span>
+                    <input type="email" name="email" class="form-control" value="<?= e($oldForgotEmail) ?>" placeholder="ban@email.com" required>
                   </div>
                 </div>
 
@@ -355,14 +409,20 @@ require_once __DIR__ . '/includes/header.php';
                     <label class="form-label fw-semibold small mb-1">Mật khẩu mới</label>
                     <div class="auth-field-box">
                       <span class="auth-field-icon"><i class="bi bi-key"></i></span>
-                      <input type="password" name="new_password" class="form-control" minlength="6" placeholder="Ít nhất 6 ký tự" required>
+                      <input type="password" name="new_password" id="forgot_new_pw" class="form-control" minlength="6" placeholder="Ít nhất 6 ký tự" required>
+                      <button type="button" class="auth-pw-toggle" onclick="toggleAuthPw(this, 'forgot_new_pw')" title="Hiện / Ẩn mật khẩu" aria-label="Hiện hoặc ẩn mật khẩu">
+                        <i class="bi bi-eye"></i>
+                      </button>
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <label class="form-label fw-semibold small mb-1">Xác nhận mật khẩu mới</label>
                     <div class="auth-field-box">
                       <span class="auth-field-icon"><i class="bi bi-check2-circle"></i></span>
-                      <input type="password" name="confirm_password" class="form-control" minlength="6" placeholder="Nhập lại mật khẩu" required>
+                      <input type="password" name="confirm_password" id="forgot_confirm_pw" class="form-control" minlength="6" placeholder="Nhập lại mật khẩu" required>
+                      <button type="button" class="auth-pw-toggle" onclick="toggleAuthPw(this, 'forgot_confirm_pw')" title="Hiện / Ẩn mật khẩu" aria-label="Hiện hoặc ẩn mật khẩu">
+                        <i class="bi bi-eye"></i>
+                      </button>
                     </div>
                   </div>
                 </div>

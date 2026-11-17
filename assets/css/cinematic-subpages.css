@@ -1033,15 +1033,35 @@ body.cinematic-app {
   margin: 0.35rem 0 !important;
 }
 
-/* Cinematic Flash Banners */
+/* Cinematic Floating Toast Stack & Flash Banners (Zero Layout Shift) */
+.cin-toast-stack {
+  position: fixed;
+  top: 74px;
+  right: 20px;
+  z-index: 1085;
+  width: min(420px, calc(100vw - 32px));
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  pointer-events: none;
+}
+
 .cin-flash-banner {
-  background: #0f241c !important;
+  pointer-events: auto;
+  margin-bottom: 0 !important;
+  background: rgba(11, 25, 20, 0.96) !important;
   color: var(--cin-cream) !important;
   border: 1px solid var(--cin-brass) !important;
-  border-left: 4px solid var(--cin-amber-bright) !important;
-  border-radius: 4px !important;
-  padding: 0.75rem 1.1rem !important;
-  box-shadow: 0 12px 28px rgba(11, 25, 20, 0.16) !important;
+  border-left: 4px solid #10b981 !important;
+  border-radius: 6px !important;
+  padding: 0.8rem 2.35rem 0.8rem 1rem !important;
+  box-shadow: 0 16px 38px rgba(11, 25, 20, 0.28) !important;
+  backdrop-filter: blur(8px);
+  animation: cinToastSlideIn 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cin-flash-warning {
+  border-left-color: var(--cin-amber-bright) !important;
 }
 
 .cin-flash-danger {
@@ -1050,6 +1070,17 @@ body.cinematic-app {
 
 .cin-flash-info {
   border-left-color: #38bdf8 !important;
+}
+
+@keyframes cinToastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Global Cinematic Modal Override across all pages */

@@ -157,4 +157,128 @@ document.addEventListener('DOMContentLoaded', () => {
       budgetInput.value = Math.round(refPerPerson * pax);
     });
   }
+
+  // Tự động ẩn các thông báo Floating Toast sau 4.6 giây (tạm dừng khi rê chuột vào)
+  const scheduleToastDismiss = (toastEl) => {
+    let timer = setTimeout(() => {
+      if (window.bootstrap && bootstrap.Alert) {
+        bootstrap.Alert.getOrCreateInstance(toastEl).close();
+      } else {
+        toastEl.remove();
+      }
+    }, 4600);
+    toastEl.addEventListener('mouseenter', () => clearTimeout(timer));
+    toastEl.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => {
+        if (window.bootstrap && bootstrap.Alert) {
+          bootstrap.Alert.getOrCreateInstance(toastEl).close();
+        } else {
+          toastEl.remove();
+        }
+      }, 2400);
+    });
+  };
+
+  document.querySelectorAll('#cinToastStack .cin-flash-banner').forEach(scheduleToastDismiss);
+
+  window.showBacDuToast = function(type, htmlMessage) {
+    let stack = document.getElementById('cinToastStack');
+    if (!stack) {
+      stack = document.createElement('div');
+      stack.id = 'cinToastStack';
+      stack.className = 'cin-toast-stack';
+      document.body.appendChild(stack);
+    }
+    const iconMap = {
+      success: 'bi-check-circle-fill text-success',
+      warning: 'bi-exclamation-triangle-fill text-warning',
+      danger: 'bi-exclamation-octagon-fill text-danger',
+      info: 'bi-info-circle-fill text-info'
+    };
+    const el = document.createElement('div');
+    el.className = `alert alert-dismissible fade show cin-flash-banner cin-flash-${type || 'info'} d-flex align-items-start gap-2`;
+    el.setAttribute('role', 'alert');
+    el.innerHTML = `
+      <i class="bi ${iconMap[type] || iconMap.info} fs-6 mt-1 flex-shrink-0"></i>
+      <div class="small lh-sm">${htmlMessage}</div>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    `;
+    stack.appendChild(el);
+    scheduleToastDismiss(el);
+  };
+
+  // Xử lý thả tim Yêu thích bằng AJAX không tải lại trang (chống nhảy mất vị trí cuộn)
+  const isFavoritesPage = window.location.pathname.endsWith('/favorites.php') || window.location.pathname === 'favorites.php';
+  if (!isFavoritesPage) {
+    document.querySelectorAll('form[action="favorites.php"]').forEach(form => {
+      const actionInput = form.querySelector('input[name="action"][value="toggle"]');
+      if (!actionInput) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn && btn.disabled) return;
+        if (btn) btn.disabled = true;
+
+        try {
+          const fd = new FormData(form);
+          fd.append('ajax', '1');
+          const res = await fetch('favorites.php', {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            body: fd
+          });
+          const data = await res.json();
+
+          if (data.require_login && data.login_url) {
+            window.location.href = data.login_url;
+            return;
+          }
+
+          if (data.ok) {
+            const icon = form.querySelector('i.bi');
+            if (icon) {
+              if (data.favorited) {
+                icon.className = 'bi bi-heart-fill text-danger';
+                if (btn) btn.title = 'Bỏ yêu thích';
+              } else {
+                const isLightBtn = btn && btn.classList.contains('btn-light');
+                icon.className = isLightBtn ? 'bi bi-heart text-secondary' : 'bi bi-heart';
+                if (btn) btn.title = 'Lưu yêu thích';
+              }
+            }
+            const navBadge = document.getElementById('navFavBadge');
+            if (navBadge) {
+              navBadge.textContent = data.fav_count;
+              navBadge.classList.toggle('d-none', !(data.fav_count > 0));
+            }
+            const menuCount = document.getElementById('menuFavCount');
+            if (menuCount) {
+              menuCount.textContent = data.fav_count;
+            }
+            if (window.showBacDuToast && data.message) {
+              window.showBacDuToast(data.favorited ? 'success' : 'info', data.message);
+            }
+          }
+        } catch (err) {
+          form.submit();
+        } finally {
+          if (btn) btn.disabled = false;
+        }
+      });
+    });
+  }
 });
+
+window.toggleAuthPw = function(btn, inputId) {
+  const input = document.getElementById(inputId);
+  const icon = btn ? btn.querySelector('i') : null;
+  if (!input || !icon) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.className = 'bi bi-eye-slash';
+  } else {
+    input.type = 'password';
+    icon.className = 'bi bi-eye';
+  }
+};

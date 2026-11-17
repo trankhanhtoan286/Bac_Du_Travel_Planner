@@ -46,8 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $totalBudget = max(0, (float)($_POST['total_budget'] ?? $trip['total_budget']));
         $description = trim($_POST['description'] ?? '');
 
+        $dateAdjusted = false;
         if (strtotime($endDate) < strtotime($startDate)) {
             $endDate = $startDate;
+            $dateAdjusted = true;
         }
 
         $upd = $pdo->prepare('
@@ -85,12 +87,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
+        if (!empty($dateAdjusted)) {
+            set_flash('warning', 'Ngày kết thúc nhỏ hơn ngày khởi hành nên đã được điều chỉnh về ' . format_date_vn($startDate) . '.');
+        }
         if (!empty($affectedDays)) {
             set_flash(
                 'warning',
                 'Đã cập nhật thông tin chuyến đi! <strong>Lưu ý (Quy tắc bảo toàn dữ liệu Mục 4.5):</strong> Khoảng ngày đi/về mới ngắn hơn lịch trình hiện tại. Các ngày đang nằm ngoài khoảng mới gồm: <strong>' . implode(', ', $affectedDays) . '</strong>. Hệ thống giữ nguyên các ngày và hoạt động này để bạn chủ động chuyển hoạt động trước khi xóa ngày.'
             );
-        } else {
+        } elseif (empty($dateAdjusted)) {
             set_flash('success', 'Đã cập nhật thông tin chuyến đi và đồng bộ mốc ngày lịch trình.');
         }
     }
@@ -122,6 +127,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $estCost = max(0, (float)($_POST['estimated_cost'] ?? 0));
         $notes = trim($_POST['notes'] ?? '');
         $syncExpense = isset($_POST['sync_to_expense']) && (int)$_POST['sync_to_expense'] === 1;
+
+        if ($startTime !== '' && $endTime !== '' && strcmp($endTime, $startTime) < 0) {
+            set_flash('warning', 'Giờ kết thúc hoạt động (' . e($endTime) . ') không được sớm hơn giờ bắt đầu (' . e($startTime) . '). Vui lòng chọn lại khung giờ hợp lệ.');
+            header('Location: trip_detail.php?id=' . $tripId . '&tab=' . urlencode($redirectTab));
+            exit;
+        }
 
         if ($locationId && $title === '') {
             $stmtL = $pdo->prepare('SELECT name, short_desc FROM locations WHERE id = ?');

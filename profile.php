@@ -259,15 +259,33 @@ require_once __DIR__ . '/includes/header.php';
             <input type="hidden" name="action" value="change_password">
             <div class="col-md-4">
               <label class="form-label small fw-bold">Mật khẩu hiện tại</label>
-              <input type="password" name="current_password" class="form-control" required>
+              <div class="auth-field-box">
+                <span class="auth-field-icon"><i class="bi bi-lock"></i></span>
+                <input type="password" name="current_password" id="prof_cur_pw" class="form-control" required>
+                <button type="button" class="auth-pw-toggle" onclick="toggleAuthPw(this, 'prof_cur_pw')" title="Hiện / Ẩn mật khẩu" aria-label="Hiện hoặc ẩn mật khẩu">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
             </div>
             <div class="col-md-4">
               <label class="form-label small fw-bold">Mật khẩu mới</label>
-              <input type="password" name="new_password" class="form-control" minlength="6" required>
+              <div class="auth-field-box">
+                <span class="auth-field-icon"><i class="bi bi-key"></i></span>
+                <input type="password" name="new_password" id="prof_new_pw" class="form-control" minlength="6" required>
+                <button type="button" class="auth-pw-toggle" onclick="toggleAuthPw(this, 'prof_new_pw')" title="Hiện / Ẩn mật khẩu" aria-label="Hiện hoặc ẩn mật khẩu">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
             </div>
             <div class="col-md-4">
               <label class="form-label small fw-bold">Xác nhận mật khẩu mới</label>
-              <input type="password" name="confirm_password" class="form-control" minlength="6" required>
+              <div class="auth-field-box">
+                <span class="auth-field-icon"><i class="bi bi-check2-circle"></i></span>
+                <input type="password" name="confirm_password" id="prof_cfm_pw" class="form-control" minlength="6" required>
+                <button type="button" class="auth-pw-toggle" onclick="toggleAuthPw(this, 'prof_cfm_pw')" title="Hiện / Ẩn mật khẩu" aria-label="Hiện hoặc ẩn mật khẩu">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
             </div>
             <div class="col-12">
               <button type="submit" class="btn-cin-ink">

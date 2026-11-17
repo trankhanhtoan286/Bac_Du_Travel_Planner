@@ -122,7 +122,24 @@ $locations = $pdo->query("
     ORDER BY p.id ASC, l.name ASC
 ")->fetchAll();
 
-$defaultImageLines = implode("\n", array_map(fn($i) => $i['image_url'], $existingImages));
+$defaultImageLines = isset($_POST['image_urls'])
+    ? trim((string)$_POST['image_urls'])
+    : implode("\n", array_map(fn($i) => $i['image_url'], $existingImages));
+
+$formVal = [
+    'location_id'       => isset($_POST['location_id']) ? (int)$_POST['location_id'] : (int)($post['location_id'] ?? $preselectLocationId),
+    'rating'            => isset($_POST['rating']) ? (int)$_POST['rating'] : (int)($post['rating'] ?? 5),
+    'title'             => $_POST['title'] ?? ($post['title'] ?? ''),
+    'visit_month'       => isset($_POST['visit_month']) ? (int)$_POST['visit_month'] : (int)($post['visit_month'] ?? 2),
+    'visit_year'        => isset($_POST['visit_year']) ? (int)$_POST['visit_year'] : (int)($post['visit_year'] ?? date('Y')),
+    'ref_cost'          => $_POST['ref_cost'] ?? ($post['ref_cost'] ?? ''),
+    'cost_unit'         => $_POST['cost_unit'] ?? ($post['cost_unit'] ?? 'người'),
+    'content'           => $_POST['content'] ?? ($post['content'] ?? ''),
+    'pros_liked'        => $_POST['pros_liked'] ?? ($post['pros_liked'] ?? ''),
+    'cons_inconvenient' => $_POST['cons_inconvenient'] ?? ($post['cons_inconvenient'] ?? ''),
+    'tips_advice'       => $_POST['tips_advice'] ?? ($post['tips_advice'] ?? ''),
+];
+
 $pageTitle = $post ? 'Chỉnh sửa bài trải nghiệm' : 'Viết bài chia sẻ trải nghiệm';
 require_once __DIR__ . '/includes/header.php';
 ?>
@@ -209,7 +226,7 @@ require_once __DIR__ . '/includes/header.php';
                 <?php foreach ($locations as $loc): ?>
                   <?php
                     $tMeta = location_type_meta($loc['location_type']);
-                    $selectedId = (int)($post['location_id'] ?? $preselectLocationId);
+                    $selectedId = (int)$formVal['location_id'];
                   ?>
                   <option value="<?= (int)$loc['id'] ?>" <?= $selectedId === (int)$loc['id'] ? 'selected' : '' ?>>
                     [<?= e($loc['province_name']) ?> · <?= e($tMeta['short']) ?>] <?= e($loc['name']) ?>
@@ -222,7 +239,7 @@ require_once __DIR__ . '/includes/header.php';
               <label class="form-label small fw-bold">2. Đánh giá tổng thể (1–5 sao) *</label>
               <select name="rating" class="form-select fw-bold" style="color: var(--cin-amber);">
                 <?php for ($r = 5; $r >= 1; $r--): ?>
-                  <option value="<?= $r ?>" <?= (int)($post['rating'] ?? 5) === $r ? 'selected' : '' ?>>
+                  <option value="<?= $r ?>" <?= (int)$formVal['rating'] === $r ? 'selected' : '' ?>>
                     <?= $r ?> Sao <?= $r === 5 ? '— Rất tuyệt vời' : ($r === 4 ? '— Đáng trải nghiệm' : '') ?>
                   </option>
                 <?php endfor; ?>
@@ -232,7 +249,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="col-12">
               <label class="form-label small fw-bold">3. Tiêu đề bài chia sẻ *</label>
               <input type="text" name="title" class="form-control"
-                     value="<?= e($post['title'] ?? '') ?>"
+                     value="<?= e((string)$formVal['title']) ?>"
                      placeholder="VD: Kinh nghiệm săn hoa mận Nà Ka đầu tháng 2: Giờ chụp đẹp và góc vắng người" required>
             </div>
 
@@ -240,45 +257,45 @@ require_once __DIR__ . '/includes/header.php';
               <label class="form-label small fw-bold">Tháng đã đi</label>
               <select name="visit_month" class="form-select font-monospace">
                 <?php for ($m = 1; $m <= 12; $m++): ?>
-                  <option value="<?= $m ?>" <?= (int)($post['visit_month'] ?? 2) === $m ? 'selected' : '' ?>>Tháng <?= $m ?></option>
+                  <option value="<?= $m ?>" <?= (int)$formVal['visit_month'] === $m ? 'selected' : '' ?>>Tháng <?= $m ?></option>
                 <?php endfor; ?>
               </select>
             </div>
 
             <div class="col-md-3">
               <label class="form-label small fw-bold">Năm trải nghiệm</label>
-              <input type="number" name="visit_year" class="form-control font-monospace" value="<?= (int)($post['visit_year'] ?? date('Y')) ?>" min="2020" max="2030">
+              <input type="number" name="visit_year" class="form-control font-monospace" value="<?= (int)$formVal['visit_year'] ?>" min="2020" max="2030">
             </div>
 
             <div class="col-md-3">
               <label class="form-label small fw-bold">Chi phí thực tế (VND)</label>
-              <input type="number" name="ref_cost" class="form-control font-monospace" step="10000" value="<?= e((string)($post['ref_cost'] ?? '')) ?>" placeholder="VD: 150000">
+              <input type="number" name="ref_cost" class="form-control font-monospace" step="10000" value="<?= e((string)$formVal['ref_cost']) ?>" placeholder="VD: 150000">
             </div>
 
             <div class="col-md-3">
               <label class="form-label small fw-bold">Đơn vị tính</label>
-              <input type="text" name="cost_unit" class="form-control" value="<?= e($post['cost_unit'] ?? 'người') ?>" placeholder="người / phòng/đêm">
+              <input type="text" name="cost_unit" class="form-control" value="<?= e((string)$formVal['cost_unit']) ?>" placeholder="người / phòng/đêm">
             </div>
 
             <div class="col-12">
               <label class="form-label small fw-bold">4. Nội dung trải nghiệm chi tiết *</label>
               <textarea name="content" rows="5" class="form-control"
-                        placeholder="Chia sẻ chi tiết về khung cảnh thực tế, đường đi, chất lượng món ăn/phòng nghỉ..." required><?= e($post['content'] ?? '') ?></textarea>
+                        placeholder="Chia sẻ chi tiết về khung cảnh thực tế, đường đi, chất lượng món ăn/phòng nghỉ..." required><?= e((string)$formVal['content']) ?></textarea>
             </div>
 
             <div class="col-md-4">
               <label class="form-label small fw-bold text-success"><i class="bi bi-hand-thumbs-up-fill me-1"></i>Điều yêu thích</label>
-              <textarea name="pros_liked" rows="3" class="form-control" placeholder="Cảnh đẹp, đồ ăn tươi, chủ nhà nhiệt tình..."><?= e($post['pros_liked'] ?? '') ?></textarea>
+              <textarea name="pros_liked" rows="3" class="form-control" placeholder="Cảnh đẹp, đồ ăn tươi, chủ nhà nhiệt tình..."><?= e((string)$formVal['pros_liked']) ?></textarea>
             </div>
 
             <div class="col-md-4">
               <label class="form-label small fw-bold text-danger"><i class="bi bi-exclamation-circle-fill me-1"></i>Điểm bất tiện</label>
-              <textarea name="cons_inconvenient" rows="3" class="form-control" placeholder="Đường dốc, cuối tuần đông khách..."><?= e($post['cons_inconvenient'] ?? '') ?></textarea>
+              <textarea name="cons_inconvenient" rows="3" class="form-control" placeholder="Đường dốc, cuối tuần đông khách..."><?= e((string)$formVal['cons_inconvenient']) ?></textarea>
             </div>
 
             <div class="col-md-4">
               <label class="form-label small fw-bold" style="color: var(--cin-amber);"><i class="bi bi-lightbulb-fill me-1"></i>Lời khuyên cho người đi sau</label>
-              <textarea name="tips_advice" rows="3" class="form-control" placeholder="Nên đi giờ nào, mang trang phục gì..."><?= e($post['tips_advice'] ?? '') ?></textarea>
+              <textarea name="tips_advice" rows="3" class="form-control" placeholder="Nên đi giờ nào, mang trang phục gì..."><?= e((string)$formVal['tips_advice']) ?></textarea>
             </div>
 
             <div class="col-12">

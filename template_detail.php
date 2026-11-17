@@ -58,9 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'clone
     }
 }
 
-// Tăng lượt xem lịch trình mẫu (Product Insights - Thành viên 5)
-$pdo->prepare('UPDATE itinerary_templates SET views_count = views_count + 1 WHERE id = ?')->execute([$id]);
-$template['views_count'] = (int)$template['views_count'] + 1;
+// Tăng lượt xem lịch trình mẫu (khử trùng lặp theo phiên làm việc để tránh đếm ảo khi F5/lọc tháng)
+if (empty($_SESSION['viewed_templates'][$id])) {
+    $pdo->prepare('UPDATE itinerary_templates SET views_count = views_count + 1 WHERE id = ?')->execute([$id]);
+    $template['views_count'] = (int)$template['views_count'] + 1;
+    $_SESSION['viewed_templates'][$id] = true;
+}
 
 // Các tháng phù hợp của mẫu
 $stmtMonths = $pdo->prepare('SELECT * FROM template_months WHERE template_id = ? ORDER BY month_number ASC');

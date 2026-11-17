@@ -1,11 +1,31 @@
 <?php
 require_once __DIR__ . '/includes/helpers.php';
 
+$isAjax = (($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest') || (($_POST['ajax'] ?? '') === '1');
+
+if ($isAjax && $_SERVER['REQUEST_METHOD'] === 'POST' && !is_logged_in()) {
+    $reqRedirect = $_POST['redirect'] ?? 'locations.php';
+    $safeRedir = (str_starts_with($reqRedirect, 'http') || str_starts_with($reqRedirect, '//')) ? 'locations.php' : $reqRedirect;
+    set_flash('warning', 'Vui lòng đăng nhập để lưu địa điểm yêu thích vào sổ tay tọa độ của bạn.');
+    header('Content-Type: application/json; charset=UTF-8');
+    echo json_encode([
+        'ok'            => false,
+        'require_login' => true,
+        'login_url'     => 'auth.php?tab=login&redirect=' . urlencode($safeRedir),
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 $user = require_login('favorites.php');
 $pdo = get_db();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!verify_csrf()) {
+        if ($isAjax) {
+            header('Content-Type: application/json; charset=UTF-8', true, 403);
+            echo json_encode(['ok' => false, 'message' => 'Phiên làm việc không hợp lệ.'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
         set_flash('danger', 'Phiên làm việc không hợp lệ.');
         header('Location: favorites.php');
         exit;
@@ -21,15 +41,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $chk->execute([$user['id'], $locationId]);
         $existing = $chk->fetch();
 
+        $stmtLocName = $pdo->prepare('SELECT name FROM locations WHERE id = ? LIMIT 1');
+        $stmtLocName->execute([$locationId]);
+        $locTitle = (string)($stmtLocName->fetchColumn() ?: 'địa điểm');
+
         if ($existing) {
             $del = $pdo->prepare('DELETE FROM favorite_locations WHERE id = ?');
             $del->execute([$existing['id']]);
-            set_flash('info', 'Đã bỏ lưu địa điểm khỏi danh sách yêu thích.');
+            $favorited = false;
+            $msg = 'Đã bỏ lưu <strong>' . e($locTitle) . '</strong> khỏi danh sách yêu thích.';
         } else {
             $ins = $pdo->prepare('INSERT INTO favorite_locations (user_id, location_id) VALUES (?, ?)');
             $ins->execute([$user['id'], $locationId]);
-            set_flash('success', 'Đã lưu địa điểm vào danh sách Yêu thích của bạn!');
+            $favorited = true;
+            $msg = 'Đã lưu <strong>' . e($locTitle) . '</strong> vào Sổ tay tọa độ yêu thích!';
         }
+
+        if ($isAjax) {
+            $stmtCnt = $pdo->prepare('SELECT COUNT(*) FROM favorite_locations WHERE user_id = ?');
+            $stmtCnt->execute([$user['id']]);
+            $newCount = (int)$stmtCnt->fetchColumn();
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'ok'        => true,
+                'favorited' => $favorited,
+                'fav_count' => $newCount,
+                'message'   => $msg,
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        set_flash($favorited ? 'success' : 'info', $msg);
         header('Location: ' . $safeRedirect);
         exit;
     } elseif ($action === 'add_to_trip' && $locationId > 0) {
@@ -37,6 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $startTime = trim($_POST['start_time'] ?? '09:00');
         $endTime = trim($_POST['end_time'] ?? '11:00');
         $customNote = trim($_POST['notes'] ?? '');
+
+        if ($endTime !== '' && $startTime !== '' && strcmp($endTime, $startTime) < 0) {
+            set_flash('warning', 'Giờ kết thúc không thể sớm hơn giờ bắt đầu (' . e($startTime) . '). Vui lòng kiểm tra lại khung giờ.');
+            header('Location: ' . $safeRedirect);
+            exit;
+        }
 
         // Kiểm tra quyền sở hữu ngày chuyến đi
         $stmtDay = $pdo->prepare('
@@ -63,9 +111,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $estCost *= max(1, (int)$dayRow['pax_count']);
             }
 
+            $stmtSort = $pdo->prepare('SELECT COALESCE(MAX(sort_order), 0) + 1 FROM activities WHERE trip_day_id = ?');
+            $stmtSort->execute([$tripDayId]);
+            $nextSort = (int)$stmtSort->fetchColumn();
+
             $insAct = $pdo->prepare('
                 INSERT INTO activities (trip_day_id, location_id, title, activity_type, start_time, end_time, description, estimated_cost, notes, sort_order)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 99)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ');
             $insAct->execute([
                 $tripDayId,
@@ -77,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $locRow['short_desc'],
                 $estCost,
                 $customNote ?: 'Thêm từ Địa điểm yêu thích / Khám phá',
+                $nextSort,
             ]);
 
             set_flash('success', 'Đã thêm <strong>' . e($locRow['name']) . '</strong> vào Ngày ' . (int)$dayRow['day_number'] . ' của chuyến đi!');

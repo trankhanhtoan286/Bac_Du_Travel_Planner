@@ -62,7 +62,7 @@ foreach ($myPosts as $mp) {
     elseif ($mp['status'] === 'pending') $pendingPostsCountUser++;
 }
 
-$pageTitle = 'Tổng quan cá nhân | ' . APP_NAME;
+$pageTitle = 'Tổng quan cá nhân';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
