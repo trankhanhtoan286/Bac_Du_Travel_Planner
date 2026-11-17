@@ -79,7 +79,7 @@ require_once __DIR__ . '/includes/header.php';
       </div>
       <div class="d-flex flex-wrap gap-2">
         <a href="dashboard.php" class="btn-cin-ghost py-1 px-3" data-key="d">
-          <i class="bi bi-grid-1x2"></i> Về Dashboard <span class="app-kbd-badge">d</span>
+          <i class="bi bi-grid-1x2"></i> Về Tổng quan <span class="app-kbd-badge">d</span>
         </a>
         <button type="button" class="btn-cin-ghost py-1 px-3" onclick="window.BacDuApp && window.BacDuApp.openPalette()" data-open-palette title="Mở Bảng Lệnh Nhanh (/)">
           <i class="bi bi-terminal"></i> Lệnh <span class="app-kbd-badge">/</span>

@@ -62,7 +62,7 @@ foreach ($myPosts as $mp) {
     elseif ($mp['status'] === 'pending') $pendingPostsCountUser++;
 }
 
-$pageTitle = 'Bảng điều khiển cá nhân (User Dashboard)';
+$pageTitle = 'Tổng quan cá nhân | ' . APP_NAME;
 require_once __DIR__ . '/includes/header.php';
 ?>
 
@@ -72,13 +72,13 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
       <div>
         <div class="app-shift-eyebrow">
-          <span><i class="bi bi-grid-1x2-fill text-warning me-1"></i>Bàn điều hành cá nhân</span>
+          <span><i class="bi bi-grid-1x2-fill text-warning me-1"></i>Tổng quan cá nhân</span>
           <span>·</span>
           <span>LỮ KHÁCH: <strong class="text-white"><?= e($user['full_name']) ?></strong> (@<?= e($user['username']) ?>)</span>
         </div>
         <h1 class="app-shift-title">Tổng Quan Hành Trình và Nhật Ký Thực Địa</h1>
         <p class="small text-white-50 mb-0">
-          Nhấn <kbd class="app-kbd">j</kbd> / <kbd class="app-kbd">k</kbd> để duyệt qua danh sách chuyến đi, <kbd class="app-kbd">Enter</kbd> để mở bàn điều phối, hoặc <kbd class="app-kbd">/</kbd> để mở Bảng lệnh nhanh.
+          Nhấn <kbd class="app-kbd">j</kbd> / <kbd class="app-kbd">k</kbd> để duyệt qua danh sách chuyến đi, <kbd class="app-kbd">Enter</kbd> để xem chi tiết, hoặc <kbd class="app-kbd">/</kbd> để mở Bảng lệnh nhanh.
         </p>
       </div>
       <div class="d-flex flex-wrap gap-2">
@@ -101,7 +101,7 @@ require_once __DIR__ . '/includes/header.php';
 
 <main id="mainContent" class="container pb-5">
   <!-- SIGNATURE SET: PERSONAL EXPEDITION & DISPATCH MATRIX (Replaces 4 Generic KPI Cards) -->
-  <section class="app-signature-set <?= $rejectedPostsCount > 0 ? 'is-lit' : '' ?> mb-4" id="personalDispatchSet" aria-label="Bàn điều phối hành trình cá nhân">
+  <section class="app-signature-set <?= $rejectedPostsCount > 0 ? 'is-lit' : '' ?> mb-4" id="personalDispatchSet" aria-label="Tổng quan hành trình cá nhân">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pb-2 mb-3 border-bottom">
       <span class="cin-eyebrow mb-0" style="color: var(--cin-jade);">
         <i class="bi bi-compass-fill text-warning me-1"></i>HỒ SƠ HÀNH TRÌNH VÀ NHẬT KÝ CỦA <?= e(mb_strtoupper($user['full_name'])) ?>
@@ -180,7 +180,7 @@ require_once __DIR__ . '/includes/header.php';
             <i class="bi bi-keyboard me-1 text-warning"></i>Phím tắt điều hướng nhanh
           </div>
           <div class="small" style="color: var(--cin-ink-muted); font-size: 0.8rem;">
-            Nhấn <kbd class="bg-dark text-white px-1 rounded-1">j</kbd> / <kbd class="bg-dark text-white px-1 rounded-1">k</kbd> để duyệt qua danh sách chuyến đi, nhấn <kbd class="bg-dark text-white px-1 rounded-1">Enter</kbd> để mở bàn điều phối.
+            Nhấn <kbd class="bg-dark text-white px-1 rounded-1">j</kbd> / <kbd class="bg-dark text-white px-1 rounded-1">k</kbd> để duyệt qua danh sách chuyến đi, nhấn <kbd class="bg-dark text-white px-1 rounded-1">Enter</kbd> để xem chi tiết chuyến đi.
           </div>
         </div>
       </div>

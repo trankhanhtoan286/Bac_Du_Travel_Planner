@@ -133,7 +133,7 @@ if ($currentUser) {
                 <div class="fw-bold text-white" style="font-family: var(--font-display); font-size: 1.1rem;"><?= e($currentUser['full_name']) ?></div>
                 <div class="font-monospace" style="font-size: 0.72rem; color: rgba(244,239,228,0.68);">@<?= e($currentUser['username']) ?> · <?= e($currentUser['email']) ?></div>
               </li>
-              <li><a class="dropdown-item cin-account-item <?= $currentPage === 'dashboard.php' ? 'active' : '' ?>" href="dashboard.php"><i class="bi bi-grid-1x2 text-warning"></i><span>Bàn điều hành cá nhân</span></a></li>
+              <li><a class="dropdown-item cin-account-item <?= $currentPage === 'dashboard.php' ? 'active' : '' ?>" href="dashboard.php"><i class="bi bi-grid-1x2 text-warning"></i><span>Tổng quan cá nhân</span></a></li>
               <li><a class="dropdown-item cin-account-item <?= in_array($currentPage, ['trips.php', 'trip_detail.php'], true) ? 'active' : '' ?>" href="trips.php"><i class="bi bi-luggage text-info"></i><span>Chuyến đi của tôi</span></a></li>
               <li><a class="dropdown-item cin-account-item <?= $currentPage === 'favorites.php' ? 'active' : '' ?>" href="favorites.php"><i class="bi bi-heart-fill text-danger"></i><span>Sổ tay tọa độ (<?= $favCount ?>)</span></a></li>
               <li><a class="dropdown-item cin-account-item <?= $currentPage === 'experience_form.php' ? 'active' : '' ?>" href="experience_form.php"><i class="bi bi-pencil-square text-warning"></i><span>Viết nhật ký thực địa</span></a></li>
