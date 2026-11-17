@@ -172,7 +172,7 @@ $pageTitle = $tab === 'register' ? 'Đăng ký tài khoản' : ($tab === 'forgot
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<main id="mainContent" class="container py-4 py-lg-5">
+<main id="mainContent" class="container auth-stage-main">
   <div class="auth-editorial-shell">
     <div class="row g-0 align-items-stretch">
       <!-- CỘT TRÁI: TRẠM GÁC NIÊN LỊCH ĐIỆN ẢNH -->
@@ -243,7 +243,7 @@ require_once __DIR__ . '/includes/header.php';
                 </a>
                 <a class="auth-segmented-tab <?= $tab === 'register' ? 'active' : '' ?>"
                    href="auth.php?tab=register&redirect=<?= urlencode($redirect) ?>" data-key="2">
-                  <i class="bi bi-person-plus"></i>Đăng ký tài khoản
+                  <i class="bi bi-person-plus"></i>Đăng ký
                 </a>
               </div>
             <?php else: ?>
@@ -434,7 +434,7 @@ require_once __DIR__ . '/includes/header.php';
             <?php endif; ?>
           </div>
 
-          <div class="pt-3 mt-4 text-center small" style="border-top: 1px dashed rgba(20,34,27,0.12); color: var(--cin-ink-muted); font-size: 0.78rem;">
+          <div class="pt-2 mt-3 text-center small" style="border-top: 1px dashed rgba(20,34,27,0.12); color: var(--cin-ink-muted); font-size: 0.78rem;">
             <?php if ($tab === 'login'): ?>
               Chưa có tài khoản lữ khách?
               <a href="auth.php?tab=register&redirect=<?= urlencode($redirect) ?>" class="fw-bold text-decoration-none" style="color: var(--cin-jade);">Đăng ký miễn phí ngay</a>

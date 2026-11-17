@@ -33,12 +33,12 @@ if ($currentUser) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=13">
+  <link rel="stylesheet" href="assets/css/style.css?v=14">
   <?php if ($currentPage === 'index.php'): ?>
-  <link rel="stylesheet" href="assets/kit/reel.css?v=13">
+  <link rel="stylesheet" href="assets/kit/reel.css?v=14">
   <?php endif; ?>
-  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=13">
-  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=13">
+  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=14">
+  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=14">
 </head>
 <?php
   $appModePages = ['trips.php', 'trip_detail.php', 'admin.php', 'dashboard.php', 'profile.php', 'experience_form.php'];
@@ -53,22 +53,22 @@ if ($currentUser) {
 <a href="#mainContent" class="skip-film-link">Chuyển tới Nội dung chính</a>
 <?php endif; ?>
 
-<!-- Thanh điều hướng ngang Cinematic Lacquer -->
-<nav class="navbar navbar-expand-lg navbar-bacdu sticky-top">
-  <div class="container-fluid px-3 px-xl-4">
-    <a class="navbar-brand brand-logo text-nowrap" href="index.php">
+<!-- Thanh điều hướng ngang Cinematic Lacquer (3-Zone Balanced Layout) -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-bacdu sticky-top" data-bs-theme="dark">
+  <div class="container-xxl px-3 px-xl-4">
+    <a class="navbar-brand brand-logo text-nowrap me-lg-3" href="index.php">
       <div>
         <span class="d-block lh-1" style="font-family: var(--font-display, 'Playfair Display', serif); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.01em;"><?= e(APP_NAME) ?></span>
         <small class="fw-semibold" style="font-family: var(--font-mono, monospace); font-size: 0.65rem; letter-spacing: 0.08em; color: #f59e0b;">Miền Bắc · 12 Tháng</small>
       </div>
     </a>
 
-    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Menu">
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Mở menu điều hướng">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="mainNavbar">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1 flex-nowrap align-items-center me-lg-2 me-xl-3">
+      <ul class="navbar-nav mx-lg-auto my-2 my-lg-0 gap-1 flex-lg-nowrap align-items-lg-center">
         <li class="nav-item">
           <a class="nav-link text-nowrap <?= $currentPage === 'index.php' ? 'active' : '' ?>" href="index.php">
             <i class="bi bi-house-door me-1"></i>Trang chủ
@@ -113,8 +113,7 @@ if ($currentUser) {
         <?php endif; ?>
       </ul>
 
-      <?php if ($currentUser || $currentPage !== 'auth.php'): ?>
-      <div class="d-flex align-items-center gap-2 flex-nowrap">
+      <div class="d-flex align-items-center gap-2 flex-nowrap ms-lg-2">
         <?php if ($currentUser): ?>
           <a href="favorites.php" class="btn-cin-ghost py-1 px-2 position-relative text-nowrap d-inline-flex align-items-center gap-1" title="Sổ tay tọa độ yêu thích">
             <i class="bi bi-heart-fill text-danger"></i>
@@ -161,12 +160,15 @@ if ($currentUser) {
               </li>
             </ul>
           </div>
+        <?php elseif ($currentPage === 'auth.php'): ?>
+          <?php $activeAuthTab = $_GET['tab'] ?? 'login'; ?>
+          <a href="auth.php?tab=login" class="btn-cin-ghost py-1 px-3 text-nowrap <?= $activeAuthTab === 'login' ? 'nav-auth-active' : '' ?>">Đăng nhập</a>
+          <a href="auth.php?tab=register" class="btn-cin-ghost py-1 px-3 text-nowrap <?= $activeAuthTab === 'register' ? 'nav-auth-active' : '' ?>">Đăng ký</a>
         <?php else: ?>
-          <a href="auth.php?tab=login" class="btn-cin-ghost py-1 px-3">Đăng nhập</a>
-          <a href="auth.php?tab=register" class="btn-cin-amber py-1 px-3">Đăng ký</a>
+          <a href="auth.php?tab=login" class="btn-cin-ghost py-1 px-3 text-nowrap">Đăng nhập</a>
+          <a href="auth.php?tab=register" class="btn-cin-amber py-1 px-3 text-nowrap">Đăng ký</a>
         <?php endif; ?>
       </div>
-      <?php endif; ?>
     </div>
   </div>
 </nav>
