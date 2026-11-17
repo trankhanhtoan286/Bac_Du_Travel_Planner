@@ -137,8 +137,9 @@ a {
   font-weight: 600;
   font-size: 0.95rem;
   color: #334155;
-  padding: 0.5rem 0.95rem !important;
+  padding: 0.5rem 0.85rem !important;
   border-radius: 999px;
+  white-space: nowrap !important;
   transition: all 0.2s ease;
 }
 

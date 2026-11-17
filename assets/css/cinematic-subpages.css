@@ -141,10 +141,15 @@ body.cinematic-app .brand-logo-mark {
 body.cinematic-subpage .navbar-bacdu .nav-link,
 body.cinematic-app .navbar-bacdu .nav-link {
   color: rgba(246, 238, 224, 0.82);
-  font-size: 0.87rem;
+  font-size: 0.85rem;
   font-weight: 500;
   border-radius: 4px;
-  padding: 0.4rem 0.78rem !important;
+  padding: 0.38rem 0.65rem !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  line-height: 1.25 !important;
 }
 
 body.cinematic-subpage .navbar-bacdu .nav-link:hover,
@@ -926,8 +931,9 @@ body.cinematic-app {
 }
 
 .cin-account-name {
-  max-width: 135px;
+  max-width: 185px;
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .cin-account-role {

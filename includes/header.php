@@ -32,12 +32,12 @@ if ($currentUser) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=7">
+  <link rel="stylesheet" href="assets/css/style.css?v=8">
   <?php if ($currentPage === 'index.php'): ?>
-  <link rel="stylesheet" href="assets/kit/reel.css?v=7">
+  <link rel="stylesheet" href="assets/kit/reel.css?v=8">
   <?php endif; ?>
-  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=7">
-  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=7">
+  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=8">
+  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=8">
 </head>
 <?php
   $appModePages = ['trips.php', 'trip_detail.php', 'admin.php', 'dashboard.php', 'profile.php', 'experience_form.php'];
@@ -54,8 +54,8 @@ if ($currentUser) {
 
 <!-- Thanh điều hướng ngang Cinematic Lacquer -->
 <nav class="navbar navbar-expand-lg navbar-bacdu sticky-top">
-  <div class="container">
-    <a class="navbar-brand brand-logo" href="index.php">
+  <div class="container-fluid px-lg-4 px-xl-5">
+    <a class="navbar-brand brand-logo text-nowrap" href="index.php">
       <div>
         <span class="d-block lh-1" style="font-family: var(--font-display, 'Playfair Display', serif); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.01em;"><?= e(APP_NAME) ?></span>
         <small class="fw-semibold" style="font-family: var(--font-mono, monospace); font-size: 0.65rem; letter-spacing: 0.08em; color: #f59e0b;">Miền Bắc · 12 Tháng</small>
@@ -67,36 +67,36 @@ if ($currentUser) {
     </button>
 
     <div class="collapse navbar-collapse" id="mainNavbar">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1 flex-nowrap">
         <li class="nav-item">
-          <a class="nav-link <?= $currentPage === 'index.php' ? 'active' : '' ?>" href="index.php">
+          <a class="nav-link text-nowrap <?= $currentPage === 'index.php' ? 'active' : '' ?>" href="index.php">
             <i class="bi bi-house-door me-1"></i>Trang chủ
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= in_array($currentPage, ['templates.php', 'template_detail.php'], true) ? 'active' : '' ?>" href="templates.php">
+          <a class="nav-link text-nowrap <?= in_array($currentPage, ['templates.php', 'template_detail.php'], true) ? 'active' : '' ?>" href="templates.php">
             <i class="bi bi-calendar2-range me-1"></i>Lịch trình 12 tháng
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= in_array($currentPage, ['locations.php', 'location_detail.php'], true) ? 'active' : '' ?>" href="locations.php">
+          <a class="nav-link text-nowrap <?= in_array($currentPage, ['locations.php', 'location_detail.php'], true) ? 'active' : '' ?>" href="locations.php">
             <i class="bi bi-geo-alt me-1"></i>Địa điểm và Bản đồ
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= in_array($currentPage, ['experiences.php', 'experience_form.php'], true) ? 'active' : '' ?>" href="experiences.php">
+          <a class="nav-link text-nowrap <?= in_array($currentPage, ['experiences.php', 'experience_form.php'], true) ? 'active' : '' ?>" href="experiences.php">
             <i class="bi bi-journal-richtext me-1"></i>Trải nghiệm cộng đồng
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= in_array($currentPage, ['trips.php', 'trip_detail.php'], true) ? 'active' : '' ?>" href="trips.php">
+          <a class="nav-link text-nowrap <?= in_array($currentPage, ['trips.php', 'trip_detail.php'], true) ? 'active' : '' ?>" href="trips.php">
             <i class="bi bi-luggage me-1"></i>Chuyến đi của tôi
           </a>
         </li>
         <?php if ($currentUser && $currentUser['role'] === 'admin'): ?>
         <li class="nav-item">
-          <a class="nav-link <?= $currentPage === 'admin.php' ? 'active' : '' ?> fw-bold" style="color: #fbbf24;" href="admin.php">
-            <i class="bi bi-shield-lock-fill me-1"></i>Quản trị
+          <a class="nav-link text-nowrap <?= $currentPage === 'admin.php' ? 'active' : '' ?> fw-bold d-inline-flex align-items-center" style="color: #fbbf24;" href="admin.php">
+            <i class="bi bi-shield-lock-fill me-1"></i><span>Quản trị</span>
             <?php if ($pendingPostsCount > 0): ?>
               <span class="slip-tag slip-tag-amber py-0 px-1 ms-1" style="font-size: 0.65rem;"><?= $pendingPostsCount ?></span>
             <?php endif; ?>
@@ -105,9 +105,9 @@ if ($currentUser) {
         <?php endif; ?>
       </ul>
 
-      <div class="d-flex align-items-center gap-2">
+      <div class="d-flex align-items-center gap-2 flex-nowrap">
         <?php if ($currentUser): ?>
-          <a href="favorites.php" class="btn-cin-ghost py-1 px-2 position-relative" title="Sổ tay tọa độ yêu thích">
+          <a href="favorites.php" class="btn-cin-ghost py-1 px-2 position-relative text-nowrap d-inline-flex align-items-center gap-1" title="Sổ tay tọa độ yêu thích">
             <i class="bi bi-heart-fill text-danger"></i>
             <span class="d-none d-xl-inline small">Đã lưu</span>
             <?php if ($favCount > 0): ?>
@@ -116,7 +116,7 @@ if ($currentUser) {
           </a>
 
           <div class="dropdown">
-            <button class="cin-account-chip dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="cin-account-chip dropdown-toggle text-nowrap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="<?= e($currentUser['avatar_url'] ?: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120') ?>"
                    alt="Avatar" class="cin-account-avatar" width="28" height="28">
               <span class="cin-account-name text-truncate"><?= e($currentUser['full_name']) ?></span>
