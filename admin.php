@@ -235,12 +235,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($provId > 0) {
                 $pdo->prepare('UPDATE provinces SET name = ?, subregion = ?, best_months = ?, description = ?, image_url = ? WHERE id = ?')
                     ->execute([$name, $subregion, $bestMonths, $desc, $imgUrl, $provId]);
-                set_flash('success', 'Đã cập nhật thông tin Tỉnh/Thành <strong>' . e($name) . '</strong> (UC10.2).');
+                set_flash('success', 'Đã cập nhật thông tin Tỉnh/Thành <strong>' . e($name) . '</strong>.');
             } else {
                 $slug = slugify($name) . '-' . substr(uniqid(), -3);
                 $pdo->prepare('INSERT INTO provinces (name, slug, subregion, best_months, description, image_url, is_active) VALUES (?, ?, ?, ?, ?, ?, 1)')
                     ->execute([$name, $slug, $subregion, $bestMonths, $desc, $imgUrl]);
-                set_flash('success', 'Đã thêm Tỉnh/Thành mới <strong>' . e($name) . '</strong> (UC10.2).');
+                set_flash('success', 'Đã thêm Tỉnh/Thành mới <strong>' . e($name) . '</strong>.');
             }
         }
         $redirectTab = 'catalogs';
@@ -249,7 +249,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif ($action === 'toggle_province') {
         $provId = (int)($_POST['province_id'] ?? 0);
         $pdo->prepare('UPDATE provinces SET is_active = CASE WHEN is_active = 1 THEN 0 ELSE 1 END WHERE id = ?')->execute([$provId]);
-        set_flash('info', 'Đã cập nhật trạng thái hiển thị Tỉnh/Thành (UC10.2).');
+        set_flash('info', 'Đã cập nhật trạng thái hiển thị Tỉnh/Thành.');
         $redirectTab = 'catalogs';
     }
 
@@ -265,12 +265,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($catId > 0) {
                 $pdo->prepare('UPDATE categories SET name = ?, location_type = ?, icon = ?, description = ? WHERE id = ?')
                     ->execute([$name, $locType, $icon, $desc, $catId]);
-                set_flash('success', 'Đã cập nhật Danh mục <strong>' . e($name) . '</strong> (UC10.3).');
+                set_flash('success', 'Đã cập nhật Danh mục <strong>' . e($name) . '</strong>.');
             } else {
                 $slug = slugify($name) . '-' . substr(uniqid(), -3);
                 $pdo->prepare('INSERT INTO categories (name, slug, location_type, icon, description, is_active) VALUES (?, ?, ?, ?, ?, 1)')
                     ->execute([$name, $slug, $locType, $icon, $desc]);
-                set_flash('success', 'Đã thêm Danh mục mới <strong>' . e($name) . '</strong> (UC10.3).');
+                set_flash('success', 'Đã thêm Danh mục mới <strong>' . e($name) . '</strong>.');
             }
         }
         $redirectTab = 'catalogs';
@@ -279,7 +279,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif ($action === 'toggle_category') {
         $catId = (int)($_POST['category_id'] ?? 0);
         $pdo->prepare('UPDATE categories SET is_active = CASE WHEN is_active = 1 THEN 0 ELSE 1 END WHERE id = ?')->execute([$catId]);
-        set_flash('info', 'Đã cập nhật trạng thái Danh mục (UC10.3).');
+        set_flash('info', 'Đã cập nhật trạng thái Danh mục.');
         $redirectTab = 'catalogs';
     }
 
@@ -296,11 +296,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($dayId > 0) {
                 $pdo->prepare('UPDATE template_days SET day_number = ?, title = ?, summary = ?, transport_note = ? WHERE id = ? AND template_id = ?')
                     ->execute([$dayNum, $title, $summary, $transNote, $dayId, $tplId]);
-                set_flash('success', 'Đã cập nhật ngày trong lịch trình mẫu (UC10.7).');
+                set_flash('success', 'Đã cập nhật ngày trong lịch trình mẫu.');
             } else {
                 $pdo->prepare('INSERT INTO template_days (template_id, day_number, title, summary, transport_note) VALUES (?, ?, ?, ?, ?)')
                     ->execute([$tplId, $dayNum, $title, $summary, $transNote]);
-                set_flash('success', 'Đã thêm ngày mới vào lịch trình mẫu (UC10.7).');
+                set_flash('success', 'Đã thêm ngày mới vào lịch trình mẫu.');
             }
         }
         header('Location: admin.php?tab=template_days&template_id=' . $tplId);
@@ -340,7 +340,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         estimated_cost = ?, important_note = ?, sort_order = ?
                     WHERE id = ?
                 ')->execute([$tDayId, $locId, $title, $actType, $startTime, $endTime, $desc, $transNote, $estCost, $impNote, $sortOrder, $actId]);
-                set_flash('success', 'Đã cập nhật hoạt động trong lịch trình mẫu (UC10.7).');
+                set_flash('success', 'Đã cập nhật hoạt động trong lịch trình mẫu.');
             } else {
                 $pdo->prepare('
                     INSERT INTO template_activities (
@@ -349,7 +349,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         estimated_cost, important_note, sort_order
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ')->execute([$tDayId, $locId, $title, $actType, $startTime, $endTime, $desc, $transNote, $estCost, $impNote, $sortOrder]);
-                set_flash('success', 'Đã thêm hoạt động mới vào ngày mẫu (UC10.7).');
+                set_flash('success', 'Đã thêm hoạt động mới vào ngày mẫu.');
             }
         }
         header('Location: admin.php?tab=template_days&template_id=' . $tplId);
@@ -461,9 +461,9 @@ foreach ($allTemplates as $tplItem) {
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
       <div>
         <div class="app-shift-eyebrow">
-          <span><i class="bi bi-shield-lock-fill text-warning me-1"></i>BAN BIÊN TẬP VÀ QUẢN TRỊ HỆ THỐNG · APP MODE</span>
+          <span><i class="bi bi-shield-lock-fill text-warning me-1"></i>BAN BIÊN TẬP VÀ QUẢN TRỊ HỆ THỐNG</span>
           <span>·</span>
-          <span>MODULE M8 · CA TRỰC: @<?= e($admin['username']) ?></span>
+          <span>CA TRỰC: @<?= e($admin['username']) ?></span>
         </div>
         <h1 class="app-shift-title">Bàn Điều Phối Nội Dung và Kiểm Duyệt Bắc Du</h1>
         <p class="small text-white-50 mb-0">
@@ -578,7 +578,7 @@ foreach ($allTemplates as $tplItem) {
     </a>
     <a class="app-view-tab <?= $tab === 'template_days' ? 'active' : '' ?>"
        href="admin.php?tab=template_days" data-key="5">
-      <i class="bi bi-calendar2-week"></i> 5. Ngày và Hoạt động mẫu (UC10.7)
+      <i class="bi bi-calendar2-week"></i> 5. Ngày và Hoạt động mẫu
     </a>
     <a class="app-view-tab <?= $tab === 'catalogs' ? 'active' : '' ?>"
        href="admin.php?tab=catalogs" data-key="6">
@@ -593,7 +593,7 @@ foreach ($allTemplates as $tplItem) {
     <div class="app-work-surface">
       <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
         <div>
-          <span class="cin-eyebrow text-dark">Hàng đợi biên tập (UC10.9 -> UC10.12)</span>
+          <span class="cin-eyebrow text-dark">Hàng đợi biên tập</span>
           <h4 class="field-slip-title mb-0">Kiểm duyệt Bài trải nghiệm Cộng đồng</h4>
           <small class="text-muted">Duyệt công khai, Từ chối kèm lý do để tác giả chỉnh sửa gửi lại, hoặc Ẩn bài không phù hợp.</small>
         </div>
@@ -671,7 +671,7 @@ foreach ($allTemplates as $tplItem) {
     <div class="app-work-surface mb-4">
       <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
         <div>
-          <span class="cin-eyebrow text-dark">Hiệu suất chuyển đổi mẫu (UC10.5 -> UC10.8)</span>
+          <span class="cin-eyebrow text-dark">Hiệu suất chuyển đổi mẫu</span>
           <h4 class="field-slip-title mb-0">
             Bảng Quản trị Lịch trình Mẫu và Phân tích Chuyển đổi
           </h4>
@@ -725,7 +725,7 @@ foreach ($allTemplates as $tplItem) {
                   <span class="status-mark <?= $tplMark ?>"><?= $tplLabel ?></span>
                 </td>
                 <td class="text-end text-nowrap">
-                  <a href="admin.php?tab=template_days&template_id=<?= (int)$tpl['id'] ?>" class="btn-cin-outline py-0 px-2" style="font-size:0.75rem;" title="Quản lý ngày và hoạt động trong lịch trình mẫu (UC10.7)">
+                  <a href="admin.php?tab=template_days&template_id=<?= (int)$tpl['id'] ?>" class="btn-cin-outline py-0 px-2" style="font-size:0.75rem;" title="Quản lý ngày và hoạt động trong lịch trình mẫu">
                     <i class="bi bi-calendar2-week"></i> Ngày và HĐ
                   </a>
                   <button type="button" class="btn-cin-outline py-0 px-2" style="font-size:0.75rem;"
@@ -757,7 +757,7 @@ foreach ($allTemplates as $tplItem) {
     <div class="app-work-surface">
       <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
         <div>
-          <span class="cin-eyebrow text-dark">Lưu trữ tọa độ 3 nhóm (UC10.4)</span>
+          <span class="cin-eyebrow text-dark">Lưu trữ tọa độ 3 nhóm</span>
           <h4 class="field-slip-title mb-0">Quản lý Địa điểm Tham quan, Ăn uống và Lưu trú</h4>
           <small class="text-muted">Ưu tiên chuyển trạng thái Lưu trữ thay vì xóa cứng để bảo toàn lịch sử các chuyến đi.</small>
         </div>
@@ -828,7 +828,7 @@ foreach ($allTemplates as $tplItem) {
   <?php if ($tab === 'users'): ?>
     <div class="app-work-surface">
       <div class="mb-3">
-        <span class="cin-eyebrow text-dark">Phân quyền và Trạng thái (UC10.1)</span>
+        <span class="cin-eyebrow text-dark">Phân quyền và Trạng thái</span>
         <h4 class="field-slip-title mb-0">Quản lý Tài khoản Người dùng và Phân quyền</h4>
       </div>
       <div class="table-responsive">
@@ -934,7 +934,7 @@ foreach ($allTemplates as $tplItem) {
     <section class="cin-day-dossier mb-4">
       <div class="cin-day-header">
         <div>
-          <span class="cin-day-badge me-2">UC10.7 · KỊCH BẢN MẪU</span>
+          <span class="cin-day-badge me-2">KỊCH BẢN MẪU</span>
           <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.2rem;">Quản lý Ngày và Hoạt động trong Lịch trình mẫu</span>
         </div>
         <form action="admin.php" method="get" class="d-flex align-items-center gap-2 m-0">
@@ -1153,7 +1153,7 @@ foreach ($allTemplates as $tplItem) {
       <div class="col-lg-6">
         <section class="cin-day-dossier h-100 mb-0">
           <div class="cin-day-header">
-            <span class="fw-bold"><i class="bi bi-map text-success me-1"></i>Quản lý Tỉnh / Thành miền Bắc (UC10.2)</span>
+            <span class="fw-bold"><i class="bi bi-map text-success me-1"></i>Quản lý Tỉnh / Thành miền Bắc</span>
             <span class="font-monospace small text-muted"><?= count($provinces) ?> TỈNH</span>
           </div>
           <div class="cin-day-body p-4">
@@ -1240,7 +1240,7 @@ foreach ($allTemplates as $tplItem) {
       <div class="col-lg-6">
         <section class="cin-day-dossier h-100 mb-0">
           <div class="cin-day-header">
-            <span class="fw-bold"><i class="bi bi-tags text-primary me-1"></i>Quản lý Danh mục Địa điểm (UC10.3)</span>
+            <span class="fw-bold"><i class="bi bi-tags text-primary me-1"></i>Quản lý Danh mục Địa điểm</span>
             <span class="font-monospace small text-muted"><?= count($categories) ?> DANH MỤC</span>
           </div>
           <div class="cin-day-body p-4">
@@ -1332,7 +1332,7 @@ foreach ($allTemplates as $tplItem) {
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">BAN BIÊN TẬP · UC10.6</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">BAN BIÊN TẬP</span>
           <h5 class="modal-title mb-0" id="tplModalTitle">Biên soạn Lịch trình mẫu theo tháng</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -1429,7 +1429,7 @@ foreach ($allTemplates as $tplItem) {
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">HỒ SƠ TỌA ĐỘ · UC10.4</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">HỒ SƠ TỌA ĐỘ</span>
           <h5 class="modal-title mb-0" id="locModalTitle">Thêm / Cập nhật Địa điểm</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
