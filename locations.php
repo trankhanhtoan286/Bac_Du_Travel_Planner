@@ -247,8 +247,8 @@ require_once __DIR__ . '/includes/header.php';
                 <span class="slip-tag">
                   <i class="bi <?= e($meta['icon']) ?> me-1"></i><?= e($meta['label']) ?>
                 </span>
-                <span class="slip-tag slip-tag-jade">
-                  <?= e($loc['province_name']) ?>
+                <span class="slip-tag slip-tag-jade" title="<?= e($loc['province_name']) ?>">
+                  <?= e(get_location_short_badge($loc['province_name'], $loc['address'] ?? '', $loc['name'] ?? '')) ?>
                 </span>
               </div>
               <div class="field-slip-fav">

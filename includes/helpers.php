@@ -655,3 +655,66 @@ function clone_template_to_trip(
         throw $e;
     }
 }
+
+/**
+ * Trả về nhãn địa danh ngắn gọn, tinh tế cho Badge/Thẻ Card địa điểm (tránh tràn mép đè nút yêu thích)
+ */
+function get_location_short_badge(string $provinceName, string $address = '', string $name = ''): string
+{
+    $cluster = trim($provinceName);
+    if ($cluster === '') {
+        return '';
+    }
+
+    // Cụm tỉnh 8: "Thanh Hóa (Pù Luông) và Hòa Bình (Mai Châu)"
+    if (strpos($cluster, 'Thanh Hóa') !== false && strpos($cluster, 'Hòa Bình') !== false) {
+        $context = mb_strtolower($address . ' ' . $name, 'UTF-8');
+        if (strpos($context, 'mai châu') !== false || strpos($context, 'bản lác') !== false || strpos($context, 'thung khe') !== false || strpos($context, 'hòa bình') !== false) {
+            return 'Mai Châu';
+        }
+        if (strpos($context, 'pù luông') !== false || strpos($context, 'bá thước') !== false || strpos($context, 'bản đôn') !== false || strpos($context, 'kho mường') !== false || strpos($context, 'thanh hóa') !== false) {
+            return 'Pù Luông';
+        }
+        return 'Mai Châu - Pù Luông';
+    }
+
+    // "Sơn La (Mộc Châu - Tà Xùa)"
+    if (strpos($cluster, 'Sơn La') !== false) {
+        $context = mb_strtolower($address . ' ' . $name, 'UTF-8');
+        if (strpos($context, 'tà xùa') !== false || strpos($context, 'bắc yên') !== false || strpos($context, 'háng đồng') !== false) {
+            return 'Tà Xùa';
+        }
+        return 'Mộc Châu';
+    }
+
+    // "Lào Cai (Sa Pa - Y Tý)"
+    if (strpos($cluster, 'Lào Cai') !== false) {
+        $context = mb_strtolower($address . ' ' . $name, 'UTF-8');
+        if (strpos($context, 'y tý') !== false || strpos($context, 'bát xát') !== false || strpos($context, 'lảo thẩn') !== false) {
+            return 'Y Tý';
+        }
+        return 'Sa Pa';
+    }
+
+    // "Quảng Ninh (Hạ Long - Cô Tô)"
+    if (strpos($cluster, 'Quảng Ninh') !== false) {
+        $context = mb_strtolower($address . ' ' . $name, 'UTF-8');
+        if (strpos($context, 'cô tô') !== false) {
+            return 'Cô Tô';
+        }
+        if (strpos($context, 'yên tử') !== false || strpos($context, 'uông bí') !== false) {
+            return 'Yên Tử';
+        }
+        return 'Hạ Long';
+    }
+
+    // "Hà Nội và Phụ cận"
+    if (strpos($cluster, 'Hà Nội') !== false) {
+        return 'Hà Nội';
+    }
+
+    // Các tỉnh ngắn: Hà Giang, Ninh Bình, Cao Bằng -> cắt phần mở ngoặc đơn nếu có
+    $cleaned = preg_replace('/\s*\(.*?\)/', '', $cluster);
+    return trim($cleaned ?: $cluster);
+}
+
