@@ -32,12 +32,12 @@ if ($currentUser) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=8">
+  <link rel="stylesheet" href="assets/css/style.css?v=9">
   <?php if ($currentPage === 'index.php'): ?>
-  <link rel="stylesheet" href="assets/kit/reel.css?v=8">
+  <link rel="stylesheet" href="assets/kit/reel.css?v=9">
   <?php endif; ?>
-  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=8">
-  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=8">
+  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=9">
+  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=9">
 </head>
 <?php
   $appModePages = ['trips.php', 'trip_detail.php', 'admin.php', 'dashboard.php', 'profile.php', 'experience_form.php'];
@@ -133,14 +133,14 @@ if ($currentUser) {
                 <div class="fw-bold text-white" style="font-family: var(--font-display); font-size: 1.1rem;"><?= e($currentUser['full_name']) ?></div>
                 <div class="font-monospace" style="font-size: 0.72rem; color: rgba(244,239,228,0.68);">@<?= e($currentUser['username']) ?> · <?= e($currentUser['email']) ?></div>
               </li>
-              <li><a class="dropdown-item cin-account-item" href="dashboard.php"><i class="bi bi-grid-1x2 text-warning"></i><span>Bàn điều hành cá nhân</span></a></li>
-              <li><a class="dropdown-item cin-account-item" href="trips.php"><i class="bi bi-luggage text-info"></i><span>Chuyến đi của tôi</span></a></li>
-              <li><a class="dropdown-item cin-account-item" href="favorites.php"><i class="bi bi-heart-fill text-danger"></i><span>Sổ tay tọa độ (<?= $favCount ?>)</span></a></li>
-              <li><a class="dropdown-item cin-account-item" href="experience_form.php"><i class="bi bi-pencil-square text-warning"></i><span>Viết nhật ký thực địa</span></a></li>
-              <li><a class="dropdown-item cin-account-item" href="profile.php"><i class="bi bi-person-gear text-light"></i><span>Hồ sơ và Đổi mật khẩu</span></a></li>
+              <li><a class="dropdown-item cin-account-item <?= $currentPage === 'dashboard.php' ? 'active' : '' ?>" href="dashboard.php"><i class="bi bi-grid-1x2 text-warning"></i><span>Bàn điều hành cá nhân</span></a></li>
+              <li><a class="dropdown-item cin-account-item <?= in_array($currentPage, ['trips.php', 'trip_detail.php'], true) ? 'active' : '' ?>" href="trips.php"><i class="bi bi-luggage text-info"></i><span>Chuyến đi của tôi</span></a></li>
+              <li><a class="dropdown-item cin-account-item <?= $currentPage === 'favorites.php' ? 'active' : '' ?>" href="favorites.php"><i class="bi bi-heart-fill text-danger"></i><span>Sổ tay tọa độ (<?= $favCount ?>)</span></a></li>
+              <li><a class="dropdown-item cin-account-item <?= $currentPage === 'experience_form.php' ? 'active' : '' ?>" href="experience_form.php"><i class="bi bi-pencil-square text-warning"></i><span>Viết nhật ký thực địa</span></a></li>
+              <li><a class="dropdown-item cin-account-item <?= $currentPage === 'profile.php' ? 'active' : '' ?>" href="profile.php"><i class="bi bi-person-gear text-light"></i><span>Hồ sơ và Đổi mật khẩu</span></a></li>
               <?php if ($currentUser['role'] === 'admin'): ?>
                 <li><hr class="cin-account-divider"></li>
-                <li><a class="dropdown-item cin-account-item fw-bold" style="color: #fbbf24;" href="admin.php"><i class="bi bi-speedometer2"></i><span>Quản trị và Ban biên tập</span></a></li>
+                <li><a class="dropdown-item cin-account-item fw-bold <?= $currentPage === 'admin.php' ? 'active' : '' ?>" style="color: #fbbf24;" href="admin.php"><i class="bi bi-speedometer2"></i><span>Quản trị và Ban biên tập</span></a></li>
               <?php endif; ?>
               <li><hr class="cin-account-divider"></li>
               <li>

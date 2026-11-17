@@ -976,12 +976,27 @@ body.cinematic-app {
   color: rgba(246, 238, 224, 0.88) !important;
   font-size: 0.84rem;
   font-weight: 500;
+  background: transparent !important;
+  outline: none !important;
 }
 
 .cin-account-item:hover,
-.cin-account-item:focus {
+.cin-account-item:focus-visible {
   background: rgba(224, 159, 62, 0.18) !important;
   color: #fff !important;
+  outline: none !important;
+}
+
+.cin-account-item:focus:not(:focus-visible) {
+  background: transparent !important;
+  color: rgba(246, 238, 224, 0.88) !important;
+  outline: none !important;
+}
+
+.cin-account-item.active {
+  background: rgba(224, 159, 62, 0.22) !important;
+  color: #fbbf24 !important;
+  font-weight: 600;
 }
 
 .cin-account-divider {
