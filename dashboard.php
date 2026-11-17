@@ -72,9 +72,9 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
       <div>
         <div class="app-shift-eyebrow">
-          <span><i class="bi bi-grid-1x2-fill text-warning me-1"></i>Bàn điều hành cá nhân · User Dashboard</span>
+          <span><i class="bi bi-grid-1x2-fill text-warning me-1"></i>Bàn điều hành cá nhân</span>
           <span>·</span>
-          <span>MODULE M8 · LỮ KHÁCH: <strong class="text-white"><?= e($user['full_name']) ?></strong> (@<?= e($user['username']) ?>)</span>
+          <span>LỮ KHÁCH: <strong class="text-white"><?= e($user['full_name']) ?></strong> (@<?= e($user['username']) ?>)</span>
         </div>
         <h1 class="app-shift-title">Tổng Quan Hành Trình và Nhật Ký Thực Địa</h1>
         <p class="small text-white-50 mb-0">
@@ -177,7 +177,7 @@ require_once __DIR__ . '/includes/header.php';
       <div class="col-lg-4">
         <div class="p-3 h-100 d-flex flex-column justify-content-center" style="background: var(--cin-paper-warm); border: 1px solid rgba(20, 34, 27, 0.18); border-left: 3px solid var(--cin-amber); border-radius: 3px;">
           <div class="small font-monospace fw-bold mb-1" style="color: var(--cin-jade-deep); font-size: 0.72rem; letter-spacing: 0.02em;">
-            <i class="bi bi-keyboard me-1 text-warning"></i>Điều hướng bàn phím (App Mode)
+            <i class="bi bi-keyboard me-1 text-warning"></i>Phím tắt điều hướng nhanh
           </div>
           <div class="small" style="color: var(--cin-ink-muted); font-size: 0.8rem;">
             Nhấn <kbd class="bg-dark text-white px-1 rounded-1">j</kbd> / <kbd class="bg-dark text-white px-1 rounded-1">k</kbd> để duyệt qua danh sách chuyến đi, nhấn <kbd class="bg-dark text-white px-1 rounded-1">Enter</kbd> để mở bàn điều phối.

@@ -138,7 +138,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3">
       <div>
         <span class="cin-eyebrow mb-2" style="color: var(--cin-amber-bright);">
-          SỔ TAY TỌA ĐỘ CÁ NHÂN · MODULE M7 (<?= count($favorites) ?> MỤC)
+          SỔ TAY TỌA ĐỘ CÁ NHÂN · <?= count($favorites) ?> ĐỊA ĐIỂM ĐÃ LƯU
         </span>
         <h1 class="cin-subhero-title">
           Tọa Độ <span class="sw">Đã Lưu</span> Cho Hành Trình Sắp Tới

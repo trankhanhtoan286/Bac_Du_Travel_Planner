@@ -133,7 +133,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
       <div>
         <div class="app-shift-eyebrow">
-          <span><i class="bi bi-pencil-square text-warning me-1"></i>SOẠN THẢO NHẬT KÝ THỰC ĐỊA · MODULE M3 (UC09)</span>
+          <span><i class="bi bi-pencil-square text-warning me-1"></i>SOẠN THẢO NHẬT KÝ THỰC ĐỊA</span>
           <span>·</span>
           <span>TÁC GIẢ: <strong class="text-white"><?= e($user['full_name']) ?></strong></span>
         </div>
@@ -162,7 +162,7 @@ require_once __DIR__ . '/includes/header.php';
               <span class="lit-pulse" aria-hidden="true"></span>
               <div>
                 <div class="fw-bold" style="color: var(--cin-ink); font-size: 0.9rem;">
-                  YÊU CẦU CHỈNH SỬA TỪ BAN BIÊN TẬP (UC09.12 — UC09.13)
+                  YÊU CẦU CHỈNH SỬA TỪ BAN BIÊN TẬP
                 </div>
                 <div class="small" style="color: var(--cin-ink-muted);">
                   <?= e($post['rejection_reason']) ?>
@@ -290,10 +290,10 @@ require_once __DIR__ . '/includes/header.php';
             <div class="col-12 pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2">
               <div class="d-flex flex-wrap gap-2">
                 <button type="submit" name="action" value="submit_review" class="btn-cin-amber">
-                  <i class="bi bi-send-check-fill"></i><?= ($post && $post['status'] === 'rejected') ? 'Gửi duyệt lại (UC09.13)' : 'Gửi duyệt công khai (UC09.8)' ?>
+                  <i class="bi bi-send-check-fill"></i><?= ($post && $post['status'] === 'rejected') ? 'Gửi duyệt lại' : 'Gửi duyệt công khai' ?>
                 </button>
                 <button type="submit" name="action" value="save_draft" class="btn-cin-outline">
-                  <i class="bi bi-file-earmark-text"></i>Lưu bản nháp (UC09.7)
+                  <i class="bi bi-file-earmark-text"></i>Lưu bản nháp
                 </button>
               </div>
             </div>
@@ -306,7 +306,7 @@ require_once __DIR__ . '/includes/header.php';
                 <input type="hidden" name="post_id" value="<?= (int)$post['id'] ?>">
                 <input type="hidden" name="action" value="delete_post">
                 <button type="submit" class="btn-cin-outline text-danger">
-                  <i class="bi bi-trash"></i>Xóa bài viết (UC09.10)
+                  <i class="bi bi-trash"></i>Xóa bài viết
                 </button>
               </form>
             </div>

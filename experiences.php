@@ -96,7 +96,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3">
       <div>
         <span class="cin-eyebrow mb-2" style="color: var(--cin-amber-bright);">
-          NHÂN CHỨNG MÙA VỤ · MODULE M3 (<?= count($posts) ?> NHẬT KÝ)
+          GÓC NHÌN ĐỒNG HÀNH · <?= count($posts) ?> NHẬT KÝ THỰC ĐỊA
         </span>
         <h1 class="cin-subhero-title">
           Nhật Ký <span class="sw">Thực Địa</span> và Góc Nhìn Cộng Đồng
