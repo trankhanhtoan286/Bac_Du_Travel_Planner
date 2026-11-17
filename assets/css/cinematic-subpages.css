@@ -1398,3 +1398,272 @@ body.cinematic-app {
   content: "○";
   color: #4a5d52;
 }
+
+/* ==========================================================================
+   AUTH EDITORIAL SPLIT-CARD DESIGN SYSTEM (auth.php)
+   ========================================================================== */
+.auth-editorial-shell {
+  max-width: 1020px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fdfbf7;
+  border: 1px solid rgba(20, 34, 27, 0.15);
+  box-shadow: 0 24px 60px rgba(11, 25, 20, 0.14), 0 4px 16px rgba(11, 25, 20, 0.06);
+}
+
+.auth-poster-pane {
+  position: relative;
+  padding: 2.6rem 2.75rem;
+  color: var(--cin-cream);
+  background-color: #0b1914;
+  background-image:
+    linear-gradient(155deg, rgba(11, 25, 20, 0.92) 0%, rgba(15, 38, 29, 0.84) 52%, rgba(9, 21, 17, 0.96) 100%),
+    url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Ta_Xua%2C_Bac_Yen%2C_Son_LaIMG_3434.jpg/960px-Ta_Xua%2C_Bac_Yen%2C_Son_LaIMG_3434.jpg');
+  background-size: cover;
+  background-position: center;
+  border-right: 1px solid rgba(217, 119, 6, 0.24);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.auth-poster-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.auth-poster-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(246, 238, 224, 0.9);
+  background: rgba(246, 238, 224, 0.08);
+  border: 1px solid rgba(246, 238, 224, 0.16);
+  border-radius: 999px;
+  padding: 0.28rem 0.72rem;
+  backdrop-filter: blur(4px);
+}
+
+.auth-poster-pill i {
+  color: var(--cin-amber-bright);
+  font-size: 0.78rem;
+}
+
+.auth-demo-card {
+  padding: 1rem 1.1rem;
+  border-radius: 6px;
+  background: rgba(8, 19, 15, 0.78);
+  border: 1px solid rgba(217, 119, 6, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.auth-demo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.68rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--cin-amber-bright);
+}
+
+.auth-demo-pw-badge {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: rgba(246, 238, 224, 0.82);
+  background: rgba(246, 238, 224, 0.1);
+  border: 1px solid rgba(246, 238, 224, 0.18);
+  padding: 0.12rem 0.45rem;
+  border-radius: 3px;
+}
+
+.auth-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.48rem;
+}
+
+.auth-demo-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.44rem 0.65rem;
+  border-radius: 4px;
+  background: rgba(246, 238, 224, 0.05);
+  border: 1px solid rgba(246, 238, 224, 0.16);
+  color: var(--cin-cream);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.auth-demo-btn:hover {
+  background: rgba(246, 238, 224, 0.13);
+  border-color: rgba(245, 158, 11, 0.55);
+  transform: translateY(-1px);
+}
+
+.auth-demo-btn--admin {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.48);
+}
+
+.auth-demo-btn--admin:hover {
+  background: rgba(245, 158, 11, 0.22);
+  border-color: var(--cin-amber-bright);
+}
+
+.auth-demo-id {
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.auth-demo-btn--admin .auth-demo-id {
+  color: #fde68a;
+}
+
+.auth-demo-name {
+  font-family: var(--font-sans);
+  font-size: 0.69rem;
+  color: rgba(246, 238, 224, 0.68);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auth-form-pane {
+  padding: 2.4rem 2.75rem;
+  background: #fdfbf7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 575.98px) {
+  .auth-form-pane {
+    padding: 1.65rem 1.35rem;
+  }
+  .auth-demo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.auth-segmented {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+  padding: 4px;
+  background: #efe9dc;
+  border: 1px solid rgba(20, 34, 27, 0.1);
+  border-radius: 6px;
+  margin-bottom: 1.85rem;
+}
+
+.auth-segmented-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.52rem 0.85rem;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #4a5d52;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.auth-segmented-tab:hover {
+  color: var(--cin-ink);
+}
+
+.auth-segmented-tab.active {
+  background: var(--cin-ink);
+  color: var(--cin-cream);
+  box-shadow: 0 2px 6px rgba(11, 25, 20, 0.16);
+}
+
+.auth-field-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(20, 34, 27, 0.2);
+  border-radius: 5px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.auth-field-box:focus-within {
+  border-color: var(--cin-jade);
+  box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.12);
+}
+
+.auth-field-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.85rem;
+  padding-right: 0.2rem;
+  color: #64766b;
+  font-size: 0.98rem;
+}
+
+.auth-field-box:focus-within .auth-field-icon {
+  color: var(--cin-jade);
+}
+
+.auth-field-box .form-control {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  padding: 0.62rem 0.75rem;
+  color: var(--cin-ink);
+}
+
+.auth-field-box .form-control::placeholder {
+  color: #8c9b92;
+  font-weight: 400;
+}
+
+.auth-pw-toggle {
+  border: 0;
+  background: transparent;
+  color: #64766b;
+  padding: 0 0.85rem 0 0.4rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.15s ease;
+}
+
+.auth-pw-toggle:hover {
+  color: var(--cin-ink);
+}
+
+.auth-submit-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.72rem 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border-radius: 5px;
+  box-shadow: 0 6px 18px rgba(217, 119, 6, 0.24);
+}
+

@@ -24,7 +24,7 @@ if ($token === '') {
     require_once __DIR__ . '/includes/header.php';
     ?>
     <header class="cin-subhero">
-      <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=1800&auto=format&fit=crop&q=82"
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/S%C3%B4ng_Nho_Qu%E1%BA%BF.jpg/960px-S%C3%B4ng_Nho_Qu%E1%BA%BF.jpg"
            alt="Hành trình cộng đồng chia sẻ" class="cin-subhero-bg">
       <div class="cin-subhero-overlay"></div>
       <div class="container cin-subhero-inner">

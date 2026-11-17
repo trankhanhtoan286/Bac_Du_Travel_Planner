@@ -33,12 +33,12 @@ if ($currentUser) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=11">
+  <link rel="stylesheet" href="assets/css/style.css?v=12">
   <?php if ($currentPage === 'index.php'): ?>
-  <link rel="stylesheet" href="assets/kit/reel.css?v=11">
+  <link rel="stylesheet" href="assets/kit/reel.css?v=12">
   <?php endif; ?>
-  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=11">
-  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=11">
+  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=12">
+  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=12">
 </head>
 <?php
   $appModePages = ['trips.php', 'trip_detail.php', 'admin.php', 'dashboard.php', 'profile.php', 'experience_form.php'];
@@ -156,8 +156,14 @@ if ($currentUser) {
             </ul>
           </div>
         <?php else: ?>
-          <a href="auth.php?tab=login" class="btn-cin-ghost py-1 px-3">Đăng nhập</a>
-          <a href="auth.php?tab=register" class="btn-cin-amber py-1 px-3">Đăng ký</a>
+          <?php if ($currentPage === 'auth.php'): ?>
+            <a href="index.php" class="btn-cin-ghost py-1 px-3 text-nowrap">
+              <i class="bi bi-arrow-left me-1"></i>Khám phá trước
+            </a>
+          <?php else: ?>
+            <a href="auth.php?tab=login" class="btn-cin-ghost py-1 px-3">Đăng nhập</a>
+            <a href="auth.php?tab=register" class="btn-cin-amber py-1 px-3">Đăng ký</a>
+          <?php endif; ?>
         <?php endif; ?>
       </div>
     </div>

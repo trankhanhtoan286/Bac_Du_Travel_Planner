@@ -131,7 +131,7 @@ require_once __DIR__ . '/includes/header.php';
 
 <!-- SUBPAGE CINEMATIC HERO -->
 <header class="cin-subhero">
-  <img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1800&auto=format&fit=crop&q=82"
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Trang_An_Landscape_Complex%2C_Ninh_Binh_Province%2C_Vietnam%2C_20240202_1456_5313.jpg/960px-Trang_An_Landscape_Complex%2C_Ninh_Binh_Province%2C_Vietnam%2C_20240202_1456_5313.jpg"
        alt="Sổ tay tọa độ yêu thích" class="cin-subhero-bg">
   <div class="cin-subhero-overlay"></div>
   <div class="container cin-subhero-inner">

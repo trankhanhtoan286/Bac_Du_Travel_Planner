@@ -133,200 +133,270 @@ $pageTitle = $tab === 'register' ? 'Đăng ký tài khoản' : ($tab === 'forgot
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<main id="mainContent" class="container py-5">
-  <div class="row justify-content-center align-items-stretch g-4">
-    <!-- CỘT TRÁI: TRẠM GÁC NIÊN LỊCH ĐIỆN ẢNH -->
-    <div class="col-lg-5 d-none d-lg-flex">
-      <div class="p-4 p-xl-5 text-white d-flex flex-column justify-content-between w-100"
-           style="border-radius: 4px; border: 1px solid rgba(217,119,6,0.35); background: linear-gradient(150deg, rgba(11,25,20,0.92), rgba(16,36,28,0.84)), url('https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=1000&auto=format&fit=crop&q=80') center/cover; box-shadow: 0 24px 60px rgba(11,25,20,0.22);">
-        <div>
-          <span class="cin-eyebrow mb-2" style="color: var(--cin-amber-bright);">
-            CỘT MỐC KM0 · BẮC DU TRAVEL PLANNER
-          </span>
-          <h1 class="cin-display-h2 text-white mb-3">
-            Lưu Trọn <span class="sw">Niên Lịch</span> và Kế Hoạch Du Lịch Miền Bắc
-          </h1>
-          <p class="small mb-0" style="color: rgba(244,239,228,0.78); line-height: 1.65;">
-            Đăng nhập để sao chép kịch bản mẫu 12 tháng thành kế hoạch độc lập, đối soát ngân sách chống cộng trùng và ghi chép trải nghiệm thực địa cùng cộng đồng.
-          </p>
-        </div>
+<main id="mainContent" class="container py-4 py-lg-5">
+  <div class="auth-editorial-shell">
+    <div class="row g-0 align-items-stretch">
+      <!-- CỘT TRÁI: TRẠM GÁC NIÊN LỊCH ĐIỆN ẢNH -->
+      <div class="col-lg-6 d-none d-lg-flex">
+        <div class="auth-poster-pane w-100">
+          <div>
+            <span class="cin-eyebrow mb-2" style="color: var(--cin-amber-bright);">
+              CỘT MỐC KM0 · BẮC DU TRAVEL PLANNER
+            </span>
+            <h1 class="cin-display-h2 text-white mb-3" style="font-size: clamp(1.85rem, 2.4vw, 2.28rem); line-height: 1.25;">
+              Lưu Trọn <span class="sw text-nowrap">Niên Lịch</span><br>và Kế Hoạch Du Lịch Miền Bắc
+            </h1>
+            <p class="small mb-0" style="color: rgba(244,239,228,0.82); line-height: 1.68;">
+              Đăng nhập để sao chép kịch bản mẫu 12 tháng thành kế hoạch độc lập, đối soát ngân sách chống cộng trùng và ghi chép trải nghiệm thực địa cùng cộng đồng.
+            </p>
 
-        <div class="p-3" style="border-radius: 4px; background: rgba(11,25,20,0.82); border: 1px solid rgba(217,119,6,0.35);">
-          <div class="font-monospace small fw-bold mb-2" style="color: var(--cin-amber-bright); font-size: 0.74rem;">
-            <i class="bi bi-lightning-charge-fill me-1"></i>CHỌN NHANH TÀI KHOẢN DEMO (MẬT KHẨU: 123456)
+            <div class="auth-poster-highlights">
+              <span class="auth-poster-pill"><i class="bi bi-calendar2-check-fill"></i>Niên lịch 12 tháng</span>
+              <span class="auth-poster-pill"><i class="bi bi-wallet2"></i>Đối soát chi phí</span>
+              <span class="auth-poster-pill"><i class="bi bi-geo-alt-fill"></i>44 tọa độ thực địa</span>
+            </div>
           </div>
-          <div class="d-flex flex-wrap gap-2">
-            <button type="button" class="btn-cin-amber py-1 px-2" style="font-size: 0.72rem;" onclick="fillDemoLogin('admin','123456')">
-              <i class="bi bi-shield-check"></i>admin|123456
-            </button>
-            <button type="button" class="btn-cin-ghost py-1 px-2" style="font-size: 0.72rem;" onclick="fillDemoLogin('kien','123456')">
-              kien (Ngô Xuân Kiên)
-            </button>
-            <button type="button" class="btn-cin-ghost py-1 px-2" style="font-size: 0.72rem;" onclick="fillDemoLogin('anh','123456')">
-              anh (Lê Thị Ngọc Ánh)
-            </button>
-            <button type="button" class="btn-cin-ghost py-1 px-2" style="font-size: 0.72rem;" onclick="fillDemoLogin('tram','123456')">
-              tram (Lò Thị Trâm)
-            </button>
-            <button type="button" class="btn-cin-ghost py-1 px-2" style="font-size: 0.72rem;" onclick="fillDemoLogin('van','123456')">
-              van (Nguyễn Thị Vân)
-            </button>
-            <button type="button" class="btn-cin-ghost py-1 px-2" style="font-size: 0.72rem;" onclick="fillDemoLogin('toan','123456')">
-              toan (Trần Khánh Toàn)
-            </button>
+
+          <div class="auth-demo-card">
+            <div class="auth-demo-header">
+              <span><i class="bi bi-lightning-charge-fill me-1"></i>ĐĂNG NHẬP NHANH DEMO</span>
+              <span class="auth-demo-pw-badge">MK: 123456</span>
+            </div>
+            <div class="auth-demo-grid">
+              <button type="button" class="auth-demo-btn auth-demo-btn--admin" onclick="fillDemoLogin('admin','123456')">
+                <span class="auth-demo-id"><i class="bi bi-shield-fill-check me-1"></i>@admin</span>
+                <span class="auth-demo-name">Quản trị viên</span>
+              </button>
+              <button type="button" class="auth-demo-btn" onclick="fillDemoLogin('kien','123456')">
+                <span class="auth-demo-id">@kien</span>
+                <span class="auth-demo-name">Ngô Xuân Kiên</span>
+              </button>
+              <button type="button" class="auth-demo-btn" onclick="fillDemoLogin('anh','123456')">
+                <span class="auth-demo-id">@anh</span>
+                <span class="auth-demo-name">Lê Thị Ngọc Ánh</span>
+              </button>
+              <button type="button" class="auth-demo-btn" onclick="fillDemoLogin('tram','123456')">
+                <span class="auth-demo-id">@tram</span>
+                <span class="auth-demo-name">Lò Thị Trâm</span>
+              </button>
+              <button type="button" class="auth-demo-btn" onclick="fillDemoLogin('van','123456')">
+                <span class="auth-demo-id">@van</span>
+                <span class="auth-demo-name">Nguyễn Thị Vân</span>
+              </button>
+              <button type="button" class="auth-demo-btn" onclick="fillDemoLogin('toan','123456')">
+                <span class="auth-demo-id">@toan</span>
+                <span class="auth-demo-name">Trần Khánh Toàn</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- CỘT PHẢI: HỒ SƠ ĐỊNH DANH & XÁC THỰC (UC01) -->
-    <div class="col-md-8 col-lg-5">
-      <section class="cin-day-dossier mb-0 h-100 d-flex flex-column">
-        <div class="cin-day-header">
-          <div class="app-view-tabs w-100 justify-content-between" role="tablist">
-            <a class="app-view-tab flex-grow-1 justify-content-center <?= $tab === 'login' ? 'active' : '' ?>"
-               href="auth.php?tab=login&redirect=<?= urlencode($redirect) ?>" data-key="1">
-              Đăng nhập
-            </a>
-            <a class="app-view-tab flex-grow-1 justify-content-center <?= $tab === 'register' ? 'active' : '' ?>"
-               href="auth.php?tab=register&redirect=<?= urlencode($redirect) ?>" data-key="2">
-              Đăng ký
-            </a>
-            <a class="app-view-tab flex-grow-1 justify-content-center <?= $tab === 'forgot' ? 'active' : '' ?>"
-               href="auth.php?tab=forgot&redirect=<?= urlencode($redirect) ?>" data-key="3">
-              Quên MK
-            </a>
+      <!-- CỘT PHẢI: HỒ SƠ ĐỊNH DANH & XÁC THỰC (UC01) -->
+      <div class="col-lg-6 d-flex">
+        <section class="auth-form-pane w-100">
+          <div>
+            <?php if ($tab !== 'forgot'): ?>
+              <div class="auth-segmented" role="tablist" aria-label="Chuyển đổi Đăng nhập và Đăng ký">
+                <a class="auth-segmented-tab <?= $tab === 'login' ? 'active' : '' ?>"
+                   href="auth.php?tab=login&redirect=<?= urlencode($redirect) ?>" data-key="1">
+                  <i class="bi bi-box-arrow-in-right"></i>Đăng nhập
+                </a>
+                <a class="auth-segmented-tab <?= $tab === 'register' ? 'active' : '' ?>"
+                   href="auth.php?tab=register&redirect=<?= urlencode($redirect) ?>" data-key="2">
+                  <i class="bi bi-person-plus"></i>Đăng ký tài khoản
+                </a>
+              </div>
+            <?php else: ?>
+              <div class="mb-4 pb-2" style="border-bottom: 1px solid rgba(20,34,27,0.1);">
+                <a href="auth.php?tab=login&redirect=<?= urlencode($redirect) ?>" class="small fw-semibold text-decoration-none d-inline-flex align-items-center gap-1" style="color: var(--cin-jade);">
+                  <i class="bi bi-arrow-left"></i>Quay lại màn hình Đăng nhập
+                </a>
+              </div>
+            <?php endif; ?>
+
+            <?php if ($tab === 'login'): ?>
+              <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">XÁC THỰC LỮ KHÁCH</span>
+              <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display); color: var(--cin-ink);">Chào mừng bạn quay lại!</h2>
+              <p class="small text-muted mb-4">Nhập Username hoặc địa chỉ Email đã đăng ký để tiếp tục hành trình.</p>
+
+              <form action="auth.php" method="post" id="loginForm">
+                <?= csrf_field() ?>
+                <input type="hidden" name="action" value="login">
+                <input type="hidden" name="redirect" value="<?= e($redirect) ?>">
+
+                <div class="mb-3">
+                  <label for="login_identifier" class="form-label fw-semibold small mb-1">Email hoặc Username</label>
+                  <div class="auth-field-box">
+                    <span class="auth-field-icon"><i class="bi bi-person"></i></span>
+                    <input type="text" name="identifier" id="login_identifier" class="form-control" placeholder="Nhập username hoặc email của bạn" autocomplete="username" required>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label for="login_password" class="form-label fw-semibold small mb-0">Mật khẩu</label>
+                    <a href="auth.php?tab=forgot&redirect=<?= urlencode($redirect) ?>" class="small fw-semibold text-decoration-none" style="color: var(--cin-jade);">Quên mật khẩu?</a>
+                  </div>
+                  <div class="auth-field-box">
+                    <span class="auth-field-icon"><i class="bi bi-lock"></i></span>
+                    <input type="password" name="password" id="login_password" class="form-control" placeholder="Nhập mật khẩu tài khoản" autocomplete="current-password" required>
+                    <button type="button" class="auth-pw-toggle" onclick="toggleAuthPw(this, 'login_password')" title="Hiện / Ẩn mật khẩu" aria-label="Hiện hoặc ẩn mật khẩu">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-cin-amber auth-submit-btn mb-3">
+                  <i class="bi bi-box-arrow-in-right"></i>Đăng nhập vào Bắc Du
+                </button>
+              </form>
+
+              <div class="d-lg-none mt-3 field-spec-box">
+                <div class="d-flex justify-content-between align-items-center mb-2 small">
+                  <strong><i class="bi bi-lightning-charge-fill text-warning me-1"></i>Tài khoản Demo nhanh</strong>
+                  <span class="font-monospace text-muted" style="font-size: 0.72rem;">MK: 123456</span>
+                </div>
+                <div class="d-flex flex-wrap gap-1">
+                  <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('admin','123456')">@admin</button>
+                  <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('kien','123456')">@kien</button>
+                  <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('anh','123456')">@anh</button>
+                  <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('tram','123456')">@tram</button>
+                  <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('van','123456')">@van</button>
+                  <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('toan','123456')">@toan</button>
+                </div>
+              </div>
+
+            <?php elseif ($tab === 'register'): ?>
+              <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">ĐĂNG KÝ THÀNH VIÊN</span>
+              <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display); color: var(--cin-ink);">Tạo tài khoản Bắc Du</h2>
+              <p class="small text-muted mb-4">Khởi tạo hồ sơ miễn phí để lưu tọa độ yêu thích và lập kế hoạch riêng.</p>
+
+              <form action="auth.php?tab=register" method="post">
+                <?= csrf_field() ?>
+                <input type="hidden" name="action" value="register">
+                <input type="hidden" name="redirect" value="<?= e($redirect) ?>">
+
+                <div class="mb-3">
+                  <label class="form-label fw-semibold small mb-1">Họ và tên</label>
+                  <div class="auth-field-box">
+                    <span class="auth-field-icon"><i class="bi bi-person-vcard"></i></span>
+                    <input type="text" name="full_name" class="form-control" placeholder="VD: Ngô Xuân Kiên" required>
+                  </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                  <div class="col-sm-6">
+                    <label class="form-label fw-semibold small mb-1">Username</label>
+                    <div class="auth-field-box">
+                      <span class="auth-field-icon"><i class="bi bi-at"></i></span>
+                      <input type="text" name="username" class="form-control" placeholder="ngoxuankien" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="form-label fw-semibold small mb-1">Email</label>
+                    <div class="auth-field-box">
+                      <span class="auth-field-icon"><i class="bi bi-envelope"></i></span>
+                      <input type="email" name="email" class="form-control" placeholder="ban@email.com" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                  <div class="col-sm-6">
+                    <label class="form-label fw-semibold small mb-1">Mật khẩu</label>
+                    <div class="auth-field-box">
+                      <span class="auth-field-icon"><i class="bi bi-lock"></i></span>
+                      <input type="password" name="password" id="reg_password" class="form-control" minlength="6" placeholder="Ít nhất 6 ký tự" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="form-label fw-semibold small mb-1">Xác nhận mật khẩu</label>
+                    <div class="auth-field-box">
+                      <span class="auth-field-icon"><i class="bi bi-shield-check"></i></span>
+                      <input type="password" name="confirm_password" class="form-control" minlength="6" placeholder="Nhập lại mật khẩu" required>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-cin-amber auth-submit-btn">
+                  <i class="bi bi-person-plus-fill"></i>Hoàn tất đăng ký
+                </button>
+              </form>
+
+            <?php else: ?>
+              <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">KHÔI PHỤC BẢO MẬT</span>
+              <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display); color: var(--cin-ink);">Đặt lại mật khẩu</h2>
+              <p class="small text-muted mb-4">Xác minh Username và Email đã đăng ký để thiết lập mật khẩu mới.</p>
+
+              <form action="auth.php?tab=forgot" method="post">
+                <?= csrf_field() ?>
+                <input type="hidden" name="action" value="forgot_password">
+
+                <div class="row g-3 mb-3">
+                  <div class="col-sm-6">
+                    <label class="form-label fw-semibold small mb-1">Username tài khoản</label>
+                    <div class="auth-field-box">
+                      <span class="auth-field-icon"><i class="bi bi-at"></i></span>
+                      <input type="text" name="username" class="form-control" placeholder="VD: kien" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="form-label fw-semibold small mb-1">Email đã đăng ký</label>
+                    <div class="auth-field-box">
+                      <span class="auth-field-icon"><i class="bi bi-envelope"></i></span>
+                      <input type="email" name="email" class="form-control" placeholder="ban@email.com" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                  <div class="col-sm-6">
+                    <label class="form-label fw-semibold small mb-1">Mật khẩu mới</label>
+                    <div class="auth-field-box">
+                      <span class="auth-field-icon"><i class="bi bi-key"></i></span>
+                      <input type="password" name="new_password" class="form-control" minlength="6" placeholder="Ít nhất 6 ký tự" required>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="form-label fw-semibold small mb-1">Xác nhận mật khẩu mới</label>
+                    <div class="auth-field-box">
+                      <span class="auth-field-icon"><i class="bi bi-check2-circle"></i></span>
+                      <input type="password" name="confirm_password" class="form-control" minlength="6" placeholder="Nhập lại mật khẩu" required>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-cin-amber auth-submit-btn">
+                  <i class="bi bi-arrow-repeat"></i>Cập nhật mật khẩu mới
+                </button>
+              </form>
+            <?php endif; ?>
           </div>
-        </div>
 
-        <div class="cin-day-body p-4 flex-grow-1 d-flex flex-column justify-content-center">
-          <?php if ($tab === 'login'): ?>
-            <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">XÁC THỰC LỮ KHÁCH</span>
-            <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display);">Chào mừng bạn quay lại!</h2>
-            <p class="small text-muted mb-4">Đăng nhập bằng Username hoặc Email đã đăng ký.</p>
-
-            <form action="auth.php" method="post" id="loginForm">
-              <?= csrf_field() ?>
-              <input type="hidden" name="action" value="login">
-              <input type="hidden" name="redirect" value="<?= e($redirect) ?>">
-
-              <div class="mb-3">
-                <label class="form-label fw-semibold small">Email hoặc Username</label>
-                <div class="input-group">
-                  <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
-                  <input type="text" name="identifier" id="login_identifier" class="form-control font-monospace" placeholder="VD: kien, anh, tram, van, toan hoặc admin" required>
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <div class="d-flex justify-content-between align-items-center">
-                  <label class="form-label fw-semibold small">Mật khẩu</label>
-                  <a href="auth.php?tab=forgot" class="small fw-semibold" style="color: var(--cin-jade);">Quên mật khẩu?</a>
-                </div>
-                <div class="input-group">
-                  <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
-                  <input type="password" name="password" id="login_password" class="form-control font-monospace" placeholder="Nhập mật khẩu (mặc định: 123456)" required>
-                </div>
-              </div>
-
-              <button type="submit" class="btn-cin-amber w-100 justify-content-center py-2 mt-2 mb-3">
-                <i class="bi bi-box-arrow-in-right"></i>Đăng nhập vào Bắc Du
-              </button>
-            </form>
-
-            <div class="d-lg-none mt-2 field-spec-box">
-              <div class="fw-bold mb-2 small">Chọn nhanh tài khoản (MK: 123456):</div>
-              <div class="d-flex flex-wrap gap-1">
-                <button type="button" class="btn-cin-amber py-1 px-2" onclick="fillDemoLogin('admin','123456')">admin</button>
-                <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('kien','123456')">kien</button>
-                <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('anh','123456')">anh</button>
-                <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('tram','123456')">tram</button>
-                <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('van','123456')">van</button>
-                <button type="button" class="btn-cin-outline py-1 px-2" onclick="fillDemoLogin('toan','123456')">toan</button>
-              </div>
-            </div>
-
-          <?php elseif ($tab === 'register'): ?>
-            <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">ĐĂNG KÝ THÀNH VIÊN</span>
-            <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display);">Tạo tài khoản Bắc Du</h2>
-            <p class="small text-muted mb-4">Đăng ký tài khoản miễn phí để bắt đầu lập kế hoạch.</p>
-
-            <form action="auth.php?tab=register" method="post">
-              <?= csrf_field() ?>
-              <input type="hidden" name="action" value="register">
-              <input type="hidden" name="redirect" value="<?= e($redirect) ?>">
-
-              <div class="mb-3">
-                <label class="form-label fw-semibold small">Họ và tên</label>
-                <input type="text" name="full_name" class="form-control" placeholder="VD: Ngô Xuân Kiên" required>
-              </div>
-
-              <div class="row g-3 mb-3">
-                <div class="col-sm-6">
-                  <label class="form-label fw-semibold small">Username</label>
-                  <input type="text" name="username" class="form-control font-monospace" placeholder="ngoxuankien" required>
-                </div>
-                <div class="col-sm-6">
-                  <label class="form-label fw-semibold small">Email</label>
-                  <input type="email" name="email" class="form-control" placeholder="ban@email.com" required>
-                </div>
-              </div>
-
-              <div class="row g-3 mb-4">
-                <div class="col-sm-6">
-                  <label class="form-label fw-semibold small">Mật khẩu</label>
-                  <input type="password" name="password" class="form-control" placeholder="Ít nhất 6 ký tự" required>
-                </div>
-                <div class="col-sm-6">
-                  <label class="form-label fw-semibold small">Xác nhận mật khẩu</label>
-                  <input type="password" name="confirm_password" class="form-control" placeholder="Nhập lại mật khẩu" required>
-                </div>
-              </div>
-
-              <button type="submit" class="btn-cin-amber w-100 justify-content-center py-2">
-                <i class="bi bi-person-plus-fill"></i>Hoàn tất đăng ký
-              </button>
-            </form>
-
-          <?php else: ?>
-            <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">KHÔI PHỤC BẢO MẬT</span>
-            <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display);">Khôi phục mật khẩu</h2>
-            <p class="small text-muted mb-4">Xác minh Username và Email đã đăng ký để đặt lại mật khẩu mới.</p>
-
-            <form action="auth.php?tab=forgot" method="post">
-              <?= csrf_field() ?>
-              <input type="hidden" name="action" value="forgot_password">
-
-              <div class="mb-3">
-                <label class="form-label fw-semibold small">Username tài khoản</label>
-                <input type="text" name="username" class="form-control font-monospace" placeholder="VD: kien" required>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label fw-semibold small">Email đã đăng ký</label>
-                <input type="email" name="email" class="form-control" placeholder="VD: kien@bacdu.vn" required>
-              </div>
-
-              <div class="row g-3 mb-4">
-                <div class="col-sm-6">
-                  <label class="form-label fw-semibold small">Mật khẩu mới</label>
-                  <input type="password" name="new_password" class="form-control" minlength="6" placeholder="Ít nhất 6 ký tự" required>
-                </div>
-                <div class="col-sm-6">
-                  <label class="form-label fw-semibold small">Xác nhận mật khẩu mới</label>
-                  <input type="password" name="confirm_password" class="form-control" minlength="6" placeholder="Nhập lại mật khẩu" required>
-                </div>
-              </div>
-
-              <button type="submit" class="btn-cin-ink w-100 justify-content-center py-2">
-                <i class="bi bi-arrow-repeat"></i>Đặt lại mật khẩu mới
-              </button>
-            </form>
-          <?php endif; ?>
-        </div>
-      </section>
+          <div class="pt-3 mt-4 text-center small" style="border-top: 1px dashed rgba(20,34,27,0.12); color: var(--cin-ink-muted); font-size: 0.78rem;">
+            <?php if ($tab === 'login'): ?>
+              Chưa có tài khoản lữ khách?
+              <a href="auth.php?tab=register&redirect=<?= urlencode($redirect) ?>" class="fw-bold text-decoration-none" style="color: var(--cin-jade);">Đăng ký miễn phí ngay</a>
+            <?php else: ?>
+              Đã có tài khoản trên Bắc Du?
+              <a href="auth.php?tab=login&redirect=<?= urlencode($redirect) ?>" class="fw-bold text-decoration-none" style="color: var(--cin-jade);">Đăng nhập tại đây</a>
+            <?php endif; ?>
+          </div>
+        </section>
+      </div>
     </div>
   </div>
+
+  <?php if ($tab !== 'login'): ?>
+    <form action="auth.php" method="post" id="quickDemoFallbackForm" class="d-none">
+      <?= csrf_field() ?>
+      <input type="hidden" name="action" value="login">
+      <input type="hidden" name="redirect" value="<?= e($redirect) ?>">
+      <input type="hidden" name="identifier" id="fallback_demo_id">
+      <input type="hidden" name="password" id="fallback_demo_pw">
+    </form>
+  <?php endif; ?>
 </main>
 
 <script>
@@ -338,8 +408,26 @@ function fillDemoLogin(username, password) {
     idInput.value = username;
     pwInput.value = password;
     form.submit();
+    return;
+  }
+  const fbForm = document.getElementById('quickDemoFallbackForm');
+  if (fbForm) {
+    document.getElementById('fallback_demo_id').value = username;
+    document.getElementById('fallback_demo_pw').value = password;
+    fbForm.submit();
+  }
+}
+
+function toggleAuthPw(btn, inputId) {
+  const input = document.getElementById(inputId);
+  const icon = btn.querySelector('i');
+  if (!input || !icon) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.className = 'bi bi-eye-slash';
   } else {
-    window.location.href = 'auth.php?tab=login';
+    input.type = 'password';
+    icon.className = 'bi bi-eye';
   }
 }
 </script>
