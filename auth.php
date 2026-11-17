@@ -201,7 +201,7 @@ require_once __DIR__ . '/includes/header.php';
 
         <div class="cin-day-body p-4 flex-grow-1 d-flex flex-column justify-content-center">
           <?php if ($tab === 'login'): ?>
-            <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">XÁC THỰC LỮ KHÁCH · UC01.2</span>
+            <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">XÁC THỰC LỮ KHÁCH</span>
             <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display);">Chào mừng bạn quay lại!</h2>
             <p class="small text-muted mb-4">Đăng nhập bằng Username hoặc Email đã đăng ký.</p>
 
@@ -247,7 +247,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
           <?php elseif ($tab === 'register'): ?>
-            <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">ĐĂNG KÝ THÀNH VIÊN · UC01.1</span>
+            <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">ĐĂNG KÝ THÀNH VIÊN</span>
             <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display);">Tạo tài khoản Bắc Du</h2>
             <p class="small text-muted mb-4">Đăng ký tài khoản miễn phí để bắt đầu lập kế hoạch.</p>
 
@@ -289,7 +289,7 @@ require_once __DIR__ . '/includes/header.php';
             </form>
 
           <?php else: ?>
-            <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">KHÔI PHỤC BẢO MẬT · UC01.4</span>
+            <span class="cin-eyebrow mb-1" style="color: var(--cin-jade);">KHÔI PHỤC BẢO MẬT</span>
             <h2 class="h3 fw-bold mb-1" style="font-family: var(--font-display);">Khôi phục mật khẩu</h2>
             <p class="small text-muted mb-4">Xác minh Username và Email đã đăng ký để đặt lại mật khẩu mới.</p>
 

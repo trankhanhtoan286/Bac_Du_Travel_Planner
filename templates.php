@@ -73,7 +73,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="cin-subhero-meta">
           <span><i class="bi bi-compass me-1"></i>Sổ địa dư 12 tháng</span>
           <span>·</span>
-          <span>20°15'N — 23°22'N · MODULE M2</span>
+          <span>Vùng núi và Đồng bằng Bắc Bộ</span>
         </div>
         <h1 class="cin-subhero-title">
           Lịch trình mẫu theo <span class="sw"><?= $month > 0 ? e($monthsCatalog[$month]['name']) : '12 tháng miền Bắc' ?></span>
@@ -95,7 +95,7 @@ require_once __DIR__ . '/includes/header.php';
   <!-- BÀN CHỌN 12 THÁNG (ALMANAC MONTHS STRIP) -->
   <div class="mb-4">
     <div class="d-flex justify-content-between align-items-center mb-2">
-      <span class="cin-eyebrow text-dark">La bàn 12 tháng khởi hành (UC03.2)</span>
+      <span class="cin-eyebrow text-dark">La bàn 12 tháng khởi hành</span>
       <span class="small font-monospace text-muted">Nhấp chọn tháng để lọc lộ trình chuẩn mùa</span>
     </div>
     <div class="cin-months-strip">

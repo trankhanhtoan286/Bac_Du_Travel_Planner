@@ -455,7 +455,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.65rem;">SAO CHÉP THÀNH CHUYẾN ĐI ĐỘC LẬP · UC07.2</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.65rem;">SAO CHÉP THÀNH CHUYẾN ĐI ĐỘC LẬP</span>
           <h5 class="modal-title mb-0">Sử dụng mẫu: <?= e($template['title']) ?></h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
