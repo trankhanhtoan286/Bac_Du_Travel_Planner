@@ -632,7 +632,7 @@ require_once __DIR__ . '/includes/header.php';
 
                   <div class="field-slip-footer small">
                     <div class="d-flex align-items-center gap-2">
-                      <img src="<?= e($post['author_avatar'] ?: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100') ?>"
+                      <img src="<?= e(get_avatar_url($post['author_avatar'])) ?>"
                            alt="<?= e($post['author_name']) ?>" class="rounded-circle object-fit-cover" width="26" height="26" data-grade="off">
                       <span class="fw-semibold"><?= e($post['author_name']) ?></span>
                     </div>

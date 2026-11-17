@@ -930,6 +930,32 @@ body.cinematic-app {
   border: 1px solid var(--cin-brass);
 }
 
+.btn-avatar-camera {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--cin-amber) !important;
+  color: #fff !important;
+  border: 2px solid #0d1f18 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+
+.btn-avatar-camera:hover {
+  transform: scale(1.12);
+  background: var(--cin-amber-bright) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(224, 159, 62, 0.4);
+}
+
 .cin-account-name {
   max-width: 185px;
   letter-spacing: -0.01em;

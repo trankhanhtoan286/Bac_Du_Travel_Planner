@@ -2,6 +2,10 @@
 database/*.sqlite
 database/*_runtime.sqlite
 
+# User uploads
+uploads/*
+!uploads/avatars/.gitkeep
+
 # Dependencies
 node_modules/
 vendor/

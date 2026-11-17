@@ -207,7 +207,7 @@ require_once __DIR__ . '/includes/header.php';
           <!-- THANH HEADER NHẬT KÝ -->
           <div class="cin-day-header">
             <div class="d-flex align-items-center gap-3">
-              <img src="<?= e($post['author_avatar'] ?: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100') ?>"
+              <img src="<?= e(get_avatar_url($post['author_avatar'])) ?>"
                    alt="" class="rounded-circle object-fit-cover border" width="42" height="42">
               <div>
                 <div class="fw-bold"><?= e($post['author_name']) ?></div>

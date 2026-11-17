@@ -72,7 +72,7 @@ if ($token === '') {
                 </div>
                 <div class="field-slip-body">
                   <div class="d-flex align-items-center gap-2 small mb-2" style="color: var(--cin-ink-muted);">
-                    <img src="<?= e($st['owner_avatar'] ?: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80') ?>"
+                    <img src="<?= e(get_avatar_url($st['owner_avatar'])) ?>"
                          alt="" class="rounded-circle object-fit-cover" width="24" height="24">
                     <span>Chia sẻ bởi <strong><?= e($st['owner_name']) ?></strong></span>
                   </div>

@@ -344,7 +344,7 @@ require_once __DIR__ . '/includes/header.php';
                 <article class="cin-activity-slip">
                   <div class="d-flex justify-content-between align-items-start mb-2">
                     <div class="d-flex align-items-center gap-2">
-                      <img src="<?= e($post['author_avatar'] ?: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100') ?>"
+                      <img src="<?= e(get_avatar_url($post['author_avatar'])) ?>"
                            alt="" class="rounded-circle object-fit-cover" width="36" height="36">
                       <div>
                         <div class="fw-bold small"><?= e($post['author_name']) ?></div>

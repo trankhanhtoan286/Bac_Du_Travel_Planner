@@ -32,12 +32,12 @@ if ($currentUser) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=9">
+  <link rel="stylesheet" href="assets/css/style.css?v=10">
   <?php if ($currentPage === 'index.php'): ?>
-  <link rel="stylesheet" href="assets/kit/reel.css?v=9">
+  <link rel="stylesheet" href="assets/kit/reel.css?v=10">
   <?php endif; ?>
-  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=9">
-  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=9">
+  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=10">
+  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=10">
 </head>
 <?php
   $appModePages = ['trips.php', 'trip_detail.php', 'admin.php', 'dashboard.php', 'profile.php', 'experience_form.php'];
@@ -117,7 +117,7 @@ if ($currentUser) {
 
           <div class="dropdown">
             <button class="cin-account-chip dropdown-toggle text-nowrap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="<?= e($currentUser['avatar_url'] ?: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120') ?>"
+              <img src="<?= e(get_avatar_url($currentUser['avatar_url'])) ?>"
                    alt="Avatar" class="cin-account-avatar" width="28" height="28">
               <span class="cin-account-name text-truncate"><?= e($currentUser['full_name']) ?></span>
               <?php if ($currentUser['role'] === 'admin'): ?>

@@ -43,6 +43,19 @@ function format_vnd_html($amount, bool $showFree = false, ?string $unit = null):
 }
 
 /**
+ * Trả về URL ảnh đại diện của người dùng.
+ * Nếu chưa tải ảnh lên hoặc để trống, trả về avatar vector mặc định (Facebook/Cinematic style)
+ */
+function get_avatar_url(?string $avatarUrl): string
+{
+    $trimmed = trim((string)$avatarUrl);
+    if ($trimmed !== '') {
+        return $trimmed;
+    }
+    return 'assets/img/default-avatar.svg';
+}
+
+/**
  * Định dạng ngày kiểu Việt Nam (dd/mm/yyyy)
  */
 function format_date_vn(?string $dateStr): string
