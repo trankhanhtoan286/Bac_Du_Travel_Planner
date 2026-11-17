@@ -95,7 +95,7 @@ require_once __DIR__ . '/includes/header.php';
         <div class="cin-subhero-meta">
           <span><i class="bi bi-geo-alt-fill me-1"></i>Lưu trữ thực địa miền Bắc</span>
           <span>·</span>
-          <span>Tam giác giác quan · Module M5</span>
+          <span>3 nhóm trải nghiệm</span>
         </div>
         <h1 class="cin-subhero-title">
           Điểm tham quan, <span class="sw">Hương vị và Hiên nhà</span> miền Bắc

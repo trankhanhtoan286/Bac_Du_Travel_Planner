@@ -20,7 +20,7 @@ if ($token === '') {
         ORDER BY t.updated_at DESC, t.id DESC
     ')->fetchAll();
 
-    $pageTitle = 'Danh sách Chuyến đi được chia sẻ (UC05.1)';
+    $pageTitle = 'Danh sách Chuyến đi được chia sẻ';
     require_once __DIR__ . '/includes/header.php';
     ?>
     <header class="cin-subhero">
@@ -31,7 +31,7 @@ if ($token === '') {
         <div class="d-flex flex-wrap justify-content-between align-items-end gap-3">
           <div>
             <span class="cin-eyebrow mb-2" style="color: var(--cin-amber-bright);">
-              HỒ SƠ CHUYẾN ĐI CÔNG KHAI · UC05.1 (<?= count($sharedTrips) ?> KẾ HOẠCH)
+              HỒ SƠ CHUYẾN ĐI CÔNG KHAI · <?= count($sharedTrips) ?> KẾ HOẠCH
             </span>
             <h1 class="cin-subhero-title">
               Kế Hoạch Chuyến Đi <span class="sw">Được Chia Sẻ</span> Bởi Cộng Đồng
