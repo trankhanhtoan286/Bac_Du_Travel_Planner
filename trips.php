@@ -143,9 +143,9 @@ require_once __DIR__ . '/includes/header.php';
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
       <div>
         <div class="app-shift-eyebrow">
-          <span><i class="bi bi-compass me-1 text-warning"></i>Bàn điều phối lộ trình · App Mode</span>
+          <span><i class="bi bi-compass me-1 text-warning"></i>Bàn điều phối lộ trình</span>
           <span>·</span>
-          <span>MODULE M4 · @<?= e($user['username']) ?></span>
+          <span>LỮ KHÁCH: @<?= e($user['username']) ?></span>
         </div>
         <h1 class="app-shift-title">Chuyến đi cá nhân của tôi</h1>
         <p class="small text-white-50 mb-0">
@@ -301,7 +301,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.65rem;">KHỞI TẠO HỒ SƠ CHUYẾN ĐI · UC07.1</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.65rem;">KHỞI TẠO HỒ SƠ CHUYẾN ĐI</span>
           <h5 class="modal-title mb-0">Tự tạo chuyến đi mới từ đầu</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

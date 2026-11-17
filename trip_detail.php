@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ')->execute([$tripId, $expCat, $title, $estCost, $actId, $trip['start_date'], 'Liên kết tự động từ Hoạt động lịch trình']);
                     }
                 }
-                set_flash('success', 'Đã cập nhật hoạt động <strong>' . e($title) . '</strong> (UC07.9).');
+                set_flash('success', 'Đã cập nhật hoạt động <strong>' . e($title) . '</strong>.');
             } else {
                 // UC07.8: Thêm hoạt động mới
                 $stmtMaxSort = $pdo->prepare('SELECT COALESCE(MAX(sort_order), 0) + 1 FROM activities WHERE trip_day_id = ?');
@@ -215,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 foreach ($orderedIds as $pos => $idVal) {
                     $updSort->execute([$pos + 1, $idVal]);
                 }
-                set_flash('success', 'Đã cập nhật thứ tự sắp xếp hoạt động trong ngày (UC07.11).');
+                set_flash('success', 'Đã cập nhật thứ tự sắp xếp hoạt động trong ngày.');
             }
         }
     }
@@ -388,7 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // UC08.11: Chỉnh sửa mục checklist
                 $upd = $pdo->prepare('UPDATE checklists SET item_name = ?, category = ? WHERE id = ? AND trip_id = ?');
                 $upd->execute([$itemName, $category, $itemId, $tripId]);
-                set_flash('success', 'Đã cập nhật mục Checklist (UC08.11).');
+                set_flash('success', 'Đã cập nhật mục Checklist.');
             } else {
                 // UC08.10: Thêm mục checklist mới
                 $ins = $pdo->prepare('INSERT INTO checklists (trip_id, item_name, category, is_completed, sort_order) VALUES (?, ?, ?, 0, 10)');
@@ -551,7 +551,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
       <div>
         <div class="app-shift-eyebrow mb-1">
-          <span><i class="bi bi-compass text-warning me-1"></i>Bàn điều phối lộ trình · App Mode</span>
+          <span><i class="bi bi-compass text-warning me-1"></i>Bàn điều phối lộ trình</span>
           <span>·</span>
           <span>Hồ sơ #<?= str_pad((string)$trip['id'], 3, '0', STR_PAD_LEFT) ?></span>
           <?php if (!empty($trip['source_template_id'])): ?>
@@ -778,18 +778,17 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
                             <input type="hidden" name="action" value="reorder_activity">
                             <input type="hidden" name="activity_id" value="<?= (int)$act['id'] ?>">
                             <input type="hidden" name="direction" value="up">
-                            <button type="submit" class="btn btn-sm btn-light border py-0 px-1" title="Chuyển lên (UC07.11)"><i class="bi bi-arrow-up"></i></button>
+                            <button type="submit" class="btn btn-sm btn-light border py-0 px-1" title="Chuyển lên"><i class="bi bi-arrow-up"></i></button>
                           </form>
                           <form action="trip_detail.php?id=<?= $tripId ?>" method="post" class="m-0 d-inline">
                             <?= csrf_field() ?>
                             <input type="hidden" name="action" value="reorder_activity">
                             <input type="hidden" name="activity_id" value="<?= (int)$act['id'] ?>">
                             <input type="hidden" name="direction" value="down">
-                            <button type="submit" class="btn btn-sm btn-light border py-0 px-1" title="Chuyển xuống (UC07.11)"><i class="bi bi-arrow-down"></i></button>
+                            <button type="submit" class="btn btn-sm btn-light border py-0 px-1" title="Chuyển xuống"><i class="bi bi-arrow-down"></i></button>
                           </form>
-                          <!-- UC07.9: Chỉnh sửa hoạt động -->
                           <button type="button" class="btn-cin-outline py-0 px-2"
-                                  title="Chỉnh sửa hoạt động (UC07.9)"
+                                  title="Chỉnh sửa hoạt động"
                                   onclick='editActivityModal(<?= json_encode($act, JSON_UNESCAPED_UNICODE) ?>)'>
                             <i class="bi bi-pencil"></i>
                           </button>
@@ -1192,7 +1191,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
 
                   <div class="d-flex align-items-center gap-1">
                     <button type="button" class="btn-cin-outline py-1 px-2"
-                            title="Sửa mục checklist (UC08.11)"
+                            title="Sửa mục checklist"
                             onclick='editChecklistItem(<?= json_encode($ck, JSON_UNESCAPED_UNICODE) ?>)'>
                       <i class="bi bi-pencil"></i>
                     </button>
@@ -1221,7 +1220,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
         <section class="cin-day-dossier mb-0">
           <div class="cin-day-header">
             <div class="d-flex align-items-center gap-2">
-              <span class="cin-day-badge">Chia sẻ · UC05</span>
+              <span class="cin-day-badge">Chia sẻ công khai</span>
               <span class="fw-bold" style="font-family: var(--font-display); font-size: 1.2rem;">Cấu hình Liên kết Chia sẻ Chỉ đọc</span>
             </div>
             <span class="status-mark <?= (int)$trip['is_shared'] === 1 ? 'status-done' : 'status-muted' ?>">
@@ -1276,7 +1275,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">ĐIỀU CHỈNH HỒ SƠ · UC07.5</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">ĐIỀU CHỈNH HỒ SƠ</span>
           <h5 class="modal-title mb-0">Cập nhật thông tin chuyến đi</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -1341,7 +1340,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">MỞ RỘNG LỘ TRÌNH · UC07.7</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">MỞ RỘNG LỘ TRÌNH</span>
           <h5 class="modal-title mb-0">Thêm ngày vào lịch trình</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -1373,7 +1372,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">ĐIỀU PHỐI HOẠT ĐỘNG · UC07.8 / UC07.9</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">ĐIỀU PHỐI HOẠT ĐỘNG</span>
           <h5 class="modal-title mb-0" id="activityModalTitle">Thêm hoạt động vào lịch trình cá nhân</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -1472,7 +1471,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">SỔ CÁI NGÂN SÁCH · UC08.2 / UC08.3</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">SỔ CÁI NGÂN SÁCH</span>
           <h5 class="modal-title mb-0" id="expenseModalTitle">Thêm / Cập nhật Khoản chi</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -1531,7 +1530,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">Kế hoạch lưu trú · Module M6</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">Kế hoạch lưu trú</span>
           <h5 class="modal-title mb-0">Thêm nơi lưu trú cho chuyến đi</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -1624,7 +1623,7 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">Phương tiện di chuyển · Module M6</span>
+          <span class="cin-eyebrow" style="color: var(--cin-amber-bright); font-size: 0.64rem;">Phương tiện di chuyển</span>
           <h5 class="modal-title mb-0">Thêm phương tiện di chuyển</h5>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -1706,7 +1705,7 @@ function openAddActivityForDay(dayId) {
 }
 
 function editActivityModal(act) {
-  document.getElementById('activityModalTitle').textContent = 'Chỉnh sửa hoạt động (UC07.9)';
+  document.getElementById('activityModalTitle').textContent = 'Chỉnh sửa hoạt động';
   document.getElementById('act_id_input').value = act.id;
   document.getElementById('modal_trip_day_id').value = act.trip_day_id;
   document.getElementById('act_type_input').value = act.activity_type || 'attraction';
@@ -1721,7 +1720,7 @@ function editActivityModal(act) {
 }
 
 function editChecklistItem(ck) {
-  document.getElementById('checklistFormTitle').innerHTML = '<i class="bi bi-pencil-square text-primary me-2"></i>Chỉnh sửa mục Checklist (UC08.11)';
+  document.getElementById('checklistFormTitle').innerHTML = '<i class="bi bi-pencil-square text-primary me-2"></i>Chỉnh sửa mục Checklist';
   document.getElementById('ck_item_id').value = ck.id;
   document.getElementById('ck_item_name').value = ck.item_name;
   document.getElementById('ck_category').value = ck.category;
