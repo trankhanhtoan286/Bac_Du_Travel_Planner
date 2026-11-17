@@ -439,7 +439,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ============================================================================
 
 INSERT INTO `users` (`id`, `full_name`, `username`, `email`, `password_hash`, `role`, `status`, `avatar_url`, `bio`, `phone`, `hometown`) VALUES
-(1, 'Quản Trị Viên (Admin)', 'admin', 'admin@bacdu.vn', '$2y$10$UPGEOqnz9toQAlTbioLUIu0v6jX5QmgiZIjmIC2PzZcPEvqBbaUSC', 'admin', 'active', NULL, 'Quản trị viên và Ban biên tập nội dung lịch trình du lịch miền Bắc theo 12 tháng.', '0901234567', 'Hà Nội'),
+(1, 'Quản Trị Viên', 'admin', 'admin@bacdu.vn', '$2y$10$UPGEOqnz9toQAlTbioLUIu0v6jX5QmgiZIjmIC2PzZcPEvqBbaUSC', 'admin', 'active', NULL, 'Quản trị viên và Ban biên tập nội dung lịch trình du lịch miền Bắc theo 12 tháng.', '0901234567', 'Hà Nội'),
 (2, 'Ngô Xuân Kiên', 'kien', 'kien@gmail.com', '$2y$10$UPGEOqnz9toQAlTbioLUIu0v6jX5QmgiZIjmIC2PzZcPEvqBbaUSC', 'user', 'active', NULL, 'Yêu những cung đường đèo Tây Bắc, săn mây Tà Xùa và mùa hoa mận Mộc Châu.', '0987654321', 'Hà Nội'),
 (3, 'Lê Thị Ngọc Ánh', 'anh', 'anh@gmail.com', '$2y$10$UPGEOqnz9toQAlTbioLUIu0v6jX5QmgiZIjmIC2PzZcPEvqBbaUSC', 'user', 'active', NULL, 'Đam mê nhiếp ảnh phong cảnh Đông - Tây Bắc và trải nghiệm văn hóa bản địa.', '0912345688', 'Hải Phòng'),
 (4, 'Lò Thị Trâm', 'tram', 'tram@gmail.com', '$2y$10$UPGEOqnz9toQAlTbioLUIu0v6jX5QmgiZIjmIC2PzZcPEvqBbaUSC', 'user', 'active', NULL, 'Người con vùng cao Tây Bắc, thích chia sẻ ẩm thực và homestay bản làng.', '0978112233', 'Sơn La'),

@@ -32,12 +32,12 @@ if ($currentUser) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=10">
+  <link rel="stylesheet" href="assets/css/style.css?v=11">
   <?php if ($currentPage === 'index.php'): ?>
-  <link rel="stylesheet" href="assets/kit/reel.css?v=10">
+  <link rel="stylesheet" href="assets/kit/reel.css?v=11">
   <?php endif; ?>
-  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=10">
-  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=10">
+  <link rel="stylesheet" href="assets/css/cinematic-landing.css?v=11">
+  <link rel="stylesheet" href="assets/css/cinematic-subpages.css?v=11">
 </head>
 <?php
   $appModePages = ['trips.php', 'trip_detail.php', 'admin.php', 'dashboard.php', 'profile.php', 'experience_form.php'];
@@ -54,7 +54,7 @@ if ($currentUser) {
 
 <!-- Thanh điều hướng ngang Cinematic Lacquer -->
 <nav class="navbar navbar-expand-lg navbar-bacdu sticky-top">
-  <div class="container-fluid px-lg-4 px-xl-5">
+  <div class="container-fluid px-3 px-xl-4">
     <a class="navbar-brand brand-logo text-nowrap" href="index.php">
       <div>
         <span class="d-block lh-1" style="font-family: var(--font-display, 'Playfair Display', serif); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.01em;"><?= e(APP_NAME) ?></span>
@@ -67,7 +67,7 @@ if ($currentUser) {
     </button>
 
     <div class="collapse navbar-collapse" id="mainNavbar">
-      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-1 flex-nowrap">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1 flex-nowrap align-items-center me-lg-2 me-xl-3">
         <li class="nav-item">
           <a class="nav-link text-nowrap <?= $currentPage === 'index.php' ? 'active' : '' ?>" href="index.php">
             <i class="bi bi-house-door me-1"></i>Trang chủ
