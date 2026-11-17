@@ -288,7 +288,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tplId = (int)($_POST['template_id'] ?? 1);
         $dayId = (int)($_POST['template_day_id'] ?? 0);
         $dayNum = max(1, (int)($_POST['day_number'] ?? 1));
-        $title = trim($_POST['title'] ?? '');
+        $title = trim($_POST['title'] ?? $_POST['day_title'] ?? '');
         $summary = trim($_POST['summary'] ?? '');
         $transNote = trim($_POST['transport_note'] ?? '');
 
@@ -327,7 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $endTime = trim($_POST['end_time'] ?? '10:00');
         $desc = trim($_POST['description'] ?? '');
         $transNote = trim($_POST['transport_note'] ?? '');
-        $estCost = max(0, (float)($_POST['estimated_cost'] ?? 0));
+        $estCost = max(0, (float)($_POST['estimated_cost'] ?? $_POST['estimated_cost_per_person'] ?? 0));
         $impNote = trim($_POST['important_note'] ?? '');
         $sortOrder = max(1, (int)($_POST['sort_order'] ?? 1));
 
@@ -965,7 +965,7 @@ foreach ($allTemplates as $tplItem) {
             </div>
             <div class="col-md-4">
               <label class="form-label small fw-bold mb-1">Tiêu đề ngày *</label>
-              <input type="text" name="day_title" id="tday_title_input" class="form-control form-control-sm" placeholder="VD: Ngày 1: Hà Nội – Đèo Đá Trắng – Bản Lác" required>
+              <input type="text" name="title" id="tday_title_input" class="form-control form-control-sm" placeholder="VD: Ngày 1: Hà Nội – Đèo Đá Trắng – Bản Lác" required>
             </div>
             <div class="col-md-4">
               <label class="form-label small fw-bold mb-1">Tóm tắt lịch trình trong ngày</label>
@@ -993,7 +993,7 @@ foreach ($allTemplates as $tplItem) {
               <label class="form-label small fw-bold mb-1">Thuộc Ngày *</label>
               <select name="template_day_id" id="tact_day_input" class="form-select form-select-sm" required>
                 <?php foreach ($tDaysList as $td): ?>
-                  <option value="<?= (int)$td['id'] ?>">Ngày <?= (int)$td['day_number'] ?>: <?= e($td['day_title']) ?></option>
+                  <option value="<?= (int)$td['id'] ?>">Ngày <?= (int)$td['day_number'] ?>: <?= e($td['title'] ?? $td['day_title'] ?? '') ?></option>
                 <?php endforeach; ?>
               </select>
             </div>
@@ -1030,7 +1030,7 @@ foreach ($allTemplates as $tplItem) {
             </div>
             <div class="col-md-2">
               <label class="form-label small fw-bold mb-1">Chi phí/người (đ)</label>
-              <input type="number" name="estimated_cost_per_person" id="tact_cost_input" class="form-control form-control-sm font-monospace" step="10000" value="0">
+              <input type="number" name="estimated_cost" id="tact_cost_input" class="form-control form-control-sm font-monospace" step="10000" value="0">
             </div>
             <div class="col-md-2">
               <label class="form-label small fw-bold mb-1">Thứ tự sắp xếp</label>
@@ -1065,7 +1065,7 @@ foreach ($allTemplates as $tplItem) {
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2 pb-2 border-bottom">
                   <div>
                     <span class="cin-day-badge me-2">NGÀY 0<?= (int)$td['day_number'] ?></span>
-                    <strong style="font-family: var(--font-display); font-size: 1.15rem;"><?= e($td['day_title']) ?></strong>
+                    <strong style="font-family: var(--font-display); font-size: 1.15rem;"><?= e($td['title'] ?? $td['day_title'] ?? '') ?></strong>
                     <?php if (!empty($td['summary'])): ?>
                       <div class="small text-muted mt-1"><?= e($td['summary']) ?></div>
                     <?php endif; ?>
@@ -1116,7 +1116,7 @@ foreach ($allTemplates as $tplItem) {
                               <?php endif; ?>
                             </td>
                             <td><span class="status-mark status-info"><?= e($ta['activity_type']) ?></span></td>
-                            <td class="num-col fw-bold" style="color: var(--cin-jade);"><?= format_vnd($ta['estimated_cost_per_person'], true) ?></td>
+                            <td class="num-col fw-bold" style="color: var(--cin-jade);"><?= format_vnd($ta['estimated_cost'] ?? $ta['estimated_cost_per_person'] ?? 0, true) ?></td>
                             <td class="text-end text-nowrap">
                               <button type="button" class="btn-cin-outline py-0 px-2"
                                       onclick='editTplAct(<?= json_encode($ta, JSON_UNESCAPED_UNICODE) ?>)'>
@@ -1589,7 +1589,7 @@ function editLocationModal(loc) {
 function editTplDay(td) {
   document.getElementById('tday_id_input').value = td.id;
   document.getElementById('tday_num_input').value = td.day_number;
-  document.getElementById('tday_title_input').value = td.day_title || '';
+  document.getElementById('tday_title_input').value = td.title || td.day_title || '';
   document.getElementById('tday_sum_input').value = td.summary || '';
   document.getElementById('tday_title_input').focus();
 }
@@ -1614,7 +1614,7 @@ function editTplAct(ta) {
   document.getElementById('tact_type_input').value = ta.activity_type || 'sightseeing';
   document.getElementById('tact_start_input').value = (ta.start_time || '08:00').substring(0, 5);
   document.getElementById('tact_end_input').value = (ta.end_time || '10:00').substring(0, 5);
-  document.getElementById('tact_cost_input').value = ta.estimated_cost_per_person || 0;
+  document.getElementById('tact_cost_input').value = (ta.estimated_cost !== undefined ? ta.estimated_cost : ta.estimated_cost_per_person) || 0;
   document.getElementById('tact_sort_input').value = ta.sort_order || 1;
   document.getElementById('tact_trans_input').value = ta.transport_note || '';
   document.getElementById('tact_desc_input').value = ta.description || '';
