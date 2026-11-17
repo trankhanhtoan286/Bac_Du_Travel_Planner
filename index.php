@@ -517,7 +517,7 @@ require_once __DIR__ . '/includes/header.php';
                 <div class="field-slip-body">
                   <!-- Lead Actor State 5: GPS Coordinate Verification Strip -->
                   <div class="loc-coord-strip">
-                    <span><i class="bi bi-geo-alt-fill text-success me-1"></i><?= e($loc['province_name']) ?></span>
+                    <span title="<?= e($loc['province_name']) ?>"><i class="bi bi-geo-alt-fill text-success me-1"></i><?= e(get_location_short_badge($loc['province_name'], $loc['address'] ?? '', $loc['name'] ?? '')) ?></span>
                     <span class="telemetry-coords"><?= number_format((float)$loc['latitude'], 2) ?>°N · <?= number_format((float)$loc['longitude'], 2) ?>°E</span>
                   </div>
 

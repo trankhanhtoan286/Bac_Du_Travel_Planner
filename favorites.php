@@ -212,7 +212,7 @@ require_once __DIR__ . '/includes/header.php';
 
             <div class="field-slip-body">
               <div class="loc-coord-strip">
-                <span><i class="bi bi-geo-alt-fill text-success me-1"></i><?= e($loc['province_name']) ?> · <?= e($loc['category_name']) ?></span>
+                <span title="<?= e($loc['province_name']) ?>"><i class="bi bi-geo-alt-fill text-success me-1"></i><?= e(get_location_short_badge($loc['province_name'], $loc['address'] ?? '', $loc['name'] ?? '')) ?> · <?= e($loc['category_name']) ?></span>
                 <span><?= number_format((float)$loc['latitude'], 2) ?>°N · <?= number_format((float)$loc['longitude'], 2) ?>°E</span>
               </div>
 

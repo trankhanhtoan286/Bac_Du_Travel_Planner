@@ -226,8 +226,8 @@ require_once __DIR__ . '/includes/header.php';
                   <span class="status-shape <?= $statusShape ?>"></span><?= e($stMeta['label']) ?>
                 </span>
               <?php endif; ?>
-              <a href="location_detail.php?id=<?= (int)$post['location_id'] ?>" class="slip-tag">
-                <i class="bi <?= e($locMeta['icon']) ?> me-1"></i><?= e($post['location_name']) ?> · <?= e($post['province_name']) ?>
+              <a href="location_detail.php?id=<?= (int)$post['location_id'] ?>" class="slip-tag" title="<?= e($post['location_name'] . ' — ' . $post['province_name']) ?>">
+                <i class="bi <?= e($locMeta['icon']) ?> me-1"></i><?= e($post['location_name']) ?> · <?= e(get_location_short_badge($post['province_name'], '', $post['location_name'] ?? '')) ?>
               </a>
               <span class="slip-tag slip-tag-amber">
                 <i class="bi bi-star-fill me-1"></i><?= (int)$post['rating'] ?>.0 / 5

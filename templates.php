@@ -205,7 +205,7 @@ require_once __DIR__ . '/includes/header.php';
 
             <div class="field-slip-body">
               <div class="loc-coord-strip">
-                <span>MẪU #<?= str_pad((string)$tpl['id'], 2, '0', STR_PAD_LEFT) ?> · <?= e($tpl['province_name']) ?></span>
+                <span title="<?= e($tpl['province_name']) ?>">MẪU #<?= str_pad((string)$tpl['id'], 2, '0', STR_PAD_LEFT) ?> · <?= e(get_location_short_badge($tpl['province_name'], '', $tpl['main_destination'] ?? '')) ?></span>
                 <span>
                   <?php foreach ($tplMonths as $mBadge): ?>
                     <strong class="<?= $mBadge === $month ? 'text-warning-emphasis' : '' ?>">T<?= $mBadge ?></strong>
