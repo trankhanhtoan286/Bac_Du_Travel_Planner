@@ -19,8 +19,8 @@ $stmt = $pdo->prepare('
 $stmt->execute([$id]);
 $location = $stmt->fetch();
 
-if (!$location) {
-    set_flash('warning', 'Không tìm thấy địa điểm bạn yêu cầu.');
+if (!$location || ($location['status'] !== 'active' && !is_admin())) {
+    set_flash('warning', 'Địa điểm này hiện không tồn tại hoặc đang được tạm lưu trữ.');
     header('Location: locations.php');
     exit;
 }
@@ -160,8 +160,8 @@ require_once __DIR__ . '/includes/header.php';
             <span class="slip-tag">
               <i class="bi bi-tag me-1"></i><?= e($location['category_name']) ?>
             </span>
-            <span class="slip-tag">
-              <i class="bi bi-geo-alt-fill text-warning me-1"></i><?= e($location['province_name']) ?> · <?= number_format((float)$location['latitude'], 4) ?>°N, <?= number_format((float)$location['longitude'], 4) ?>°E
+            <span class="slip-tag" title="<?= e($location['province_name']) ?>">
+              <i class="bi bi-geo-alt-fill text-warning me-1"></i><?= e(get_location_short_badge($location['province_name'], $location['address'] ?? '', $location['name'] ?? '')) ?> · <?= number_format((float)$location['latitude'], 4) ?>°N, <?= number_format((float)$location['longitude'], 4) ?>°E
             </span>
           </div>
 
