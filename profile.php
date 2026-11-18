@@ -27,7 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // 2. Người dùng tải ảnh đại diện lên từ máy tính (File Upload)
-        if (!empty($_FILES['avatar_file']['name']) && $_FILES['avatar_file']['error'] === UPLOAD_ERR_OK) {
+        if (!empty($_FILES['avatar_file']['name']) && $_FILES['avatar_file']['error'] !== UPLOAD_ERR_NO_FILE) {
+            if ($_FILES['avatar_file']['error'] !== UPLOAD_ERR_OK) {
+                set_flash('danger', 'Tệp ảnh tải lên vượt quá dung lượng máy chủ cho phép (tối đa 5MB) hoặc quá trình truyền tải bị gián đoạn.');
+                header('Location: profile.php');
+                exit;
+            }
             $file = $_FILES['avatar_file'];
             $maxSize = 5 * 1024 * 1024; // 5MB
             $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'gif'];

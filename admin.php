@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $seasonalReason = trim($_POST['seasonal_reason'] ?? '');
         $summary = trim($_POST['summary'] ?? '');
         $notes = trim($_POST['essential_notes'] ?? '');
-        $thumbUrl = trim($_POST['thumbnail_url'] ?? 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=900&auto=format&fit=crop&q=80');
+        $thumbUrl = trim($_POST['thumbnail_url'] ?? '') ?: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Tea_plantation_Khe_Mo.jpg/960px-Tea_plantation_Khe_Mo.jpg';
         $status = in_array($_POST['status'] ?? '', ['draft', 'published', 'archived'], true) ? $_POST['status'] : 'published';
         $selectedMonths = isset($_POST['months']) && is_array($_POST['months']) ? array_map('intval', $_POST['months']) : [2];
 
@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $provinceId = (int)($_POST['province_id'] ?? 1);
         $categoryId = (int)($_POST['category_id'] ?? 1);
         $locType = in_array($_POST['location_type'] ?? '', ['attraction', 'food', 'stay'], true) ? $_POST['location_type'] : 'attraction';
-        $thumbUrl = trim($_POST['thumbnail_url'] ?? 'https://images.unsplash.com/photo-1528127269322-539801943592?w=800&auto=format&fit=crop&q=80');
+        $thumbUrl = trim($_POST['thumbnail_url'] ?? '') ?: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg/960px-View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg';
         $shortDesc = trim($_POST['short_desc'] ?? '');
         $address = trim($_POST['address'] ?? '');
         $lat = (float)($_POST['latitude'] ?? 20.8448);
@@ -229,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $subregion = trim($_POST['subregion'] ?? 'Tây Bắc');
         $bestMonths = trim($_POST['best_months'] ?? '1,2,3,10,11,12');
         $desc = trim($_POST['description'] ?? '');
-        $imgUrl = trim($_POST['image_url'] ?? 'https://images.unsplash.com/photo-1528127269322-539801943592?w=900');
+        $imgUrl = trim($_POST['image_url'] ?? '') ?: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg/960px-View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg';
 
         if ($name !== '') {
             if ($provId > 0) {
@@ -1385,7 +1385,7 @@ foreach ($allTemplates as $tplItem) {
           </div>
           <div class="col-md-6">
             <label class="form-label">Ảnh đại diện (URL)</label>
-            <input type="url" name="thumbnail_url" id="tpl_thumb_input" class="form-control" value="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=900">
+            <input type="url" name="thumbnail_url" id="tpl_thumb_input" class="form-control" value="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Tea_plantation_Khe_Mo.jpg/960px-Tea_plantation_Khe_Mo.jpg">
           </div>
 
           <div class="col-12">
@@ -1497,7 +1497,7 @@ foreach ($allTemplates as $tplItem) {
           </div>
           <div class="col-md-6">
             <label class="form-label">Ảnh đại diện (URL)</label>
-            <input type="url" name="thumbnail_url" id="loc_thumb_input" class="form-control" value="https://images.unsplash.com/photo-1528127269322-539801943592?w=800">
+            <input type="url" name="thumbnail_url" id="loc_thumb_input" class="form-control" value="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg/960px-View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg">
           </div>
 
           <div class="col-12">
