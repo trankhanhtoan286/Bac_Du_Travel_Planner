@@ -89,7 +89,7 @@ require_once __DIR__ . '/includes/header.php';
 
 <!-- SUBPAGE CINEMATIC HERO -->
 <header class="cin-subhero">
-  <img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=1800&auto=format&fit=crop&q=82"
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Flycam_view_of_road_at_Ma_Pi_Leng_pass.png/960px-Flycam_view_of_road_at_Ma_Pi_Leng_pass.png"
        alt="Trải nghiệm Cộng đồng Miền Bắc" class="cin-subhero-bg">
   <div class="cin-subhero-overlay"></div>
   <div class="container cin-subhero-inner">

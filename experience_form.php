@@ -301,7 +301,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="col-12">
               <label class="form-label small fw-bold">5. Ảnh thực tế (Mỗi dòng 1 URL hình ảnh)</label>
               <textarea name="image_urls" rows="2" class="form-control font-monospace small"
-                        placeholder="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800"><?= e($defaultImageLines) ?></textarea>
+                        placeholder="https://upload.wikimedia.org/wikipedia/commons/..."><?= e($defaultImageLines) ?></textarea>
             </div>
 
             <div class="col-12 pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2">
