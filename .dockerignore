@@ -1,6 +1,11 @@
 .git
 .github
+.agents
 node_modules
+screening
+scratch
+database/*.sqlite
+*.docx
 *.log
 .DS_Store
 Thumbs.db

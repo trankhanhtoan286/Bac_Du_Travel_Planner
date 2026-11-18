@@ -114,6 +114,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         set_flash('success', "Đã thêm Ngày {$nextDayNum} vào lịch trình chuyến đi.");
     }
 
+    // 2b. Xóa một ngày khỏi lịch trình (kèm đồng bộ xóa hoạt động, khoản chi liên kết & đánh số lại ngày)
+    elseif ($action === 'delete_trip_day') {
+        $dayIdToDel = (int)($_POST['trip_day_id'] ?? 0);
+        $stmtChkDay = $pdo->prepare('SELECT id, day_number FROM trip_days WHERE id = ? AND trip_id = ? LIMIT 1');
+        $stmtChkDay->execute([$dayIdToDel, $tripId]);
+        $targetDay = $stmtChkDay->fetch();
+
+        $stmtCntDays = $pdo->prepare('SELECT COUNT(*) FROM trip_days WHERE trip_id = ?');
+        $stmtCntDays->execute([$tripId]);
+        $totalDaysCount = (int)$stmtCntDays->fetchColumn();
+
+        if (!$targetDay) {
+            set_flash('danger', 'Không tìm thấy ngày lịch trình hợp lệ.');
+        } elseif ($totalDaysCount <= 1) {
+            set_flash('warning', 'Chuyến đi phải giữ lại ít nhất 1 ngày lịch trình.');
+        } else {
+            $pdo->beginTransaction();
+            try {
+                // Xóa các khoản chi liên kết với hoạt động thuộc ngày bị xóa (tương thích cả SQLite không cascade)
+                $pdo->prepare('
+                    DELETE FROM expenses
+                    WHERE trip_id = ?
+                      AND linked_activity_id IN (SELECT id FROM activities WHERE trip_day_id = ?)
+                ')->execute([$tripId, $dayIdToDel]);
+
+                $pdo->prepare('DELETE FROM activities WHERE trip_day_id = ?')->execute([$dayIdToDel]);
+                $pdo->prepare('DELETE FROM trip_days WHERE id = ? AND trip_id = ?')->execute([$dayIdToDel, $tripId]);
+
+                // Đánh số thứ tự day_number và tính lại trip_date nối tiếp từ start_date
+                $stmtRemDays = $pdo->prepare('SELECT id FROM trip_days WHERE trip_id = ? ORDER BY day_number ASC, id ASC');
+                $stmtRemDays->execute([$tripId]);
+                $remIds = $stmtRemDays->fetchAll(PDO::FETCH_COLUMN);
+                $updSeq = $pdo->prepare('UPDATE trip_days SET day_number = ?, trip_date = ? WHERE id = ?');
+                foreach ($remIds as $idx => $remId) {
+                    $newSeq = $idx + 1;
+                    $newDate = date('Y-m-d', strtotime('+' . $idx . ' days', strtotime($trip['start_date'])));
+                    $updSeq->execute([$newSeq, $newDate, (int)$remId]);
+                }
+
+                $pdo->commit();
+                set_flash('info', 'Đã xóa Ngày ' . (int)$targetDay['day_number'] . ' cùng các hoạt động liên quan và tự động đánh số lại lịch trình.');
+            } catch (Throwable $err) {
+                if ($pdo->inTransaction()) {
+                    $pdo->rollBack();
+                }
+                set_flash('danger', 'Không thể xóa ngày lịch trình: ' . e($err->getMessage()));
+            }
+        }
+    }
+
     // 3. Thêm hoặc Chỉnh sửa hoạt động vào ngày (UC07.8 & UC07.9 - kèm đồng bộ Khoản chi chống tính trùng)
     elseif ($action === 'add_activity' || $action === 'save_activity') {
         $actId = (int)($_POST['activity_id'] ?? 0);
@@ -231,11 +281,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // 4b. Xóa hoạt động (UC07.10)
+    // 4b. Xóa hoạt động (UC07.10 - kiểm tra quyền sở hữu chuyến đi và xóa khoản chi liên kết)
     elseif ($action === 'delete_activity') {
         $actId = (int)($_POST['activity_id'] ?? 0);
-        $pdo->prepare('DELETE FROM activities WHERE id = ?')->execute([$actId]);
-        set_flash('info', 'Đã xóa hoạt động khỏi lịch trình.');
+        $stmtOwnAct = $pdo->prepare('
+            SELECT a.id
+            FROM activities a
+            JOIN trip_days td ON td.id = a.trip_day_id
+            WHERE a.id = ? AND td.trip_id = ?
+            LIMIT 1
+        ');
+        $stmtOwnAct->execute([$actId, $tripId]);
+        if ($stmtOwnAct->fetchColumn()) {
+            $pdo->prepare('DELETE FROM expenses WHERE linked_activity_id = ? AND trip_id = ?')->execute([$actId, $tripId]);
+            $pdo->prepare('DELETE FROM activities WHERE id = ?')->execute([$actId]);
+            set_flash('info', 'Đã xóa hoạt động và khoản chi liên kết khỏi lịch trình.');
+        } else {
+            set_flash('danger', 'Không tìm thấy hoạt động hợp lệ thuộc chuyến đi này.');
+        }
     }
 
     // 5. Thêm hoặc Cập nhật Khoản chi (M6 - Bảng chuẩn tính tổng ngân sách)
@@ -284,6 +347,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $address = trim($_POST['address'] ?? '');
         $checkinDate = trim($_POST['checkin_date'] ?? $trip['start_date']);
         $checkoutDate = trim($_POST['checkout_date'] ?? $trip['end_date']);
+        $accDateAdjusted = false;
+        if ($checkinDate !== '' && $checkoutDate !== '' && strtotime($checkoutDate) < strtotime($checkinDate)) {
+            $checkoutDate = $checkinDate;
+            $accDateAdjusted = true;
+        }
         $roomCount = max(1, (int)($_POST['room_count'] ?? 1));
         $estCost = max(0, (float)($_POST['estimated_cost'] ?? 0));
         $actCost = max(0, (float)($_POST['actual_cost'] ?? 0));
@@ -329,15 +397,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $estCost, $actCost, $newAccId, $checkinDate, 'Liên kết tự động từ mục Lưu trú'
                 ]);
             }
-            set_flash('success', 'Đã lưu thông tin lưu trú <strong>' . e($stayName) . '</strong>.');
+            if (!empty($accDateAdjusted)) {
+                set_flash('warning', 'Đã lưu <strong>' . e($stayName) . '</strong>. Ngày trả phòng nhỏ hơn ngày nhận phòng nên đã được điều chỉnh về ' . format_date_vn($checkoutDate) . '.');
+            } else {
+                set_flash('success', 'Đã lưu thông tin lưu trú <strong>' . e($stayName) . '</strong>.');
+            }
         }
         $redirectTab = 'stay_transport';
     }
 
     elseif ($action === 'delete_accommodation') {
         $accId = (int)($_POST['accommodation_id'] ?? 0);
+        $pdo->prepare('DELETE FROM expenses WHERE linked_accommodation_id = ? AND trip_id = ?')->execute([$accId, $tripId]);
         $pdo->prepare('DELETE FROM accommodations WHERE id = ? AND trip_id = ?')->execute([$accId, $tripId]);
-        set_flash('info', 'Đã xóa mục lưu trú.');
+        set_flash('info', 'Đã xóa mục lưu trú và khoản chi liên kết.');
         $redirectTab = 'stay_transport';
     }
 
@@ -384,8 +457,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     elseif ($action === 'delete_transport') {
         $trId = (int)($_POST['transport_id'] ?? 0);
+        $pdo->prepare('DELETE FROM expenses WHERE linked_transport_id = ? AND trip_id = ?')->execute([$trId, $tripId]);
         $pdo->prepare('DELETE FROM transports WHERE id = ? AND trip_id = ?')->execute([$trId, $tripId]);
-        set_flash('info', 'Đã xóa mục phương tiện.');
+        set_flash('info', 'Đã xóa mục phương tiện và khoản chi liên kết.');
         $redirectTab = 'stay_transport';
     }
 
@@ -754,10 +828,23 @@ $hasUnfinishedChecklist = $checklistDone < $checklistTotal;
                   <div class="small text-muted mt-1"><i class="bi bi-info-circle me-1"></i><?= e($day['notes']) ?></div>
                 <?php endif; ?>
               </div>
-              <button type="button" class="btn-cin-outline py-1 px-2"
-                      onclick="openAddActivityForDay(<?= (int)$day['id'] ?>)">
-                <i class="bi bi-plus-lg"></i> Thêm HĐ
-              </button>
+              <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn-cin-outline py-1 px-2"
+                        onclick="openAddActivityForDay(<?= (int)$day['id'] ?>)">
+                  <i class="bi bi-plus-lg"></i> Thêm HĐ
+                </button>
+                <?php if (count($daysData) > 1): ?>
+                  <form action="trip_detail.php?id=<?= $tripId ?>" method="post" class="m-0"
+                        onsubmit="return confirm('Xóa Ngày <?= (int)$day['day_number'] ?> và toàn bộ hoạt động bên trong?');">
+                    <?= csrf_field() ?>
+                    <input type="hidden" name="action" value="delete_trip_day">
+                    <input type="hidden" name="trip_day_id" value="<?= (int)$day['id'] ?>">
+                    <button type="submit" class="btn-cin-outline py-1 px-2 text-danger" title="Xóa ngày này khỏi lịch trình">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  </form>
+                <?php endif; ?>
+              </div>
             </div>
 
             <?php if (empty($day['activities'])): ?>

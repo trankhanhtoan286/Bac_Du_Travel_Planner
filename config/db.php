@@ -30,58 +30,64 @@ function get_db(): PDO
     }
 
     $sqlFile = dirname(__DIR__) . '/database/travel_planner.sql';
+    $preferSqlite = (strtolower((string)getenv('DB_DRIVER')) === 'sqlite')
+        || (getenv('RENDER') !== false && getenv('DB_HOST') === false);
 
-    // 1. Thử kết nối MySQL (XAMPP)
-    try {
-        $dsnNoDb = sprintf('mysql:host=%s;port=%s;charset=utf8mb4', DB_HOST, DB_PORT);
-        $options = [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
-            PDO::ATTR_TIMEOUT            => 2,
-        ];
+    // 1. Thử kết nối MySQL (XAMPP) nếu không ưu tiên chạy SQLite trực tiếp (trên Render Cloud)
+    if (!$preferSqlite) {
+        try {
+            $dsnNoDb = sprintf('mysql:host=%s;port=%s;charset=utf8mb4', DB_HOST, DB_PORT);
+            $options = [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES   => false,
+                PDO::ATTR_TIMEOUT            => 1,
+            ];
 
-        $rootPdo = new PDO($dsnNoDb, DB_USER, DB_PASS, $options);
-        $rootPdo->exec('CREATE DATABASE IF NOT EXISTS `' . DB_NAME . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
-        $rootPdo->exec('USE `' . DB_NAME . '`');
+            $rootPdo = new PDO($dsnNoDb, DB_USER, DB_PASS, $options);
+            $rootPdo->exec('CREATE DATABASE IF NOT EXISTS `' . DB_NAME . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
+            $rootPdo->exec('USE `' . DB_NAME . '`');
 
-        // Kiểm tra xem bảng users đã tồn tại chưa, nếu chưa thì tự động nạp travel_planner.sql
-        $stmt = $rootPdo->query("SHOW TABLES LIKE 'users'");
-        if (!$stmt->fetch() && is_file($sqlFile)) {
-            import_mysql_sql_file($rootPdo, $sqlFile);
-        }
-
-        $pdo = $rootPdo;
-        if (!defined('ACTIVE_DB_DRIVER')) {
-            define('ACTIVE_DB_DRIVER', 'mysql');
-        }
-        return $pdo;
-    } catch (Throwable $mysqlErr) {
-        // 2. Fallback an toàn sang PDO SQLite nếu dịch vụ MySQL trong XAMPP chưa bật
-        $sqlitePath = dirname(__DIR__) . '/database/travel_planner_runtime.sqlite';
-        $needInit = !is_file($sqlitePath) || filesize($sqlitePath) < 4096;
-
-        $pdo = new PDO('sqlite:' . $sqlitePath, null, null, [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]);
-        $pdo->exec('PRAGMA foreign_keys = ON');
-
-        if ($needInit && is_file($sqlFile)) {
-            import_sqlite_from_mysql_dump($pdo, $sqlFile);
-        } else {
-            // Kiểm tra bảng users
-            $check = $pdo->query("SELECT name FROM sqlite_master WHERE type='table' AND name='users'")->fetch();
-            if (!$check && is_file($sqlFile)) {
-                import_sqlite_from_mysql_dump($pdo, $sqlFile);
+            // Kiểm tra xem bảng users đã tồn tại chưa, nếu chưa thì tự động nạp travel_planner.sql
+            $stmt = $rootPdo->query("SHOW TABLES LIKE 'users'");
+            if (!$stmt->fetch() && is_file($sqlFile)) {
+                import_mysql_sql_file($rootPdo, $sqlFile);
             }
-        }
 
-        if (!defined('ACTIVE_DB_DRIVER')) {
-            define('ACTIVE_DB_DRIVER', 'sqlite');
+            $pdo = $rootPdo;
+            if (!defined('ACTIVE_DB_DRIVER')) {
+                define('ACTIVE_DB_DRIVER', 'mysql');
+            }
+            return $pdo;
+        } catch (Throwable $mysqlErr) {
+            // Chuyển sang SQLite dự phòng bên dưới
         }
-        return $pdo;
     }
+
+    // 2. Fallback / Chế độ SQLite trực tiếp (Render Cloud hoặc khi MySQL chưa bật)
+    $sqlitePath = dirname(__DIR__) . '/database/travel_planner_runtime.sqlite';
+    $needInit = !is_file($sqlitePath) || filesize($sqlitePath) < 4096;
+
+    $pdo = new PDO('sqlite:' . $sqlitePath, null, null, [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+    $pdo->exec('PRAGMA foreign_keys = ON');
+
+    if ($needInit && is_file($sqlFile)) {
+        import_sqlite_from_mysql_dump($pdo, $sqlFile);
+    } else {
+        // Kiểm tra bảng users
+        $check = $pdo->query("SELECT name FROM sqlite_master WHERE type='table' AND name='users'")->fetch();
+        if (!$check && is_file($sqlFile)) {
+            import_sqlite_from_mysql_dump($pdo, $sqlFile);
+        }
+    }
+
+    if (!defined('ACTIVE_DB_DRIVER')) {
+        define('ACTIVE_DB_DRIVER', 'sqlite');
+    }
+    return $pdo;
 }
 
 /**
@@ -167,6 +173,18 @@ function split_sql_statements(string $sql): array
 
     for ($i = 0; $i < $len; $i++) {
         $ch = $cleanSql[$i];
+        if ($inString && $ch === '\\' && $i + 1 < $len) {
+            if ($cleanSql[$i + 1] === "'") {
+                $buffer .= "''";
+                $i++;
+                continue;
+            }
+            if ($cleanSql[$i + 1] === '\\') {
+                $buffer .= "\\";
+                $i++;
+                continue;
+            }
+        }
         if ($ch === "'") {
             if ($inString && $i + 1 < $len && $cleanSql[$i + 1] === "'") {
                 $buffer .= "''";

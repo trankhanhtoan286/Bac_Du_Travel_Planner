@@ -10,16 +10,20 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Cấu hình Apache nhận DocumentRoot
-ENV APACHE_DOCUMENT_ROOT /var/www/html
+ENV APACHE_DOCUMENT_ROOT=/var/www/html
+ENV DB_DRIVER=sqlite
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Nâng giới hạn upload ảnh đại diện lên 8MB/10MB đồng bộ với quy định 5MB trên ứng dụng
+RUN printf "upload_max_filesize = 8M\npost_max_size = 10M\n" > /usr/local/etc/php/conf.d/uploads.ini
 
 WORKDIR /var/www/html
 COPY . /var/www/html/
 
 # Cấp quyền ghi cho thư mục uploads và database (chứa SQLite runtime nếu không dùng MySQL)
-RUN chown -R www-data:www-data /var/www/html \
-    && mkdir -p /var/www/html/uploads \
+RUN mkdir -p /var/www/html/uploads/avatars /var/www/html/database \
+    && chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/uploads \
     && chmod -R 777 /var/www/html/database
 

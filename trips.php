@@ -110,9 +110,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } elseif ($action === 'delete_trip') {
         $tripId = (int)($_POST['trip_id'] ?? 0);
-        $del = $pdo->prepare('DELETE FROM trips WHERE id = ? AND user_id = ?');
-        $del->execute([$tripId, $user['id']]);
-        set_flash('info', 'Đã xóa chuyến đi khỏi danh sách cá nhân.');
+        $chkOwn = $pdo->prepare('SELECT id FROM trips WHERE id = ? AND user_id = ? LIMIT 1');
+        $chkOwn->execute([$tripId, $user['id']]);
+        if ($chkOwn->fetchColumn()) {
+            $pdo->beginTransaction();
+            try {
+                // Xóa tường minh dữ liệu con để tương thích cả MySQL và SQLite
+                $pdo->prepare('DELETE FROM expenses WHERE trip_id = ?')->execute([$tripId]);
+                $pdo->prepare('DELETE FROM accommodations WHERE trip_id = ?')->execute([$tripId]);
+                $pdo->prepare('DELETE FROM transports WHERE trip_id = ?')->execute([$tripId]);
+                $pdo->prepare('DELETE FROM checklists WHERE trip_id = ?')->execute([$tripId]);
+                $pdo->prepare('DELETE FROM activities WHERE trip_day_id IN (SELECT id FROM trip_days WHERE trip_id = ?)')->execute([$tripId]);
+                $pdo->prepare('DELETE FROM trip_days WHERE trip_id = ?')->execute([$tripId]);
+                $pdo->prepare('DELETE FROM trips WHERE id = ? AND user_id = ?')->execute([$tripId, $user['id']]);
+                $pdo->commit();
+                set_flash('info', 'Đã xóa chuyến đi cùng toàn bộ lịch trình và ngân sách liên quan.');
+            } catch (Throwable $err) {
+                if ($pdo->inTransaction()) {
+                    $pdo->rollBack();
+                }
+                set_flash('danger', 'Không thể xóa chuyến đi: ' . e($err->getMessage()));
+            }
+        } else {
+            set_flash('danger', 'Không tìm thấy chuyến đi hợp lệ để xóa.');
+        }
         header('Location: trips.php');
         exit;
     }
@@ -371,7 +392,7 @@ require_once __DIR__ . '/includes/header.php';
 
           <div class="col-md-6">
             <label class="form-label">Ảnh bìa chuyến đi (URL tùy chọn)</label>
-            <input type="url" name="cover_image_url" class="form-control" placeholder="https://images.unsplash.com/...">
+            <input type="url" name="cover_image_url" class="form-control" placeholder="https://upload.wikimedia.org/wikipedia/commons/...">
           </div>
 
           <div class="col-12">

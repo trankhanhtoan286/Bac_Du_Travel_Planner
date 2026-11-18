@@ -15,5 +15,10 @@ vendor/
 .DS_Store
 Thumbs.db
 *.log
+# IDE / Env
 .vscode/
 .idea/
+
+# Local documentation drafts / scratch scripts
+Báo Cáo Web*.docx
+scratch/
