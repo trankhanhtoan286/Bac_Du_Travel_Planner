@@ -19,6 +19,10 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Local documentation drafts / scratch scripts
-Báo Cáo Web*.docx
+# Local documentation, reports & test artifacts
+*.docx
+BAO_CAO_*.md
+screening/
+package.json
+package-lock.json
 scratch/
