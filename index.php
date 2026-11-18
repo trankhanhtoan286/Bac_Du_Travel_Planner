@@ -94,7 +94,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="frame">
       <!-- Layered Atmospheric Backdrop (Graded by kit/grade.js) -->
       <div class="arrival-backdrop" aria-hidden="true">
-        <img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=1600&auto=format&fit=crop&q=80"
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg/960px-View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg"
              alt="" class="arrival-plate-img" data-grade>
         <video class="arrival-mist-video" src="assets/kit/grade-assets/fog.mp4"
                poster="assets/kit/grade-assets/fog.jpg" muted playsinline loop autoplay preload="metadata" data-grade></video>

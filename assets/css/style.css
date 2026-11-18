@@ -189,7 +189,7 @@ a {
   border-radius: 26px;
   overflow: hidden;
   background: linear-gradient(120deg, rgba(10, 46, 30, 0.84) 0%, rgba(15, 81, 50, 0.65) 55%, rgba(15, 23, 42, 0.72) 100%),
-              url('https://images.unsplash.com/photo-1528127269322-539801943592?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat;
+              url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg/960px-View_of_sea_from_Titov_Island%2C_Ha_Long_Bay%2C_Vietnam%2C_20240128_1337_3732.jpg') center/cover no-repeat;
   color: #ffffff;
   padding: 4.2rem 2.8rem;
   box-shadow: var(--bd-shadow-lg);
