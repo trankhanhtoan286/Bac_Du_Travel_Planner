@@ -15,6 +15,9 @@ vendor/
 .DS_Store
 Thumbs.db
 *.log
+*.tmp
+~$*
+~*
 # IDE / Env
 .vscode/
 .idea/

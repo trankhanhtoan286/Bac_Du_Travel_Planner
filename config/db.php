@@ -14,7 +14,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 define('APP_NAME', 'Bắc Du');
 define('APP_TAGLINE', 'Lịch trình theo mùa và Kế hoạch vi vu miền Bắc');
 define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
-define('DB_PORT', getenv('DB_PORT') ?: '3306');
+define('DB_PORT', getenv('DB_PORT') ?: '3307');
 define('DB_NAME', getenv('DB_NAME') ?: 'travel_planner');
 define('DB_USER', getenv('DB_USER') ?: 'root');
 define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
@@ -35,32 +35,36 @@ function get_db(): PDO
 
     // 1. Thử kết nối MySQL (XAMPP) nếu không ưu tiên chạy SQLite trực tiếp (trên Render Cloud)
     if (!$preferSqlite) {
-        try {
-            $dsnNoDb = sprintf('mysql:host=%s;port=%s;charset=utf8mb4', DB_HOST, DB_PORT);
-            $options = [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES   => false,
-                PDO::ATTR_TIMEOUT            => 1,
-            ];
+        $portsToTry = array_unique([(string)DB_PORT, '3307', '3306']);
+        foreach ($portsToTry as $portCandidate) {
+            try {
+                $dsnNoDb = sprintf('mysql:host=%s;port=%s;charset=utf8mb4', DB_HOST, $portCandidate);
+                $options = [
+                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::ATTR_EMULATE_PREPARES   => false,
+                    PDO::ATTR_TIMEOUT            => 1,
+                ];
 
-            $rootPdo = new PDO($dsnNoDb, DB_USER, DB_PASS, $options);
-            $rootPdo->exec('CREATE DATABASE IF NOT EXISTS `' . DB_NAME . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
-            $rootPdo->exec('USE `' . DB_NAME . '`');
+                $rootPdo = new PDO($dsnNoDb, DB_USER, DB_PASS, $options);
+                $rootPdo->exec('CREATE DATABASE IF NOT EXISTS `' . DB_NAME . '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
+                $rootPdo->exec('USE `' . DB_NAME . '`');
 
-            // Kiểm tra xem bảng users đã tồn tại chưa, nếu chưa thì tự động nạp travel_planner.sql
-            $stmt = $rootPdo->query("SHOW TABLES LIKE 'users'");
-            if (!$stmt->fetch() && is_file($sqlFile)) {
-                import_mysql_sql_file($rootPdo, $sqlFile);
+                // Kiểm tra xem bảng users đã tồn tại chưa, nếu chưa thì tự động nạp travel_planner.sql
+                $stmt = $rootPdo->query("SHOW TABLES LIKE 'users'");
+                if (!$stmt->fetch() && is_file($sqlFile)) {
+                    import_mysql_sql_file($rootPdo, $sqlFile);
+                }
+
+                $pdo = $rootPdo;
+                if (!defined('ACTIVE_DB_DRIVER')) {
+                    define('ACTIVE_DB_DRIVER', 'mysql');
+                }
+                return $pdo;
+            } catch (Throwable $mysqlErr) {
+                // Tiếp tục thử cổng tiếp theo (ví dụ nếu 3306 bị xung đột bởi MySQL Server khác)
+                continue;
             }
-
-            $pdo = $rootPdo;
-            if (!defined('ACTIVE_DB_DRIVER')) {
-                define('ACTIVE_DB_DRIVER', 'mysql');
-            }
-            return $pdo;
-        } catch (Throwable $mysqlErr) {
-            // Chuyển sang SQLite dự phòng bên dưới
         }
     }
 
