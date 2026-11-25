@@ -11,7 +11,7 @@
 **Bắc Du** là ứng dụng web quản lý lịch trình du lịch thông minh, giúp người dùng giải quyết trọn vẹn 4 bài toán khi lên kế hoạch khám phá miền Bắc:
 1. **Khám phá thời điểm lý tưởng 12 tháng:** Bánh xe tương tác 12 tháng theo mùa vụ (mùa hoa mận, mùa lúa chín, săn mây cao nguyên, lễ hội đầu xuân, vịnh biển mùa hè).
 2. **Lịch trình mẫu chi tiết (Itinerary Templates):** Tham khảo lộ trình theo từng chặng ngày được biên soạn chuẩn xác kèm sổ cái dự toán kinh phí không tính trùng.
-3. **Mạng lưới 44 tọa độ thực địa 3 nhóm:** Danh bạ địa điểm chuẩn hóa chia đều 3 nhóm (Tham quan, Ăn uống, Lưu trú) tích hợp bản đồ Leaflet OpenStreetMap và điều hướng GPS.
+3. **Mạng lưới 44 tọa độ thực địa 3 nhóm:** Danh bạ địa điểm chuẩn hóa phân theo 3 nhóm (Tham quan, Ăn uống, Lưu trú) tích hợp bản đồ Leaflet OpenStreetMap và điều hướng GPS.
 4. **Cá nhân hóa & Điều hành chuyến đi (Trip Coordinator):** Sao chép mẫu thành chuyến đi cá nhân chỉ với 1 cú click, đối soát ngân sách thực tế vs dự kiến, checklist hành lý, và chia sẻ liên kết chỉ đọc an toàn bằng Token bảo mật.
 
 ---
@@ -21,7 +21,7 @@
 | STT | Thành viên | Vai trò | Phân hệ đảm nhiệm chính | Các tệp mã nguồn phụ trách |
 | :---: | :--- | :--- | :--- | :--- |
 | **1** | **Trần Khánh Toàn** | **Tech Lead** | **Kiến trúc hệ thống & Module Chuyến đi cá nhân**<br>- Thiết lập kiến trúc Modular PHP thuần & PDO Prepared Statements.<br>- Module Chuyến đi cá nhân, bàn điều phối lộ trình chi tiết, đối soát ngân sách và checklist.<br>- Đóng gói Dockerfile, cấu hình dynamic port và triển khai cloud Render.com. | `trips.php`<br>`trip_detail.php`<br>`dashboard.php`<br>`config/db.php`<br>`includes/helpers.php`<br>`Dockerfile` |
-| **2** | **Nguyễn Thị Vân** | **Database & Location Dev** | **Cơ sở dữ liệu & Module Địa điểm thực địa 3 nhóm**<br>- Thiết kế lược đồ CSDL quan hệ 20 bảng chuẩn hóa 3NF.<br>- Chuẩn hóa danh bạ 44 tọa độ thực địa miền Bắc chia đều 3 nhóm.<br>- Module hồ sơ chi tiết tọa độ tích hợp bản đồ Leaflet GPS và chỉ đường Google Maps. | `locations.php`<br>`location_detail.php`<br>`database/travel_planner.sql` |
+| **2** | **Nguyễn Thị Vân** | **Database & Location Dev** | **Cơ sở dữ liệu & Module Địa điểm thực địa 3 nhóm**<br>- Thiết kế lược đồ CSDL quan hệ 21 bảng chuẩn hóa 3NF.<br>- Chuẩn hóa danh bạ 44 tọa độ thực địa miền Bắc phân theo 3 nhóm.<br>- Module hồ sơ chi tiết tọa độ tích hợp bản đồ Leaflet GPS và chỉ đường Google Maps. | `locations.php`<br>`location_detail.php`<br>`database/travel_planner.sql` |
 | **3** | **Lò Thị Trâm** | **Frontend & UI Dev** | **Giao diện Cinematic UI & Lịch trình 12 tháng**<br>- Xây dựng ngôn ngữ thiết kế điện ảnh (Cinematic UI) cảm hứng phim Trần Anh Hùng.<br>- Hệ màu Split-Tone, Typography lining-nums thẳng hàng.<br>- Bánh xe thời tiết La bàn 12 tháng trang chủ, danh mục lịch trình mẫu và sổ cái dự toán. | `index.php`<br>`templates.php`<br>`template_detail.php`<br>`assets/css/cinematic-landing.css`<br>`assets/css/cinematic-subpages.css`<br>`assets/kit/` |
 | **4** | **Lê Thị Ngọc Ánh** | **Security & Admin Dev** | **Bảo mật, Xác thực & Bàn quản trị Admin**<br>- Module đăng nhập, đăng ký, mã hóa mật khẩu Bcrypt và xác thực token CSRF.<br>- Quản lý hồ sơ cá nhân và phân quyền 3 cấp độ (Guest/User/Admin).<br>- Bàn điều phối Quản trị Admin kiểm duyệt bài viết cộng đồng (Duyệt/Từ chối có lý do/Ẩn bài). | `auth.php`<br>`admin.php`<br>`profile.php`<br>`includes/header.php`<br>`includes/footer.php` |
 | **5** | **Ngô Xuân Kiên** | **Community Dev** | **Tương tác Cộng đồng, Sổ tay Yêu thích & Chia sẻ**<br>- Form viết bài trải nghiệm thực địa, chấm điểm sao và cập nhật chi phí.<br>- Bảng tin Nhật ký cộng đồng kèm bộ lọc đa tiêu chí.<br>- Sổ tay lưu tọa độ yêu thích và chèn nhanh vào lịch trình chuyến đi.<br>- Cơ chế sinh mã token bảo mật chia sẻ hành trình chỉ đọc. | `experiences.php`<br>`experience_form.php`<br>`favorites.php`<br>`share.php` |
@@ -35,7 +35,7 @@ Travel_Planner/
 ├── config/
 │   └── db.php                  # Kết nối CSDL PDO (MySQL/SQLite), auto-init & fallback
 ├── database/
-│   └── travel_planner.sql      # Lược đồ 20 bảng quan hệ chuẩn 3NF & 44 địa điểm mẫu
+│   └── travel_planner.sql      # Lược đồ 21 bảng quan hệ chuẩn 3NF & 44 địa điểm mẫu
 ├── includes/
 │   ├── helpers.php             # Hàm tiện ích hệ thống: CSRF, sao chép lịch trình, đối soát ngân sách
 │   ├── header.php              # Thanh điều hướng Cinematic Navbar & phân quyền đăng nhập

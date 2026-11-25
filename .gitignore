@@ -24,6 +24,8 @@ Thumbs.db
 
 # Local documentation, reports & test artifacts
 *.docx
+*.pdf
+*.drawio
 BAO_CAO_*.md
 screening/
 package.json
